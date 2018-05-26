@@ -7,7 +7,7 @@ public class Category {
 	private boolean vegetarian;
 
 	public void category(int categoryId, String country, String taste, String mealTime, String meat, boolean vegetarian) {
-		super();
+		
 		this.categoryId = categoryId;
 		this.country = country;
 		this.taste = taste;

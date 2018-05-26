@@ -1,10 +1,9 @@
 
 public class Step {
-	int step;
+	//int step;
 	private String stepDescription;
-	public Step(int step, String stepDescription) {
-		super();
-		this.step = step;
+	public Step(String stepDescription) {
+		//this.step = step;
 		this.stepDescription = stepDescription;
 	}
 	public Step(){

@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class Recipe {
 	int recipeId;
@@ -7,42 +6,39 @@ public class Recipe {
 	private int serveNum;
 	private int cookTime;
 	private int prepTime;
-	private String picture;//use url to read the path??????
+	private String pictureUrl;//use url to read the path??????
 	private ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
-	private ArrayList stepList;
+	private ArrayList<Step> stepList = new ArrayList<Step>();
+	private ArrayList<Category> category = new ArrayList<Category>();
 	private String dishType;//missing from pic
-	private int ingredientCount = 0;
-	private int stepCount = 0;
-//	private int ingredientCount = 0;
 	
-	public Recipe(String recipeName, int serveNum, String dishType) {
-		super();
+	public Recipe(String recipeName, String dishType, int serveNum) {
 		this.recipeName = recipeName;
 		this.serveNum = serveNum;
 		this.dishType = dishType;
 	}
 
 	public Recipe(){
-		
 	}
 	
 	public void addIngredient(Ingredient input){
-//		Ingredient ingredientList(ingredientCount) = new Ingredient();
 		this.ingredientList.add(input);
-		
-		ingredientCount++;
+	}
+	
+	public void addPreparationStep(Step input){
+		this.stepList.add(input);
+	}
+	
+	public void setPreparationTime(int prepTime){
+		this.prepTime = prepTime;
+	}
+	
+	public void setCookingTime(int cookingTime){
+		this.cookTime = cookingTime;
 		}
 	
-	public void addPreparationStep(Step step(stepCount)){
-		stepCount++;
+	public void addCategory(Category input){
+		this.category.add(input);
 	}
 	
-	public setPreparationTime(int prepTime){
-		this.prepTime = prepTime;
-		
-	}
-	
-	public
-	
-
 }
