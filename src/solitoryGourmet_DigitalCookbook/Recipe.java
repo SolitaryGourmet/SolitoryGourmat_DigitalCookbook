@@ -1,9 +1,15 @@
+/**
+ * Recipe.java
+ * providing all necessary attributes and methods for Recipe
+ * @author LYF
+ */
 package solitoryGourmet_DigitalCookbook;
 
 import java.awt.Image;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Recipe
+public class Recipe implements Serializable
 {
 	private int recipeId;
 	private String recipeName;
@@ -13,8 +19,11 @@ public class Recipe
 	private Image picture;// use url to read the path??????
 	private ArrayList<Ingredient> ingredientList;
 	private ArrayList<String> stepList;
+	private Category category;
 	private String dishType;// missing from pic
 
+	
+	//all getters and setters
 	public int getRecipeId()
 	{
 		return recipeId;
@@ -105,21 +114,41 @@ public class Recipe
 		this.dishType = dishType;
 	}
 
+	public Category getCategory()
+	{
+		return category;
+	}
+
+	public void setCategory(Category category)
+	{
+		this.category = category;
+	}
+
+	
+	
+	/**
+	 * constructor with input parameters
+	 * @param recipeName
+	 * @param dishType
+	 * @param serveNum
+	 */
 	public Recipe(String recipeName, String dishType, int serveNum)
 	{
 		this.recipeName = recipeName;
 		this.serveNum = serveNum;
 		this.dishType = dishType;
-
+		
 		recipeId = 0;
 		cookTime = 0;
 		prepTime = 0;
 		picture = null;
 		ingredientList = new ArrayList<Ingredient>();
 		stepList = new ArrayList<String>();
-
 	}
 
+	/**
+	 * default constructor
+	 */
 	public Recipe()
 	{
 
@@ -145,10 +174,15 @@ public class Recipe
 		this.cookTime = cookTime;
 	}
 
+	public void addCategory(Category category)
+	{
+		this.category = category;
+	}
+
 	public String toString()
 	{
 		return "recipeId: " + recipeId + "\n" + "recipeName: " + recipeName + "\n" + "dishType: " + dishType + "\n"
 				+ "serveNum: " + serveNum + "\n" + "cookTime: " + cookTime + "\n" + "prepTime: " + prepTime + "\n"
-				+ ingredientList + "\n" + stepList;
+				+ "category: " + category + "\n" + ingredientList + "\n" + stepList;
 	}
 }

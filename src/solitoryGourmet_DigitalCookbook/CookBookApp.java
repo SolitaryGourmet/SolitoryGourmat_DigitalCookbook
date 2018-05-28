@@ -47,6 +47,10 @@ public class CookBookApp
 		recipe.addPreparationStep("Stir in peanuts.");
 		recipe.addPreparationStep("Garnish with remaining scallions.");
 
+		//additional task: add category 
+		recipe.addCategory(new Category("Sichuan", "sweat, salty", "lunch, dinner", "chicken", false));
+		
+		
 		recipe.setPreparationTime(30);
 		recipe.setCookingTime(10);
 

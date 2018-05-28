@@ -1,12 +1,19 @@
+/**
+ * Ingredient.java
+ * providing all necessary attributes for Ingredient class
+ * @author LYF
+ */
 package solitoryGourmet_DigitalCookbook;
 
-public class Ingredient
+import java.io.Serializable;
+
+public class Ingredient implements Serializable
 {
 	private String ingredientName;
 	private double ingredientAmount;
 	private String unit;
-	private String description;
-	
+	private String description = "";
+
 	public String getIngredientName()
 	{
 		return ingredientName;
@@ -47,8 +54,6 @@ public class Ingredient
 		this.description = description;
 	}
 
-	
-
 	public Ingredient(String ingredientName, double ingredientAmount, String unit, String description)
 	{
 		this.ingredientName = ingredientName;
@@ -71,9 +76,6 @@ public class Ingredient
 
 	public String toString()
 	{
-		return "\n\n"+"ingredientName: "+ingredientName+"\n"+
-			   "ingredientAmount: "+ingredientAmount+"\n"+
-			   "unit: "+unit+"\n"+
-			   "description: "+description;
+		return ingredientName + ", " + ingredientAmount + " " + unit + " " + description + "\n";
 	}
 }
