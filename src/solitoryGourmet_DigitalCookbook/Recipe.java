@@ -14,8 +14,8 @@ public class Recipe implements Serializable
 	private int recipeId;
 	private String recipeName;
 	private int serveNum;
-	private int cookTime;
-	private int prepTime;
+	private int cookingTime;
+	private int preparationTime;
 	private Image picture;// use url to read the path??????
 	private ArrayList<Ingredient> ingredientList;
 	private ArrayList<String> stepList;
@@ -54,24 +54,24 @@ public class Recipe implements Serializable
 		this.serveNum = serveNum;
 	}
 
-	public int getCookTime()
+	public int getCookingTime()
 	{
-		return cookTime;
+		return cookingTime;
 	}
 
-	public void setCookTime(int cookTime)
+	public void setCookingTime(int cookingTime)
 	{
-		this.cookTime = cookTime;
+		this.cookingTime = cookingTime;
 	}
 
-	public int getPrepTime()
+	public int getPreparationTime()
 	{
-		return prepTime;
+		return preparationTime;
 	}
 
-	public void setPrepTime(int prepTime)
+	public void setPreparationTime(int preparationTime)
 	{
-		this.prepTime = prepTime;
+		this.preparationTime = preparationTime;
 	}
 
 	public Image getPicture()
@@ -139,8 +139,8 @@ public class Recipe implements Serializable
 		this.dishType = dishType;
 		
 		recipeId = 0;
-		cookTime = 0;
-		prepTime = 0;
+		cookingTime = 0;
+		preparationTime = 0;
 		picture = null;
 		ingredientList = new ArrayList<Ingredient>();
 		stepList = new ArrayList<String>();
@@ -164,25 +164,11 @@ public class Recipe implements Serializable
 		this.stepList.add("\n" + step);
 	}
 
-	public void setPreparationTime(int prepTime)
-	{
-		this.prepTime = prepTime;
-	}
-
-	public void setCookingTime(int cookTime)
-	{
-		this.cookTime = cookTime;
-	}
-
-	public void addCategory(Category category)
-	{
-		this.category = category;
-	}
 
 	public String toString()
 	{
 		return "recipeId: " + recipeId + "\n" + "recipeName: " + recipeName + "\n" + "dishType: " + dishType + "\n"
-				+ "serveNum: " + serveNum + "\n" + "cookTime: " + cookTime + "\n" + "prepTime: " + prepTime + "\n"
+				+ "serveNum: " + serveNum + "\n" + "cookTime: " + cookingTime + "\n" + "prepTime: " + preparationTime + "\n"
 				+ "category: " + category + "\n" + ingredientList + "\n" + stepList;
 	}
 }

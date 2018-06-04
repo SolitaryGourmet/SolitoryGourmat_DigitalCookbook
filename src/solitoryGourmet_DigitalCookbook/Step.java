@@ -1,15 +1,13 @@
 package solitoryGourmet_DigitalCookbook;
 
-
-public class Step {
-	int step;
+public class Step
+{
+	private int recipeID;
+	private int stepOrder;
 	private String stepDescription;
-	public Step(int step, String stepDescription) {
-		super();
-		this.step = step;
+
+	public Step(String stepDescription)
+	{
 		this.stepDescription = stepDescription;
-	}
-	public Step(){
-		
 	}
 }

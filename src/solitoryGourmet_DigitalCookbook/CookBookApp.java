@@ -48,7 +48,7 @@ public class CookBookApp
 		recipe.addPreparationStep("Garnish with remaining scallions.");
 
 		//additional task: add category 
-		recipe.addCategory(new Category("Sichuan", "sweat, salty", "lunch, dinner", "chicken", false));
+		recipe.setCategory(new Category("Sichuan", "sweat, salty", "lunch, dinner", "chicken", false));
 		
 		
 		recipe.setPreparationTime(30);
@@ -152,7 +152,7 @@ public class CookBookApp
 		Recipe recipe = cb.getRecipe("Gong Bao Jiding");
 		if (recipe != null)
 		{
-			System.out.println(recipe);
+			//System.out.println(recipe);
 		}
 
 		/*
@@ -161,5 +161,11 @@ public class CookBookApp
 		Recipe recipe1 = cb.getRecipe("Gong Bao Jiding"); if (recipe != null) {
 		System.out.println(recipe1); }
 		*/
+		
+		//DataBaseControl.getConnection();
+		DataBaseControl.createTable();
+		DataBaseControl.insert(cb.getRecipe("Gong Bao Jiding"));
+		DataBaseControl.insert(cb.getRecipe("Hong Shao Rou"));
+		DataBaseControl.insert(cb.getRecipe("Suan La Fen"));
 	}
 }
