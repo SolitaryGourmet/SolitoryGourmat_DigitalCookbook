@@ -48,7 +48,7 @@ public class CookBookApp
 		recipe.addPreparationStep("Garnish with remaining scallions.");
 
 		//additional task: add category 
-		recipe.setCategory(new Category("Sichuan", "sweat, salty", "lunch, dinner", "chicken", false));
+		recipe.setCategory(new Category("Sichuan", "salty", "lunch, dinner", "chicken", false));
 		
 		
 		recipe.setPreparationTime(30);
@@ -89,6 +89,9 @@ public class CookBookApp
 		recipe.setPreparationTime(5);
 		recipe.setCookingTime(100);
 
+		//additional task: add category 
+		recipe.setCategory(new Category("Hunan", "salty", "lunch, dinner", "pork", false));
+		
 		return recipe;
 	}
 
@@ -132,6 +135,8 @@ public class CookBookApp
 		recipe.setPreparationTime(30);
 		recipe.setCookingTime(5);
 
+		//additional task: add category 
+		recipe.setCategory(new Category("Sichuan", "spicy", "lunch, dinner", "no meat", false));
 		return recipe;
 	}
 
@@ -163,9 +168,12 @@ public class CookBookApp
 		*/
 		
 		//DataBaseControl.getConnection();
-		DataBaseControl.createTable();
-		DataBaseControl.insert(cb.getRecipe("Gong Bao Jiding"));
-		DataBaseControl.insert(cb.getRecipe("Hong Shao Rou"));
-		DataBaseControl.insert(cb.getRecipe("Suan La Fen"));
+		//DataBaseControl.createTable();
+		//DataBaseControl.insertRecipe(cb.getRecipe("Gong Bao Jiding"));
+		//DataBaseControl.insertRecipe(cb.getRecipe("Hong Shao Rou"));
+		//DataBaseControl.insertRecipe(cb.getRecipe("Suan La Fen"));
+		//Recipe recipeTemp = DataBaseControl.searchByName("Hong Shao Rou");
+		Recipe recipeTemp = DataBaseControl.searchByCategory(new Category("Hunan", "salty", "lunch, dinner", "pork", false));
+		System.out.println(recipeTemp);
 	}
 }
