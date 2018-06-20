@@ -1,5 +1,7 @@
 package solitoryGourmet_DigitalCookbook;
 
+import java.util.ArrayList;
+
 /**
  * A class for the program entry point and some test recipes.
  * 
@@ -90,7 +92,7 @@ public class CookBookApp
 		recipe.setCookingTime(100);
 
 		//additional task: add category 
-		recipe.setCategory(new Category("Hunan", "salty", "lunch, dinner", "pork", false));
+		recipe.setCategory(new Category("Hunan", "sour", "lunch, dinner", "pork", false));
 		
 		return recipe;
 	}
@@ -136,7 +138,7 @@ public class CookBookApp
 		recipe.setCookingTime(5);
 
 		//additional task: add category 
-		recipe.setCategory(new Category("Sichuan", "spicy", "lunch, dinner", "no meat", false));
+		recipe.setCategory(new Category("Sichuan", "spicy, salty", "lunch", "no meat", false));
 		return recipe;
 	}
 
@@ -148,11 +150,13 @@ public class CookBookApp
 	 */
 	public static void main(String[] args)
 	{
+		DataBaseControl.getConnection();
+		
 		CookBook cb = new CookBook("Chinese Cuisine");
 
-		cb.add(createGongBaoJiding());
-		cb.add(createHongShaoRou());
-		cb.add(createSuanLaFen());
+		//cb.add(createGongBaoJiding());
+		//cb.add(createHongShaoRou());
+		//cb.add(createSuanLaFen());
 
 		Recipe recipe = cb.getRecipe("Gong Bao Jiding");
 		if (recipe != null)
@@ -167,13 +171,16 @@ public class CookBookApp
 		System.out.println(recipe1); }
 		*/
 		
-		//DataBaseControl.getConnection();
-		//DataBaseControl.createTable();
-		//DataBaseControl.insertRecipe(cb.getRecipe("Gong Bao Jiding"));
-		//DataBaseControl.insertRecipe(cb.getRecipe("Hong Shao Rou"));
-		//DataBaseControl.insertRecipe(cb.getRecipe("Suan La Fen"));
-		//Recipe recipeTemp = DataBaseControl.searchByName("Hong Shao Rou");
-		Recipe recipeTemp = DataBaseControl.searchByCategory(new Category("Hunan", "salty", "lunch, dinner", "pork", false));
-		System.out.println(recipeTemp);
+		//ArrayList<Recipe> recipeTemp = SearchControl.searchName("R");
+		ArrayList<Recipe> recipeTemp = DataBaseControl.searchByCategory(new Category(null, "salty", null, null, false));
+		
+		for(int i = 0;i<recipeTemp.size();i++)
+		{
+			Recipe r = recipeTemp.get(i);
+			System.out.println(r);
+		}
+		//DataBaseControl.deleteRecipe(DataBaseControl.searchById(10));
+		
+		DataBaseControl.closeConnection();
 	}
 }

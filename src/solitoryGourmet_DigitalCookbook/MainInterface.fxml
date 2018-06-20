@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane_main" prefHeight="600.0" prefWidth="800.0" stylesheets="@MainInterface.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="solitoryGourmet_DigitalCookbook.MainInterfaceController">
+   <children>
+      <Label fx:id="label_title" alignment="TOP_RIGHT" layoutX="118.0" layoutY="54.0" text="Solitary Gourmet" textFill="#a42e2e">
+         <font>
+            <Font name="Ebrima Bold" size="70.0" />
+         </font>
+      </Label>
+      <Button fx:id="button_search" layoutX="147.0" layoutY="526.0" mnemonicParsing="false" onAction="#gotoSearchForm" text="search for recipe" textFill="WHITE">
+         <font>
+            <Font name="Ebrima" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="button_add" layoutX="489.0" layoutY="526.0" mnemonicParsing="false" onAction="#gotoAddRecipeFrom" text="add new recipe" textFill="WHITE">
+         <font>
+            <Font name="Ebrima" size="20.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="373.0" fitWidth="590.0" layoutX="132.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../software%20engineering%20II/Digital%20cook%20book%20-%20Solitary%20Gourmet/QQ图片20180613104404.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

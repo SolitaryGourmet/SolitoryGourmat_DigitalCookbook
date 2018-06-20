@@ -22,8 +22,7 @@ public class CookBook implements Serializable
 
 	public void add(Recipe recipe)
 	{
-		recipe.setRecipeId(recipeList.size() + 1);
-		this.recipeList.add(recipe);
+		RecipeControl.addRecipeToDataBase(recipe);
 	}
 
 	public Recipe getRecipe(String recipeName)

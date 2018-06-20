@@ -5,40 +5,71 @@ import java.util.ArrayList;
 
 public class DataBaseControl
 {
-	/*
-	 * public static Recipe selectbyRecipeName(String recipeName) { Connection con =
-	 * getConnection(); Recipe recipe = new Recipe(); try { PreparedStatement stmt =
-	 * con.prepareStatement("SELECT * FROM recipe where recipeName = recipeName");
-	 * ResultSet rset = stmt.executeQuery(); while (rset.next()) {
-	 * recipe.setRecipeId(rset.getInt("recipeID"));
-	 * recipe.setCookingTime(rset.getInt("cookingTime"));
-	 * recipe.setPreparationTime(rset.getInt("preparationTime")); } } catch
-	 * (SQLException e) { e.printStackTrace(); } return recipe; }
+	private static Connection con;
+	
+	/**
+	 * with the input value Category, return a list of recipes
+	 * @param category
+	 * @return
 	 */
-
-	public static Recipe searchByCategory(Category category)
+	public static ArrayList<Recipe> searchByCategory(Category category)
 	{
 		try
 		{
-			Recipe recipe = new Recipe();
-			String cityt = category.getCity();
-			String mealtimet = category.getMealtime();
-			String meatt = category.getMeat();
-			String tastet= category.getTaste();
-			boolean vegetariant = category.isVegetarian();
+			ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
+			String city = category.getCity();
+			String mealtime = category.getMealtime();
+			String meat = category.getMeat();
+			String taste= category.getTaste();
+			boolean vegetarian = category.isVegetarian();
 
-			Connection con = getConnection();
-			PreparedStatement stmt = con.prepareStatement(
-					"SELECT recipeID FROM recipeCategory where city ="+ "\"" + cityt + "\""+ "and mealtime ="+ "\"" + mealtimet + "\""+ "and meat ="+ "\"" + meatt + "\""+" and taste ="+ "\"" + tastet + "\""+" and vegetarian ="+ "\"" + vegetariant + "\"");
-
+			if(city==null)
+			{
+				city = "";
+			}
+			else
+			{
+				city = "city ="+ "\"" + city + "\""+ " and ";
+			}
+			
+			if(mealtime==null)
+			{
+				mealtime = "";
+			}
+			else
+			{
+				mealtime = "mealtime like "+ "\"%" + mealtime + "%\""+ " and ";
+			}
+			
+			if(meat==null)
+			{
+				meat = "";
+			}
+			else
+			{
+				meat = "meat ="+ "\"" + meat + "\""+ " and ";
+			}
+			
+			if(taste==null)
+			{
+				taste = "";
+			}
+			else
+			{
+				taste = "taste like "+ "\"%" + taste + "%\""+" and ";
+			}
+			
+			
+			String sql = "SELECT recipeID FROM recipeCategory where "+ city+ mealtime  + meat+ taste +" vegetarian ="+ "\"" + vegetarian + "\"";
+			PreparedStatement stmt = con.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next())
 			{
 				System.out.println(rs.getInt("recipeId"));
-				recipe = searchById(rs.getInt("recipeId"));
+				recipeList.add(searchById(rs.getInt("recipeId")));
 
 			}
-			return recipe;
+			return recipeList;
 
 		}
 
@@ -49,24 +80,28 @@ public class DataBaseControl
 		return null;
 	}
 
-	public static Recipe searchByName(String recipeName)
+	/**
+	 * with the input value recipeName, return a list of all suitable recipes
+	 * @param recipeName
+	 * @return
+	 */
+	public static ArrayList<Recipe> searchByName(String recipeName)
 	{
 		int recipeId = 0;
-		Recipe recipe = new Recipe();
+		ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
 		try
 		{
-			Connection con = getConnection();
 			PreparedStatement pst = con
-					.prepareStatement("select recipeId from recipe where recipeName" + "=" + "\"" + recipeName + "\"");
+					.prepareStatement("select recipeId from recipe where recipeName like " + "\"%" + recipeName + "%\"");
 			ResultSet rs = pst.executeQuery();
 
 			while (rs.next())
 			{
 				recipeId = rs.getInt("recipeId");
-				recipe = searchById(recipeId);
+				recipeList.add(searchById(recipeId)) ;
 
 			}
-			return recipe;
+			return recipeList;
 		}
 		catch (SQLException e)
 		{
@@ -76,13 +111,21 @@ public class DataBaseControl
 		return null;
 	}
 
+	/**
+	 * search a specific recipe with recipeID
+	 * used by another two method: searchByName(String recipeName), searchByCategory(Category category)
+	 * @param recipeId
+	 * @return
+	 */
 	public static Recipe searchById(int recipeId)
 	{
 		try
 		{
 			Recipe recipe = new Recipe();
-			Connection con = getConnection();
-
+			
+			/**
+			 * select recipeID, recipeName, serveNum, cookingTime, preparationTime from recipe Table
+			 */
 			PreparedStatement pst1 = con.prepareStatement("select * from recipe where recipeId=" + recipeId);
 			ResultSet rs1 = pst1.executeQuery();
 			while (rs1.next())
@@ -94,27 +137,28 @@ public class DataBaseControl
 				recipe.setPreparationTime(rs1.getInt("preparationTime"));
 				// no pic
 			}
+			
+			/**
+			 * select category from recipeCategory Table
+			 */
 			PreparedStatement pst2 = con.prepareStatement("select * from recipecategory where recipeId =" + recipeId);
 			ResultSet rs2 = pst2.executeQuery();
-
 			Category cateTemp = new Category();
-
 			while (rs2.next())
 			{
-
 				cateTemp.setCity(rs2.getString("city"));
 				cateTemp.setTaste(rs2.getString("taste"));
 				cateTemp.setMealtime(rs2.getString("mealtime"));
 				cateTemp.setMeat(rs2.getString("meat"));
 				cateTemp.setVegetarian(rs2.getBoolean("vegetarian"));
-
 			}
-
 			recipe.setCategory(cateTemp);
 
+			/**
+			 * select ingredient from recipeIngredient Table
+			 */
 			PreparedStatement pst3 = con.prepareStatement("select * from recipeingredient where recipeId =" + recipeId);
 			ResultSet rs3 = pst3.executeQuery();
-
 			ArrayList<Ingredient> ingredTemp = new ArrayList<Ingredient>();
 			while (rs3.next())
 			{
@@ -127,15 +171,15 @@ public class DataBaseControl
 			}
 			recipe.setIngredientList(ingredTemp);
 
+			/**
+			 * select step from step Table
+			 */
 			PreparedStatement pst4 = con.prepareStatement("select * from step where recipeId =" + recipeId);
 			ResultSet rs4 = pst4.executeQuery();
-
 			ArrayList<String> stepListTemp = new ArrayList<String>();
 			while (rs4.next())
 			{
-
 				stepListTemp.add(rs4.getString("stepDescription"));
-
 			}
 			recipe.setStepList(stepListTemp);
 
@@ -149,12 +193,31 @@ public class DataBaseControl
 		return null;
 	}
 
+	public static int getRecipeID(String recipeName)
+	{
+		int recipeID = 0;
+		try
+		{
+			PreparedStatement stmt = con.prepareStatement("select recipeId from recipe where recipeName = " + "\"" + recipeName +"\"");
+			ResultSet rset =  stmt.executeQuery(); 
+			while (rset.next())
+			{
+			recipeID=rset.getInt("recipeID");
+			}
+		}
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return recipeID; 
+	}
+	
 	public static void insertCategory(Recipe recipe)
 	{
 
 		try
 		{
-			Connection con = getConnection();
 			PreparedStatement insertCategory = con.prepareStatement(
 					"insert into RecipeCategory(RecipeID,city,taste,mealtime,meat,vegetarian) value(?,?,?,?,?,?)");
 
@@ -169,7 +232,6 @@ public class DataBaseControl
 		}
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally
@@ -182,8 +244,7 @@ public class DataBaseControl
 	{
 		try
 		{
-			Connection conn = getConnection();
-			PreparedStatement pst = conn.prepareStatement(
+			PreparedStatement pst = con.prepareStatement(
 					"insert into RecipeIngredient(recipeID,ingredientName,ingredientAmount,unit,description) values(?,?,?,?,?)");
 			ArrayList<Ingredient> ingredientList = recipe.getIngredientList();
 			for (int i = 0; i < ingredientList.size(); i++)
@@ -200,32 +261,31 @@ public class DataBaseControl
 		catch (SQLException e)
 		{
 			e.printStackTrace();
-		} /*
-			 * finally { if (pst != null) try { pst.close(); } catch (SQLException e) {
-			 * e.printStackTrace(); } if (conn != null) { try { conn.close(); } catch
-			 * (SQLException e) { e.printStackTrace(); } } }
-			 */
+		}
 	}
 
 	public static void insertStep(Recipe recipe) throws SQLException
 	{
-		Connection con = getConnection();
 		PreparedStatement insertStep = con
 				.prepareStatement("insert into Step(recipeID,stepOrder, stepDescription) value(?,?,?)");
 		for (int i = 0; i < recipe.getStepList().size(); i++)
 		{
-			insertStep.setInt(1, recipe.getRecipeId());
+			insertStep.setInt(1,recipe.getRecipeId());
 			insertStep.setInt(2, i + 1);
 			insertStep.setString(3, recipe.getStepList().get(i));
 			insertStep.executeUpdate();
 		}
 	}
 
+	/**
+	 * insert the basic attributes of a recipe into the database 
+	 * and also use the static method of insertIngredient, insertCategory, insertStep
+	 * @param recipe
+	 */
 	public static void insertRecipe(Recipe recipe)
 	{
 		try
 		{
-			Connection con = getConnection();
 			PreparedStatement insertRecipe = con.prepareStatement(
 					"insert into Recipe(recipeName, serveNum, cookingTime, preparationTime) value(?,?,?,?)");
 			insertRecipe.setString(1, recipe.getRecipeName());
@@ -233,14 +293,15 @@ public class DataBaseControl
 			insertRecipe.setInt(3, recipe.getCookingTime());
 			insertRecipe.setInt(4, recipe.getPreparationTime());
 			insertRecipe.executeUpdate();
-
+			
+			recipe.setRecipeId(getRecipeID(recipe.getRecipeName()));
+			
 			insertStep(recipe);
 			insertIngreident(recipe);
 			insertCategory(recipe);
 		}
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally
@@ -249,11 +310,36 @@ public class DataBaseControl
 		}
 	}
 
-	public static void createTable()
+	public static void deleteRecipe(Recipe recipe)
 	{
 		try
 		{
-			Connection con = getConnection();
+			PreparedStatement deleteRecipe = con.prepareStatement(
+					"delete from Recipe where recipeID="+recipe.getRecipeId());
+			PreparedStatement deleteIngredient = con.prepareStatement(
+					"delete from recipeIngredient where recipeID="+recipe.getRecipeId());
+			PreparedStatement deleteCategory = con.prepareStatement(
+					"delete from recipeCategory where recipeID="+recipe.getRecipeId());
+			PreparedStatement deleteStep = con.prepareStatement(
+					"delete from Step where recipeID="+recipe.getRecipeId());
+			deleteRecipe.executeUpdate();
+			deleteIngredient.executeUpdate();
+			deleteCategory.executeUpdate();
+			deleteStep.executeUpdate();
+		}
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			System.out.println("delete "+recipe.getRecipeName());
+		}
+	}
+	
+ 	public static void createTable()
+	{
+		try
+		{
 			PreparedStatement createStep = con.prepareStatement(
 					"CREATE TABLE IF NOT EXISTS Step(recipeID int not null, stepOrder int not null, stepDescription LONGTEXT, PRIMARY KEY(recipeID,stepOrder))");
 			PreparedStatement createRecipe = con.prepareStatement(
@@ -281,21 +367,37 @@ public class DataBaseControl
 		}
 	}
 
-	public static Connection getConnection()
+	public static void getConnection()
 	{
 		try
 		{
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb?&useSSL=false", "root",
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb?&useSSL=false", "root",
 					"961211");
 
-			System.out.println("Connected");
-			return con;
+			
 		}
 		catch (SQLException e)
 		{
 			e.printStackTrace();
+			//System.out.println("error");
+		}finally {
+			System.out.println("Connected");
 		}
-		return null;
 	}
 
+	public static void closeConnection()
+	{
+		try
+		{
+			con.close();
+		}
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally
+		{
+			System.out.println("Closed");
+		}
+	}
 }

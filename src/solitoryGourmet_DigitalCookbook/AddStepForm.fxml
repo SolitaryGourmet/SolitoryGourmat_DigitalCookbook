@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="solitoryGourmet_DigitalCookbook.AddStepFormController">
+   <children>
+      <ScrollPane prefHeight="323.0" prefWidth="800.0">
+         <content>
+            <VBox fx:id="vBox" prefHeight="323.0" prefWidth="800.0">
+               <children>
+                  <Pane prefHeight="64.0" prefWidth="800.0">
+                     <children>
+                        <Button layoutX="26.0" layoutY="19.0" mnemonicParsing="false" text="👈" />
+                     </children>
+                  </Pane>
+               </children></VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane fx:id="pane_successSubmit" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="label_successSubmit" alignment="TOP_CENTER" layoutX="68.0" layoutY="55.0" text="Successfully submit!" textFill="#a42e2e">
+         <font>
+            <Font name="Ebrima" size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_displayRecipe" layoutX="76.0" layoutY="112.0" text="Display the recipe?" textFill="#a42e2e">
+         <font>
+            <Font name="Ebrima" size="30.0" />
+         </font>
+      </Label>
+      <Button fx:id="button_yes2" layoutX="76.0" layoutY="193.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="91.0" text="yes">
+         <font>
+            <Font name="Ebrima" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="button_no2" layoutX="242.0" layoutY="193.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="91.0" text="no">
+         <font>
+            <Font name="Ebrima" size="20.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

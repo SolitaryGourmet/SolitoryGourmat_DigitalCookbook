@@ -1,0 +1,6 @@
+.button {
+    -fx-background-color: FireBrick;
+}
+.button:hover {
+    -fx-background-color: DarkRed;
+}

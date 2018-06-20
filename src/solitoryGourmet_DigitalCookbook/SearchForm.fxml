@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@SearchForm.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="solitoryGourmet_DigitalCookbook.SearchFormController">
+   <children>
+      <Pane prefHeight="600.0" prefWidth="800.0">
+         <children>
+            <TextField fx:id="textField" layoutX="187.0" layoutY="176.0" prefHeight="44.0" prefWidth="260.0" promptText="Recipe name">
+               <font>
+                  <Font name="Ebrima" size="20.0" />
+               </font></TextField>
+            <Button fx:id="search" layoutX="467.0" layoutY="176.0" mnemonicParsing="false" onAction="#searchByName" prefHeight="44.0" prefWidth="92.0" text="search" textFill="WHITE">
+               <font>
+                  <Font name="Ebrima" size="20.0" />
+               </font></Button>
+            <Button layoutX="187.0" layoutY="256.0" mnemonicParsing="false" onAction="#searchByCategory" prefHeight="44.0" prefWidth="372.0" text="search by category" textFill="WHITE">
+               <font>
+                  <Font name="Ebrima" size="20.0" />
+               </font></Button>
+            <Button layoutX="187.0" layoutY="330.0" mnemonicParsing="false" onAction="#gotoHome" prefHeight="44.0" prefWidth="372.0" text="return to homepage" textFill="WHITE">
+               <font>
+                  <Font name="Ebrima" size="20.0" />
+               </font></Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
