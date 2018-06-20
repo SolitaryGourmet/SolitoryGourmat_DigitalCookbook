@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane_main" prefHeight="600.0" prefWidth="800.0" stylesheets="@MainInterface.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="solitoryGourmet_DigitalCookbook.MainInterfaceController">
+<AnchorPane fx:id="pane_main" prefHeight="600.0" prefWidth="800.0" stylesheets="@MainInterface.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.MainInterfaceController">
    <children>
       <Label fx:id="label_title" alignment="TOP_RIGHT" layoutX="118.0" layoutY="54.0" text="Solitary Gourmet" textFill="#a42e2e">
          <font>

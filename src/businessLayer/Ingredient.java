@@ -3,7 +3,7 @@
  * providing all necessary attributes for Ingredient class
  * @author LYF
  */
-package solitoryGourmet_DigitalCookbook;
+package businessLayer;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package solitoryGourmet_DigitalCookbook;
+package businessLayer;
 
 public class MainControl
 {

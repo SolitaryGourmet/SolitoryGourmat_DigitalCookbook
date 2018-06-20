@@ -2,6 +2,11 @@ package solitoryGourmet_DigitalCookbook;
 
 import java.util.ArrayList;
 
+import businessLayer.Category;
+import businessLayer.Ingredient;
+import businessLayer.Recipe;
+import databaseLayer.DataBaseControl;
+
 /**
  * A class for the program entry point and some test recipes.
  * 

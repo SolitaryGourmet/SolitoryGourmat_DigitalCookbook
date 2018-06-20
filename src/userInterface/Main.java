@@ -1,10 +1,12 @@
-package solitoryGourmet_DigitalCookbook;
+package userInterface;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import businessLayer.Ingredient;
+import businessLayer.Recipe;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

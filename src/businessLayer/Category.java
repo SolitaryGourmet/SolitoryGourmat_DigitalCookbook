@@ -4,7 +4,7 @@
  * @author Liu Yanran
  */
 
-package solitoryGourmet_DigitalCookbook;
+package businessLayer;
 
 import java.io.Serializable;
 

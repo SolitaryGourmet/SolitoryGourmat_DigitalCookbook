@@ -1,4 +1,4 @@
-package solitoryGourmet_DigitalCookbook;
+package userInterface;
 
 import java.net.URL;
 import java.util.ArrayList;

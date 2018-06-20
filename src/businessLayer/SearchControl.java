@@ -1,6 +1,8 @@
-package solitoryGourmet_DigitalCookbook;
+package businessLayer;
 
 import java.util.ArrayList;
+
+import databaseLayer.DataBaseControl;
 
 public class SearchControl
 {

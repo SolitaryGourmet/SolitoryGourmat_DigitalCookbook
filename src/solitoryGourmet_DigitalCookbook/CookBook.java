@@ -9,6 +9,10 @@ package solitoryGourmet_DigitalCookbook;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import businessLayer.Ingredient;
+import businessLayer.Recipe;
+import businessLayer.RecipeControl;
+
 public class CookBook implements Serializable
 {
 	private String cookBookName;

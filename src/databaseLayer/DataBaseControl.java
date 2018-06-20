@@ -1,7 +1,11 @@
-package solitoryGourmet_DigitalCookbook;
+package databaseLayer;
 
 import java.sql.*;
 import java.util.ArrayList;
+
+import businessLayer.Category;
+import businessLayer.Ingredient;
+import businessLayer.Recipe;
 
 public class DataBaseControl
 {

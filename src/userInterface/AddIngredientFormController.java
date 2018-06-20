@@ -1,4 +1,4 @@
-package solitoryGourmet_DigitalCookbook;
+package userInterface;
 
 import java.io.IOException;
 import java.net.URL;
@@ -9,6 +9,7 @@ import javax.tools.DocumentationTool.Location;
 
 import org.omg.CORBA.PUBLIC_MEMBER;
 
+import businessLayer.Ingredient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

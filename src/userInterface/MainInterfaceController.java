@@ -1,4 +1,4 @@
-package solitoryGourmet_DigitalCookbook;
+package userInterface;
 
 import java.io.IOException;
 import java.net.URL;

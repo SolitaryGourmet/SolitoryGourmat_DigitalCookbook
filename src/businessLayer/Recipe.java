@@ -3,7 +3,7 @@
  * providing all necessary attributes and methods for Recipe
  * @author LYF
  */
-package solitoryGourmet_DigitalCookbook;
+package businessLayer;
 
 import java.awt.Image;
 import java.io.Serializable;
