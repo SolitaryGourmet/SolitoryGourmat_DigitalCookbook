@@ -142,44 +142,47 @@ public class Main extends Application
 		}
 	}
 
-	public void gotoSetIngredient(ArrayList<Ingredient> ingredientList) throws Exception
+	public void gotoEditStep(Recipe recipe) throws Exception
 	{
-		FXMLLoader Loader = new FXMLLoader();
-		Loader.setLocation(getClass().getResource("AddIngredientForm.fxml"));
-		try
+		// currentStage.close();
+		AddStepFormController asfc = replaceSceneContent("AddStepForm.fxml");
+		asfc.setApp(this);
+		asfc.setRecipe(recipe);
+		for (int i = 0; i < recipe.getStepList().size(); i++)
 		{
-			Loader.load();
+			asfc.setStep(recipe.getStepList().get(i));
+			asfc.addNewStep();
 		}
-		catch (Exception ex)
+		asfc.setStep(new String());
+	}
+
+	public void gotoSetIngredient(Recipe recipe) throws Exception
+	{
+		AddIngredientFormController aifc = replaceSceneContent("AddIngredientForm.fxml");
+		aifc.setApp(this);
+		aifc.setRecipe(recipe);
+		for (int i = 0; i < recipe.getIngredientList().size(); i++)
 		{
-			Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		AddIngredientFormController aifc = Loader.getController();
-		// aifc.addNewIngredient();
-		for (int i = 0; i < ingredientList.size(); i++)
-		{
-			aifc.setIngredient(ingredientList.get(i));
+			aifc.setIngredient(recipe.getIngredientList().get(i));
 			aifc.addNewIngredient();
 		}
-
 		aifc.setIngredient(new Ingredient());
-		// Stage stage1=new Stage();
-		stage.setScene(new Scene(Loader.getRoot()));
-		aifc.setApp(this);
-		// stage1.show();
 	}
 
 	/**
 	 * after adding ingredients in add recipe form, go back to the add recipe form
 	 * and transmit ingredient list
 	 */
-	public void goBackToAddRecipeForm(ArrayList<Ingredient> ingredientList)
+	public void goBackToAddRecipeForm(Recipe recipe)
 	{
 		try
 		{
 			AddRecipeFormController arfc = replaceSceneContent("AddRecipeForm.fxml");
 			arfc.setApp(this);
-			arfc.setIngredientList(ingredientList);
+			arfc.setIngredientList(recipe.getIngredientList());
+			arfc.setStepBufferList(recipe.getStepList());
+			arfc.setRecipe(recipe);
+			arfc.initialRecipeForm(recipe);
 		}
 		catch (Exception ex)
 		{
@@ -187,13 +190,22 @@ public class Main extends Application
 		}
 	}
 
-	public void gotoEditStep(ArrayList<String> bufferList) throws Exception
+	public void stepGoBackToAddRecipeForm(Recipe recipe)
 	{
-		currentStage.close();
-		AddStepFormController asfc = showStage("AddStepForm.fxml");
-		asfc.setApp(this);
-		asfc.bufferList = bufferList;
-		asfc.setStep();
+		try
+		{
+			AddRecipeFormController arfc = replaceSceneContent("AddRecipeForm.fxml");
+			arfc.setApp(this);
+			arfc.setIngredientList(recipe.getIngredientList());
+			arfc.setStepBufferList(recipe.getStepList());
+			arfc.setRecipe(recipe);
+			arfc.initialRecipeForm(recipe);
+		}
+		catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**

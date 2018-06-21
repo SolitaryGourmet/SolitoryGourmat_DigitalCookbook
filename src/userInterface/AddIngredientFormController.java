@@ -9,7 +9,7 @@ import javax.tools.DocumentationTool.Location;
 
 import org.omg.CORBA.PUBLIC_MEMBER;
 
-import businessLayer.Ingredient;
+import businessLayer.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -52,6 +52,17 @@ public class AddIngredientFormController implements Initializable
 	private ArrayList<TextField> descriptionList = new ArrayList<TextField>();
 
 	private Ingredient ingredient = new Ingredient();
+	private Recipe recipe = new Recipe();
+	
+	public Recipe getRecipe()
+	{
+		return recipe;
+	}
+
+	public void setRecipe(Recipe recipe)
+	{
+		this.recipe = recipe;
+	}
 
 	public Ingredient getIngredient()
 	{
@@ -68,6 +79,11 @@ public class AddIngredientFormController implements Initializable
 		this.application = application;
 	}
 
+	public void initialForm()
+	{
+		
+	}
+	
 	@FXML
 	void ingredientSubmit(ActionEvent event)
 	{
@@ -80,15 +96,18 @@ public class AddIngredientFormController implements Initializable
 			temp.setDescription(descriptionList.get(i).getText());
 			bufferList.add(temp);
 		}
-		application.goBackToAddRecipeForm(bufferList);
+		recipe.setIngredientList(bufferList);
+		application.goBackToAddRecipeForm(recipe);
 	}
 
 	public void addNewIngredient() throws Exception
 	{
+		
 		Pane pane = new Pane();
 		HBox hBox = new HBox();
 		VBox vBox_item = new VBox();
 		HBox descripH = new HBox();
+		
 		Label nameLable = new Label("Name");
 		TextField nameTextField = new TextField(ingredient.getIngredientName());
 
@@ -122,9 +141,10 @@ public class AddIngredientFormController implements Initializable
 
 		vBox_item.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;" + "-fx-border-width: 2;"
 				+ "-fx-border-insets: 5;" + "-fx-border-radius: 5;" + "-fx-border-color: brown;");
+		vBox_item.setMinWidth(785);
 		hBox.setPadding(new Insets(10, 10, 10, 10));
 		hBox.setMinHeight(80);
-		hBox.setMinWidth(785);
+		hBox.setMaxWidth(785);
 		hBox.setSpacing(10);
 
 		hBox.getChildren().addAll(nameLable, nameTextField, amountLable, ammountTextField, unitLable, unitTextField,

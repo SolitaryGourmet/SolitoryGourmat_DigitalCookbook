@@ -127,23 +127,14 @@
                                     <Button fx:id="button_addIngredient" layoutX="181.0" layoutY="7.0" mnemonicParsing="false" onAction="#addIngredient" prefHeight="39.0" prefWidth="123.0" text="add ingredient" />
                                  </children>
                               </Pane>
-                              <Pane prefHeight="84.0" prefWidth="788.0">
+                              <Pane prefHeight="51.0" prefWidth="788.0">
                                  <children>
                                     <Label fx:id="label_addSteps" layoutX="14.0" text="· steps: " textFill="#a42e2e">
                                        <font>
                                           <Font name="Ebrima Bold" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Pane fx:id="pane_stepPane" layoutY="34.0" prefHeight="46.0" prefWidth="630.0">
-                                       <children>
-                                          <TextField fx:id="textField_stepField1" layoutX="11.0" layoutY="11.0" prefHeight="25.0" prefWidth="546.0" />
-                                          <Button fx:id="button_addStep" layoutX="571.0" layoutY="9.0" mnemonicParsing="false" onAction="#addStep" text="+">
-                                             <font>
-                                                <Font name="Ebrima Bold" size="15.0" />
-                                             </font>
-                                          </Button>
-                                       </children>
-                                    </Pane>
+                                    <Button fx:id="button_addStep" layoutX="180.0" layoutY="7.0" mnemonicParsing="false" onAction="#addStep" text="add step" />
                                  </children>
                               </Pane>
                               <Pane prefHeight="88.0" prefWidth="788.0">

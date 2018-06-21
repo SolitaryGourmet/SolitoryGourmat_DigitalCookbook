@@ -65,43 +65,10 @@ public class AddRecipeFormController implements Initializable
 	private Label label_addIngredients;
 
 	@FXML
-	private Pane pane_ingredientPane;
-
-	@FXML
-	private Label label_addIngredientName;
-
-	@FXML
-	private Label label_addIngredientAmount;
-
-	@FXML
-	private Label label_addIngredientUnit;
-
-	@FXML
-	private Label label_addIngredientDescription;
-
-	@FXML
-	private TextField textField_ingredientNameField;
-
-	@FXML
-	private TextField textField_ingredientAmountField;
-
-	@FXML
-	private TextField textField_ingredientUnitField;
-
-	@FXML
-	private TextField textField_ingredientDescriptionField;
-
-	@FXML
 	private Button button_addIngredient;
 
 	@FXML
 	private Label label_addSteps;
-
-	@FXML
-	private Pane pane_stepPane;
-
-	@FXML
-	private TextField textField_stepField1;
 
 	@FXML
 	private Button button_addStep;
@@ -124,12 +91,38 @@ public class AddRecipeFormController implements Initializable
 	@FXML
 	private Button button_submitButton;
 
-	@FXML
-	private VBox vBoxIngredient;
-
 	private ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
 	private ArrayList<String> stepBufferList = new ArrayList<String>();
 	private Recipe recipe = new Recipe();
+
+	public Recipe getRecipe()
+	{
+		return recipe;
+	}
+
+	public void setRecipe(Recipe recipe)
+	{
+		this.recipe = recipe;
+		
+	}
+	
+	public void initialRecipeForm(Recipe recipe) 
+	{
+		textField_recipeNameField.setText(recipe.getRecipeName());
+		textField_serveNumField.setText(String.valueOf(recipe.getServeNum()));
+		textField_prepTimeField.setText(String.valueOf(recipe.getPreparationTime()));
+		textField_cookTimeField.setText(String.valueOf(recipe.getCookingTime()));
+	}
+
+	public ArrayList<String> getStepBufferList()
+	{
+		return stepBufferList;
+	}
+
+	public void setStepBufferList(ArrayList<String> stepBufferList)
+	{
+		this.stepBufferList = stepBufferList;
+	}
 
 	public ArrayList<Ingredient> getIngredientList()
 	{
@@ -139,7 +132,6 @@ public class AddRecipeFormController implements Initializable
 	public void setIngredientList(ArrayList<Ingredient> ingredientList)
 	{
 		this.ingredientList = ingredientList;
-		
 	}
 
 	public void setApp(Main application)
@@ -157,12 +149,13 @@ public class AddRecipeFormController implements Initializable
 	{
 		try
 		{
-			application.gotoSetIngredient(ingredientList);
-			
-//			recipe.setRecipeName(textField_recipeNameField.getText());
-//			recipe.setServeNum(Integer.valueOf(textField_serveNumField.getText()));
-//			recipe.setPreparationTime(Integer.valueOf(textField_prepTimeField.getText()));
-//			recipe.setCookingTime(Integer.valueOf(textField_cookTimeField.getText()));
+			recipe.setRecipeName(textField_recipeNameField.getText());
+			recipe.setServeNum(Integer.valueOf(textField_serveNumField.getText()));
+			recipe.setPreparationTime(Integer.valueOf(textField_prepTimeField.getText()));
+			recipe.setCookingTime(Integer.valueOf(textField_cookTimeField.getText()));
+			recipe.setIngredientList(ingredientList);
+			recipe.setStepList(stepBufferList);
+			application.gotoSetIngredient(recipe);
 		}
 		catch (Exception e)
 		{
@@ -175,10 +168,13 @@ public class AddRecipeFormController implements Initializable
 	@FXML
 	public void addStep() throws Exception
 	{
-		String step = textField_stepField1.getText();
-		stepBufferList.add(step);
-		application.gotoEditStep(stepBufferList);
-
+		recipe.setRecipeName(textField_recipeNameField.getText());
+		recipe.setServeNum(Integer.valueOf(textField_serveNumField.getText()));
+		recipe.setPreparationTime(Integer.valueOf(textField_prepTimeField.getText()));
+		recipe.setCookingTime(Integer.valueOf(textField_cookTimeField.getText()));
+		recipe.setIngredientList(ingredientList);
+		recipe.setStepList(stepBufferList);
+		application.gotoEditStep(recipe);
 	}
 
 	@FXML
@@ -188,12 +184,6 @@ public class AddRecipeFormController implements Initializable
 		{
 			recipe.setIngredientList(ingredientList);
 			recipe.setStepList(stepBufferList);
-			
-//			recipe.setRecipeName(textField_recipeNameField.getText());
-//			recipe.setServeNum(Integer.valueOf(textField_serveNumField.getText()));
-//			recipe.setPreparationTime(Integer.valueOf(textField_prepTimeField.getText()));
-//			recipe.setCookingTime(Integer.valueOf(textField_cookTimeField.getText()));
-
 			System.out.println(recipe);
 
 			// 一定需要使用try-catch，不然编译器不会让你过的，Trust me!
@@ -212,7 +202,7 @@ public class AddRecipeFormController implements Initializable
 	@Override
 	public void initialize(URL location, ResourceBundle resources)
 	{
-		// TODO Auto-generated method stub
+
 		
 	}
 
