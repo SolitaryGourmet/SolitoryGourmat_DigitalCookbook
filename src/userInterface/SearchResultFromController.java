@@ -27,11 +27,43 @@ import javafx.scene.text.FontPosture;
 public class SearchResultFromController implements Initializable
 {
 	private Main application;
-	private int requestNumber = 0;
+	private ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
+	private String flag_source = new String();
+	private Recipe recipeForBackToCategory = new Recipe();
+	public Recipe getRecipeForBackToCategory()
+	{
+		return recipeForBackToCategory;
+	}
+
+	public void setRecipeForBackToCategory(Recipe recipeForBackToCategory)
+	{
+		this.recipeForBackToCategory = recipeForBackToCategory;
+	}
+
+	public String getFlag_source()
+	{
+		return flag_source;
+	}
+
+	public void setFlag_source(String flag_source)
+	{
+		this.flag_source = flag_source;
+	}
 
 	@FXML
 	private VBox vbox;
 
+	public ArrayList<Recipe> getRecipeList()
+	{
+		return recipeList;
+	}
+
+	public void setRecipeList(ArrayList<Recipe> recipeList)
+	{
+		this.recipeList = recipeList;
+	}
+	
+	
 	public void setApp(Main application)
 	{
 		this.application = application;
@@ -48,37 +80,39 @@ public class SearchResultFromController implements Initializable
 			Pane labelPane = new Pane();
 			Pane buttonPane = new Pane();
 			Button display = new Button("Display recipes");
-			
-			FileInputStream inputstream = new FileInputStream("E:\\College\\Courseware\\software engineering II\\Digital cook book - Solitary Gourmet\\QQͼƬ20180613104404.jpg");
-			Image image = new Image(inputstream); 
-			ImageView imageView = new ImageView(image);
-			imageView.setFitHeight(80);
-			imageView.setFitWidth(100);
-			imageView.setPreserveRatio(true);
-			imagePane.getChildren().add(imageView);	
-					
-					
+
+			if (recipeList.get(i).getPhotoRoute() != null)
+			{
+				FileInputStream inputstream = new FileInputStream(recipeList.get(i).getPhotoRoute());
+				Image image = new Image(inputstream);
+				ImageView imageView = new ImageView(image);
+				imageView.setFitHeight(80);
+				imageView.setFitWidth(100);
+				imageView.setPreserveRatio(true);
+				imagePane.getChildren().add(imageView);
+			}
+
 			Label recipeNameLabel = new Label(recipeList.get(i).getRecipeName());
 			DropShadow shadow = new DropShadow();
 
 			recipeNameLabel.setFont(Font.font("verdana", FontPosture.REGULAR, 22));
 			recipeNameLabel.setTextFill(Color.BROWN);
-			
+
 			display.setFont(Font.font("verdana", FontPosture.REGULAR, 18));
 			display.setMinHeight(40);
 			display.setMinWidth(80);
-			display.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {display.setEffect(shadow);});
-			display.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {display.setEffect(null);});  
+			display.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
+				display.setEffect(shadow);
+			});
+			display.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
+				display.setEffect(null);
+			});
 			display.setStyle("-fx-background-color: LightGray; -fx-text-fill: brown;");
 			labelPane.getChildren().add(recipeNameLabel);
 			buttonPane.getChildren().add(display);
-			hbox.setStyle("-fx-padding: 10;" + 
-                    "-fx-border-style: solid inside;" + 
-                    "-fx-border-width: 2;" +
-                    "-fx-border-insets: 5;" + 
-                    "-fx-border-radius: 5;" + 
-                    "-fx-border-color: brown;");
-			hbox.setPadding(new Insets(10,10,10,10));
+			hbox.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;" + "-fx-border-width: 2;"
+					+ "-fx-border-insets: 5;" + "-fx-border-radius: 5;" + "-fx-border-color: brown;");
+			hbox.setPadding(new Insets(10, 10, 10, 10));
 			hbox.setMinHeight(80);
 			hbox.setMinWidth(785);
 			hbox.setSpacing(120);
@@ -87,29 +121,27 @@ public class SearchResultFromController implements Initializable
 			vbox.getChildren().add(pane);
 
 			pane.setMinWidth(785);
-			pane.setStyle("-fx-background-color: BEIGE;"); 
-			
+			pane.setStyle("-fx-background-color: BEIGE;");
+
 			Recipe r = recipeList.get(i);
 			display.setOnAction(ex -> {
-				application.goToDisplayForm(r);
+				application.goToDisplayForm(r,recipeList,flag_source,recipeForBackToCategory);
 			});
 		}
 	}
 
-	public void RequestFromSearch()
-	{
-		requestNumber = 1;// to specify where the request come from and then go back
-	}
 
 	@FXML
 	public void BacktoFormer()
 	{
-//		if (requestNumber == 1)
-//		{
-//			application.gotoCategory();
-//		}
-		application.gotoSearchForm();
-		
+		if(flag_source.equals("Search Category"))
+		{
+			application.gotoCategory("Search Recipe", recipeForBackToCategory);
+		}
+		else if(flag_source.equals("Search Name"))
+		{
+			application.gotoSearchForm();
+		}
 	}
 
 	public void Init()

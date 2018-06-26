@@ -10,9 +10,10 @@ import businessLayer.Recipe;
 public class DataBaseControl
 {
 	private static Connection con;
-	
+
 	/**
 	 * with the input value Category, return a list of recipes
+	 * 
 	 * @param category
 	 * @return
 	 */
@@ -24,47 +25,57 @@ public class DataBaseControl
 			String city = category.getCity();
 			String mealtime = category.getMealtime();
 			String meat = category.getMeat();
-			String taste= category.getTaste();
+			String taste = category.getTaste();
 			boolean vegetarian = category.isVegetarian();
+			int vege = 0;
 
-			if(city==null)
+			if (city == null)
 			{
 				city = "";
 			}
 			else
 			{
-				city = "city ="+ "\"" + city + "\""+ " and ";
+				city = "city =" + "\"" + city + "\"" + " and ";
 			}
-			
-			if(mealtime==null)
+
+			if (mealtime == null)
 			{
 				mealtime = "";
 			}
 			else
 			{
-				mealtime = "mealtime like "+ "\"%" + mealtime + "%\""+ " and ";
+				mealtime = "mealtime like " + "\"%" + mealtime + "%\"" + " and ";
 			}
-			
-			if(meat==null)
+
+			if (meat == null)
 			{
 				meat = "";
 			}
 			else
 			{
-				meat = "meat ="+ "\"" + meat + "\""+ " and ";
+				meat = "meat like " + "\"%" + meat + "%\"" + " and ";
 			}
-			
-			if(taste==null)
+
+			if (taste == null)
 			{
 				taste = "";
 			}
 			else
 			{
-				taste = "taste like "+ "\"%" + taste + "%\""+" and ";
+				taste = "taste like " + "\"%" + taste + "%\"" + " and ";
 			}
-			
-			
-			String sql = "SELECT recipeID FROM recipeCategory where "+ city+ mealtime  + meat+ taste +" vegetarian ="+ "\"" + vegetarian + "\"";
+			if (vegetarian == true)
+			{
+				vege = 1;
+			}
+			else
+			{
+				vege = 0;
+			}
+
+			String sql = "SELECT recipeID FROM recipeCategory where " + city + mealtime + meat + taste + " vegetarian ="
+					+ "\"" + vege + "\"";
+			System.out.println(sql);
 			PreparedStatement stmt = con.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next())
@@ -86,6 +97,7 @@ public class DataBaseControl
 
 	/**
 	 * with the input value recipeName, return a list of all suitable recipes
+	 * 
 	 * @param recipeName
 	 * @return
 	 */
@@ -95,14 +107,14 @@ public class DataBaseControl
 		ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
 		try
 		{
-			PreparedStatement pst = con
-					.prepareStatement("select recipeId from recipe where recipeName like " + "\"%" + recipeName + "%\"");
+			PreparedStatement pst = con.prepareStatement(
+					"select recipeId from recipe where recipeName like " + "\"%" + recipeName + "%\"");
 			ResultSet rs = pst.executeQuery();
 
 			while (rs.next())
 			{
 				recipeId = rs.getInt("recipeId");
-				recipeList.add(searchById(recipeId)) ;
+				recipeList.add(searchById(recipeId));
 
 			}
 			return recipeList;
@@ -116,8 +128,9 @@ public class DataBaseControl
 	}
 
 	/**
-	 * search a specific recipe with recipeID
-	 * used by another two method: searchByName(String recipeName), searchByCategory(Category category)
+	 * search a specific recipe with recipeID used by another two method:
+	 * searchByName(String recipeName), searchByCategory(Category category)
+	 * 
 	 * @param recipeId
 	 * @return
 	 */
@@ -126,9 +139,10 @@ public class DataBaseControl
 		try
 		{
 			Recipe recipe = new Recipe();
-			
+
 			/**
-			 * select recipeID, recipeName, serveNum, cookingTime, preparationTime from recipe Table
+			 * select recipeID, recipeName, serveNum, cookingTime, preparationTime, picture
+			 * route from recipe Table
 			 */
 			PreparedStatement pst1 = con.prepareStatement("select * from recipe where recipeId=" + recipeId);
 			ResultSet rs1 = pst1.executeQuery();
@@ -139,9 +153,9 @@ public class DataBaseControl
 				recipe.setServeNum(rs1.getInt("serveNum"));
 				recipe.setCookingTime(rs1.getInt("cookingTime"));
 				recipe.setPreparationTime(rs1.getInt("preparationTime"));
-				// no pic
+				recipe.setPhotoRoute(rs1.getString("picture"));
 			}
-			
+
 			/**
 			 * select category from recipeCategory Table
 			 */
@@ -169,7 +183,7 @@ public class DataBaseControl
 				Ingredient ing = new Ingredient();
 				ing.setIngredientName(rs3.getString("ingredientName"));
 				ing.setUnit(rs3.getString("unit"));
-				ing.setIngredientAmount(rs3.getInt("ingredientAmount"));
+				ing.setIngredientAmount(rs3.getDouble("ingredientAmount"));
 				ing.setDescription(rs3.getString("description"));
 				ingredTemp.add(ing);
 			}
@@ -202,11 +216,12 @@ public class DataBaseControl
 		int recipeID = 0;
 		try
 		{
-			PreparedStatement stmt = con.prepareStatement("select recipeId from recipe where recipeName = " + "\"" + recipeName +"\"");
-			ResultSet rset =  stmt.executeQuery(); 
+			PreparedStatement stmt = con
+					.prepareStatement("select recipeId from recipe where recipeName = " + "\"" + recipeName + "\"");
+			ResultSet rset = stmt.executeQuery();
 			while (rset.next())
 			{
-			recipeID=rset.getInt("recipeID");
+				recipeID = rset.getInt("recipeID");
 			}
 		}
 		catch (SQLException e)
@@ -214,9 +229,9 @@ public class DataBaseControl
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return recipeID; 
+		return recipeID;
 	}
-	
+
 	public static void insertCategory(Recipe recipe)
 	{
 
@@ -274,7 +289,7 @@ public class DataBaseControl
 				.prepareStatement("insert into Step(recipeID,stepOrder, stepDescription) value(?,?,?)");
 		for (int i = 0; i < recipe.getStepList().size(); i++)
 		{
-			insertStep.setInt(1,recipe.getRecipeId());
+			insertStep.setInt(1, recipe.getRecipeId());
 			insertStep.setInt(2, i + 1);
 			insertStep.setString(3, recipe.getStepList().get(i));
 			insertStep.executeUpdate();
@@ -282,8 +297,9 @@ public class DataBaseControl
 	}
 
 	/**
-	 * insert the basic attributes of a recipe into the database 
-	 * and also use the static method of insertIngredient, insertCategory, insertStep
+	 * insert the basic attributes of a recipe into the database and also use the
+	 * static method of insertIngredient, insertCategory, insertStep
+	 * 
 	 * @param recipe
 	 */
 	public static void insertRecipe(Recipe recipe)
@@ -291,15 +307,16 @@ public class DataBaseControl
 		try
 		{
 			PreparedStatement insertRecipe = con.prepareStatement(
-					"insert into Recipe(recipeName, serveNum, cookingTime, preparationTime) value(?,?,?,?)");
+					"insert into Recipe(recipeName, serveNum, cookingTime, preparationTime,picture) value(?,?,?,?,?)");
 			insertRecipe.setString(1, recipe.getRecipeName());
 			insertRecipe.setInt(2, recipe.getServeNum());
 			insertRecipe.setInt(3, recipe.getCookingTime());
 			insertRecipe.setInt(4, recipe.getPreparationTime());
+			insertRecipe.setString(5, recipe.getPhotoRoute());
 			insertRecipe.executeUpdate();
-			
+
 			recipe.setRecipeId(getRecipeID(recipe.getRecipeName()));
-			
+
 			insertStep(recipe);
 			insertIngreident(recipe);
 			insertCategory(recipe);
@@ -314,18 +331,111 @@ public class DataBaseControl
 		}
 	}
 
+	/*
+	 * for edit by idiot Xiao
+	 * updated by luoyifan
+	 */
+	public static void editRecipe(Recipe recipe)
+	{
+		try
+		{
+
+			ArrayList<String> sql = new ArrayList<String>();// 罗一凡你高兴就封装一下方法谢谢
+			sql.add("update recipe set recipeName =" + "\"" + recipe.getRecipeName() + "\"" + "where recipeId = " + "\""
+					+ recipe.getRecipeId() + "\"");
+			sql.add("update recipe set serveNum =" + "\"" + recipe.getServeNum() + "\"" + "where recipeId = " + "\""
+					+ recipe.getRecipeId() + "\"");
+			sql.add("update recipe set cookingTime =" + "\"" + recipe.getCookingTime() + "\"" + "where recipeId = "
+					+ "\"" + recipe.getRecipeId() + "\"");
+			sql.add("update recipe set preparationTime =" + "\"" + recipe.getPreparationTime() + "\""
+					+ "where recipeId = " + "\"" + recipe.getRecipeId() + "\"");
+
+			for (int i = 0; i < sql.size(); i++)
+			{
+				PreparedStatement editStatement = con.prepareStatement(sql.get(i));
+				editStatement.execute();
+			}
+
+			ArrayList<String> sqlCategory = new ArrayList<String>();
+			sqlCategory.add("update recipecategory set city =" + "\"" + recipe.getCategory().getCity() + "\""
+					+ "where recipeId = " + "\"" + recipe.getRecipeId() + "\"");
+			sqlCategory.add("update recipecategory set taste =" + "\"" + recipe.getCategory().getTaste() + "\""
+					+ "where recipeId = " + "\"" + recipe.getRecipeId() + "\"");
+			sqlCategory.add("update recipecategory set mealTime =" + "\"" + recipe.getCategory().getMealtime() + "\""
+					+ "where recipeId = " + "\"" + recipe.getRecipeId() + "\"");
+			sqlCategory.add("update recipecategory set meat =" + "\"" + recipe.getCategory().getMeat() + "\""
+					+ "where recipeId = " + "\"" + recipe.getRecipeId() + "\"");
+			int vege = 0;
+			if (recipe.getCategory().isVegetarian() == true)
+			{
+				vege = 1;
+			}
+			else
+			{
+				vege = 0;
+			}
+			sqlCategory.add("update recipecategory set vegetarian =" + "\"" + vege + "\"" + "where recipeId = " + "\""
+					+ recipe.getRecipeId() + "\"");
+
+			for (int i = 0; i < sql.size(); i++)
+			{
+				PreparedStatement editStatement = con.prepareStatement(sqlCategory.get(i));
+				editStatement.execute();
+			}
+
+			PreparedStatement deleteIngredient = con
+					.prepareStatement("delete from recipeIngredient where recipeID=" + recipe.getRecipeId());
+			deleteIngredient.executeUpdate();
+			
+			DataBaseControl.insertIngreident(recipe);
+			
+			PreparedStatement deleteStep = con
+					.prepareStatement("delete from Step where recipeID=" + recipe.getRecipeId());
+			deleteStep.executeUpdate();
+			
+			DataBaseControl.insertStep(recipe);
+			
+			PreparedStatement editStatement = con.prepareStatement("update recipe set picture = ? " + " where recipeId = ? ");
+			editStatement.setString(1, recipe.getPhotoRoute());
+			editStatement.setInt(2, recipe.getRecipeId());
+			editStatement.execute();
+
+		}
+		catch (SQLException e1)
+		{
+			e1.printStackTrace();
+		}
+
+		// try
+		// {
+		//
+		// for (int i = 0; i < sql.size(); i++)
+		// {
+		// PreparedStatement editStatement = con.prepareStatement(sql.get(i));
+		// editStatement.execute();
+		// }
+		//
+		//
+		// }
+		// catch (Exception e)
+		// {
+		// // TODO: handle exception
+		// e.printStackTrace();
+		// }
+	}
+
 	public static void deleteRecipe(Recipe recipe)
 	{
 		try
 		{
-			PreparedStatement deleteRecipe = con.prepareStatement(
-					"delete from Recipe where recipeID="+recipe.getRecipeId());
-			PreparedStatement deleteIngredient = con.prepareStatement(
-					"delete from recipeIngredient where recipeID="+recipe.getRecipeId());
-			PreparedStatement deleteCategory = con.prepareStatement(
-					"delete from recipeCategory where recipeID="+recipe.getRecipeId());
-			PreparedStatement deleteStep = con.prepareStatement(
-					"delete from Step where recipeID="+recipe.getRecipeId());
+			PreparedStatement deleteRecipe = con
+					.prepareStatement("delete from Recipe where recipeID=" + recipe.getRecipeId());
+			PreparedStatement deleteIngredient = con
+					.prepareStatement("delete from recipeIngredient where recipeID=" + recipe.getRecipeId());
+			PreparedStatement deleteCategory = con
+					.prepareStatement("delete from recipeCategory where recipeID=" + recipe.getRecipeId());
+			PreparedStatement deleteStep = con
+					.prepareStatement("delete from Step where recipeID=" + recipe.getRecipeId());
 			deleteRecipe.executeUpdate();
 			deleteIngredient.executeUpdate();
 			deleteCategory.executeUpdate();
@@ -335,12 +445,14 @@ public class DataBaseControl
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
-			System.out.println("delete "+recipe.getRecipeName());
+		}
+		finally
+		{
+			System.out.println("delete " + recipe.getRecipeName());
 		}
 	}
-	
- 	public static void createTable()
+
+	public static void createTable()
 	{
 		try
 		{
@@ -375,16 +487,16 @@ public class DataBaseControl
 	{
 		try
 		{
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb?&useSSL=false", "root",
-					"961211");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb?&useSSL=false", "root", "961211");
 
-			
 		}
 		catch (SQLException e)
 		{
 			e.printStackTrace();
-			//System.out.println("error");
-		}finally {
+			// System.out.println("error");
+		}
+		finally
+		{
 			System.out.println("Connected");
 		}
 	}
@@ -399,7 +511,8 @@ public class DataBaseControl
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally
+		}
+		finally
 		{
 			System.out.println("Closed");
 		}

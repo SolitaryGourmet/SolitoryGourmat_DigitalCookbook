@@ -1,5 +1,17 @@
+#gotoHome_button{
+ 	-fx-background-image: url(home_button.png);
+    -fx-background-size: 50px;
+}
+
+#search{
+	-fx-background-image: url(search.png);
+    -fx-background-size: 80px;
+}
 .button {
     -fx-background-color: FireBrick;
+	-fx-background-radius: 25;  
+	-fx-border-radius: 25;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0.0, 0, 1);  
 }
 .button:hover {
     -fx-background-color: DarkRed;

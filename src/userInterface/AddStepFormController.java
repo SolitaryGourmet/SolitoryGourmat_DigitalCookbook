@@ -3,6 +3,8 @@ package userInterface;
 import java.util.ArrayList;
 
 import businessLayer.Recipe;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -20,6 +22,18 @@ import javafx.scene.text.FontPosture;
 
 public class AddStepFormController
 {
+	@FXML
+	private Button addStep_Button;
+
+	@FXML
+	private VBox vBox;
+
+	@FXML
+	private Button submit_Button;
+
+	@FXML
+	private Button next_Button;
+
 	private Main application;
 	private ArrayList<TextField> bufferStepList = new ArrayList<TextField>();
 	private ArrayList<String> bufferList = new ArrayList<String>();
@@ -28,6 +42,19 @@ public class AddStepFormController
 	private ArrayList<Pane> downPaneList = new ArrayList<Pane>();
 	private String Step = new String();
 	private Recipe recipe = new Recipe();
+	private String flag_source = new String();
+
+	public String getFlag_source()
+	{
+		return flag_source;
+	}
+
+	public void setFlag_source(String flag_source)
+	{
+		this.flag_source = flag_source;
+	}
+
+	
 	
 	public Recipe getRecipe()
 	{
@@ -38,12 +65,6 @@ public class AddStepFormController
 	{
 		this.recipe = recipe;
 	}
-
-	@FXML
-	private Button addStep_Button;
-
-	@FXML
-	private Button submit_Button;
 
 	public String getStep()
 	{
@@ -61,17 +82,25 @@ public class AddStepFormController
 	}
 
 	@FXML
-	private VBox vBox;
-
-	@FXML
-	void submitStep(ActionEvent event)
+	void goToAddCategory(ActionEvent event)
 	{
 		for (int i = 0; i < bufferStepList.size(); i++)
 		{
 			bufferList.add(bufferStepList.get(i).getText());
 		}
 		recipe.setStepList(bufferList);
-		application.stepGoBackToAddRecipeForm(recipe);
+		application.gotoCategory(flag_source, recipe);
+	}
+
+	@FXML
+	void submitStep(ActionEvent event) throws Exception
+	{
+		for (int i = 0; i < bufferStepList.size(); i++)
+		{
+			bufferList.add(bufferStepList.get(i).getText());
+		}
+		recipe.setStepList(bufferList);
+		application.gotoSetIngredient(flag_source,recipe);
 	}
 
 	public void addNewStep() throws Exception
@@ -103,9 +132,12 @@ public class AddStepFormController
 		bufferOrder.add(order);
 
 		TextField stepTextField = new TextField(Step);
+		bufferStepList.add(stepTextField);
+		isNullPromptForString(stepTextField, String.valueOf(bufferStepList.indexOf(stepTextField)+1));
+
 		stepTextField.setMinWidth(500);
 
-		bufferStepList.add(stepTextField);
+		
 
 		Button delete = new Button("delete");
 
@@ -153,9 +185,23 @@ public class AddStepFormController
 			vBox.getChildren().remove(pane);
 			bufferStepList.remove(stepTextField);
 			bufferOrder.remove(order);
+			upPaneList.remove(upPane);
+			downPaneList.remove(downPane);
 			for (int i = 0; i < bufferOrder.size(); i++)
 			{
 				bufferOrder.get(i).setText(String.valueOf(i + 1));
+			}
+			
+			for (int i = 0; i < upPaneList.size(); i++)
+			{
+				upPaneList.get(i).setVisible(true);
+				downPaneList.get(i).setVisible(true);
+			}
+
+			if(upPaneList.size()>0)
+			{
+			upPaneList.get(0).setVisible(false);
+			downPaneList.get(upPaneList.size() - 1).setVisible(false);
 			}
 		});
 
@@ -172,6 +218,26 @@ public class AddStepFormController
 			temp = bufferStepList.get(currentStepIndex + 1).getText();
 			bufferStepList.get(currentStepIndex + 1).setText(bufferStepList.get(currentStepIndex).getText());
 			bufferStepList.get(currentStepIndex).setText(temp);
+		});
+
+	}
+
+	public void isNullPromptForString(TextField tf, String location)
+	{
+		tf.textProperty().addListener(new ChangeListener<String>()
+		{
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+			{
+				// TODO Auto-generated method stub
+				if (tf.getText() == null || tf.getText().length() == 0)
+				{
+					System.out.println("第" + location + "行输入值不能为空！！！");
+				}
+
+			}
+
 		});
 	}
 

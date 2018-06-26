@@ -9,22 +9,22 @@
 
 <AnchorPane fx:id="pane_main" prefHeight="600.0" prefWidth="800.0" stylesheets="@MainInterface.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.MainInterfaceController">
    <children>
-      <Label fx:id="label_title" alignment="TOP_RIGHT" layoutX="118.0" layoutY="54.0" text="Solitary Gourmet" textFill="#a42e2e">
+      <Label fx:id="label_title" alignment="TOP_RIGHT" layoutX="94.0" layoutY="26.0" prefHeight="107.0" prefWidth="613.0" text="Solitary Gourmet" textFill="#a42e2e">
          <font>
-            <Font name="Ebrima Bold" size="70.0" />
+            <Font name="Ebrima Bold" size="75.0" />
          </font>
       </Label>
-      <Button fx:id="button_search" layoutX="147.0" layoutY="526.0" mnemonicParsing="false" onAction="#gotoSearchForm" text="search for recipe" textFill="WHITE">
+      <Button fx:id="button_search" layoutX="147.0" layoutY="510.0" mnemonicParsing="false" onAction="#gotoSearchForm" prefHeight="50.0" prefWidth="185.0" text="search for recipe" textFill="WHITE">
          <font>
-            <Font name="Ebrima" size="20.0" />
+            <Font name="Ebrima Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="button_add" layoutX="489.0" layoutY="526.0" mnemonicParsing="false" onAction="#gotoAddRecipeFrom" text="add new recipe" textFill="WHITE">
+      <Button fx:id="button_add" layoutX="488.0" layoutY="510.0" mnemonicParsing="false" onAction="#gotoAddRecipeFrom" prefHeight="50.0" prefWidth="171.0" text="add new recipe" textFill="WHITE">
          <font>
-            <Font name="Ebrima" size="20.0" />
+            <Font name="Ebrima Bold" size="20.0" />
          </font>
       </Button>
-      <ImageView fitHeight="373.0" fitWidth="590.0" layoutX="132.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="373.0" fitWidth="590.0" layoutX="132.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../software%20engineering%20II/Digital%20cook%20book%20-%20Solitary%20Gourmet/QQ图片20180613104404.jpg" />
          </image>

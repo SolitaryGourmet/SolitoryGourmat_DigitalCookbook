@@ -1,11 +1,16 @@
 package userInterface;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import businessLayer.Category;
 import businessLayer.Ingredient;
 import businessLayer.Recipe;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,13 +20,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.TextField;
-
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
 
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class AddRecipeFormController implements Initializable
@@ -62,38 +69,41 @@ public class AddRecipeFormController implements Initializable
 	private Label label_cookMin;
 
 	@FXML
-	private Label label_addIngredients;
+	private Button button_returnHome;
 
 	@FXML
 	private Button button_addIngredient;
 
 	@FXML
-	private Label label_addSteps;
-
-	@FXML
-	private Button button_addStep;
-
-	@FXML
-	private Label label_addPicture;
-
-	@FXML
-	private Label label_addCategory;
-
-	@FXML
-	private Button button_editPicture;
-
-	@FXML
-	private Button button_editCategory;
-
-	@FXML
-	private Button button_returnHome;
-
-	@FXML
-	private Button button_submitButton;
+	private Button upLoadPicture_Button;
 
 	private ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
 	private ArrayList<String> stepBufferList = new ArrayList<String>();
+	private Category category = new Category();
+	private String flag_source = new String();
+	
+	public String getFlag_source()
+	{
+		return flag_source;
+	}
+
+	public void setFlag_source(String flag_source)
+	{
+		this.flag_source = flag_source;
+	}
+
+	public Category getCategory()
+	{
+		return category;
+	}
+
+	public void setCategory(Category category)
+	{
+		this.category = category;
+	}
+
 	private Recipe recipe = new Recipe();
+	private File photoFile;
 
 	public Recipe getRecipe()
 	{
@@ -103,15 +113,16 @@ public class AddRecipeFormController implements Initializable
 	public void setRecipe(Recipe recipe)
 	{
 		this.recipe = recipe;
-		
+
 	}
-	
-	public void initialRecipeForm(Recipe recipe) 
+
+	public void initialRecipeForm(Recipe recipe)
 	{
 		textField_recipeNameField.setText(recipe.getRecipeName());
 		textField_serveNumField.setText(String.valueOf(recipe.getServeNum()));
 		textField_prepTimeField.setText(String.valueOf(recipe.getPreparationTime()));
 		textField_cookTimeField.setText(String.valueOf(recipe.getCookingTime()));
+
 	}
 
 	public ArrayList<String> getStepBufferList()
@@ -145,6 +156,56 @@ public class AddRecipeFormController implements Initializable
 		application.gotoMainInterface();
 	}
 
+	public void isNullPromptForString(TextField tf, String location)
+	{
+		tf.textProperty().addListener(new ChangeListener<String>()
+		{
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+			{
+				// TODO Auto-generated method stub
+				if (tf.getText() == null || tf.getText().length() == 0)
+				{
+					System.out.println(location + "输入值不能为空！！！");
+				}
+			}
+		});
+	}
+
+	public void inputOnlyNumber(TextField tf)
+	{
+		tf.textProperty().addListener(new ChangeListener<String>()
+		{
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+			{
+				// TODO Auto-generated method stub
+				if (tf.getText().matches("[+-]?[1-9]+[0-9]*(\\.[0-9]+)?"))
+				{
+
+				}
+				else
+				{
+					System.out.println("只能输入数字！！！");
+					// tf.setText("");
+				}
+
+			}
+
+		});
+	}
+
+	public void setPrompt()
+	{
+		this.isNullPromptForString(textField_recipeNameField, "recipeName");
+		this.isNullPromptForString(textField_cookTimeField, "cookTime");
+		this.isNullPromptForString(textField_prepTimeField, "prepTime");
+		this.isNullPromptForString(textField_serveNumField, "serveNum");
+		this.inputOnlyNumber(textField_prepTimeField);
+		this.inputOnlyNumber(textField_cookTimeField);
+		this.inputOnlyNumber(textField_serveNumField);
+	}
+
 	public void addIngredient()
 	{
 		try
@@ -155,7 +216,10 @@ public class AddRecipeFormController implements Initializable
 			recipe.setCookingTime(Integer.valueOf(textField_cookTimeField.getText()));
 			recipe.setIngredientList(ingredientList);
 			recipe.setStepList(stepBufferList);
-			application.gotoSetIngredient(recipe);
+			recipe.setCategory(category);
+			
+			application.gotoSetIngredient(flag_source,recipe);
+			System.out.println(recipe.getPhotoRoute());
 		}
 		catch (Exception e)
 		{
@@ -165,45 +229,63 @@ public class AddRecipeFormController implements Initializable
 
 	}
 
+	// @FXML
+	// public void addStep() throws Exception
+	// {
+	// recipe.setRecipeName(textField_recipeNameField.getText());
+	// recipe.setServeNum(Integer.valueOf(textField_serveNumField.getText()));
+	// recipe.setPreparationTime(Integer.valueOf(textField_prepTimeField.getText()));
+	// recipe.setCookingTime(Integer.valueOf(textField_cookTimeField.getText()));
+	// recipe.setIngredientList(ingredientList);
+	// recipe.setStepList(stepBufferList);
+	// application.gotoEditStep(recipe);
+	// }
+
 	@FXML
-	public void addStep() throws Exception
+	void upLoadPicture(ActionEvent event) throws Exception
 	{
-		recipe.setRecipeName(textField_recipeNameField.getText());
-		recipe.setServeNum(Integer.valueOf(textField_serveNumField.getText()));
-		recipe.setPreparationTime(Integer.valueOf(textField_prepTimeField.getText()));
-		recipe.setCookingTime(Integer.valueOf(textField_cookTimeField.getText()));
-		recipe.setIngredientList(ingredientList);
-		recipe.setStepList(stepBufferList);
-		application.gotoEditStep(recipe);
+		getPhotoRoute();
+		showPhoto();
+		System.out.println(recipe.getPhotoRoute());
 	}
 
-	@FXML
-	public void Submit()
+	/*
+	 * filter FileChoser with only the photo
+	 */
+	private void getPhotoRoute()
 	{
-		try
-		{
-			recipe.setIngredientList(ingredientList);
-			recipe.setStepList(stepBufferList);
-			System.out.println(recipe);
+		FileChooser fc = new FileChooser();
+		fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All images", "*.*"),
+				new FileChooser.ExtensionFilter("JPG", "*.jpg"), new FileChooser.ExtensionFilter("PNG", "*.png"));
+		fc.setTitle("plz select one photo");
+		Stage photoStage = null;
+		photoFile = fc.showOpenDialog(photoStage);
+		recipe.setPhotoRoute(String.valueOf(photoFile.getAbsolutePath()));
+	}
 
-			// 一定需要使用try-catch，不然编译器不会让你过的，Trust me!
-			Parent anotherRoot = FXMLLoader.load(getClass().getResource("Acknowledgement.fxml"));
-			Stage anotherStage = new Stage();
-			anotherStage.setTitle("Another Window Triggered by Clicking");
-			anotherStage.setScene(new Scene(anotherRoot, 600, 329));
-			anotherStage.show();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+	private void showPhoto() throws Exception
+	{
+
+		Pane photoPane = new Pane();
+		FileInputStream fis = new FileInputStream(String.valueOf(recipe.getPhotoRoute()));
+
+		Image image = new Image(fis);
+		ImageView iv = new ImageView(image);
+		iv.setFitWidth(200);
+		iv.setFitHeight(150);
+		photoPane.getChildren().add(iv);
+		Scene scene = new Scene(photoPane, 200, 150);
+		Stage stagePhoto = new Stage();
+		stagePhoto.setTitle("photoPreview");
+		stagePhoto.setScene(scene);
+		stagePhoto.show();
+
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources)
 	{
 
-		
 	}
 
 }

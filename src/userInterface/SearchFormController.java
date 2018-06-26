@@ -40,7 +40,7 @@ public class SearchFormController implements Initializable
 	@FXML
     void searchByCategory(ActionEvent event)
 	{
-		application.gotoCategory();
+		application.gotoCategory("Search Recipe",null);
 	}
 
 	@FXML
@@ -53,7 +53,7 @@ public class SearchFormController implements Initializable
 		{
 			System.out.println(recipeList.get(i).getRecipeName());
 		}
-		application.gotoSearchResult(recipeList);
+		application.gotoSearchResult("Search Name",recipeList,null);
 
 		DataBaseControl.closeConnection();
 	}

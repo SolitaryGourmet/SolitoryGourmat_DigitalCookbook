@@ -2,13 +2,12 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -22,41 +21,44 @@
          <children>
             <ScrollPane prefHeight="600.0" prefWidth="800.0">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="780.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1200.0" prefWidth="780.0">
                      <children>
-                        <VBox prefHeight="1000.0" prefWidth="800.0">
+                        <VBox prefHeight="1200.0" prefWidth="800.0">
                            <children>
-                              <Pane prefHeight="115.0" prefWidth="800.0">
+                              <Pane prefHeight="127.0" prefWidth="800.0">
                                  <children>
-                                    <Label fx:id="recipeNameLabel" contentDisplay="CENTER" layoutX="14.0" layoutY="6.0" prefHeight="88.0" prefWidth="498.0" textAlignment="CENTER" textFill="#a42e2e">
+                                    <Label fx:id="recipeNameLabel" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="115.0" layoutY="6.0" prefHeight="88.0" prefWidth="571.0" textAlignment="CENTER" textFill="#a42e2e">
                                        <font>
-                                          <Font name="Ebrima Bold" size="45.0" />
+                                          <Font name="Ebrima Bold" size="55.0" />
                                        </font>
                                     </Label>
+                                    <Button fx:id="returnToMinWin" layoutX="22.0" layoutY="25.0" mnemonicParsing="false" onAction="#goToMinWin" prefHeight="50.0" prefWidth="50.0" text="return to homepage " textFill="WHITE">
+                                       <font>
+                                          <Font name="Ebrima Bold" size="20.0" />
+                                       </font></Button>
                                  </children>
                               </Pane>
-                              <Pane prefHeight="197.0" prefWidth="800.0">
+                              <Pane prefHeight="255.0" prefWidth="800.0">
                                  <children>
-                                    <HBox prefHeight="197.0" prefWidth="739.0">
+                                    <HBox prefHeight="197.0" prefWidth="800.0">
                                        <children>
-                                          <Pane prefHeight="197.0" prefWidth="492.0">
+                                          <Pane prefHeight="197.0" prefWidth="441.0">
                                              <children>
-                                                <GridPane layoutX="22.0" layoutY="19.0" prefHeight="156.0" prefWidth="444.0">
+                                                <GridPane layoutX="22.0" layoutY="4.0" prefHeight="120.0" prefWidth="382.0">
                                                   <columnConstraints>
                                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="224.0" minWidth="10.0" prefWidth="174.0" />
-                                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="284.0" minWidth="10.0" prefWidth="220.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="0.0" prefWidth="50.0" />
+                                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="284.0" minWidth="10.0" prefWidth="128.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="0.0" prefWidth="87.0" />
                                                   </columnConstraints>
                                                   <rowConstraints>
                                                       <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
                                                     <RowConstraints maxHeight="62.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
                                                     <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
-                                                    <RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
                                                   </rowConstraints>
                                                    <children>
                                                       <Label prefHeight="30.0" prefWidth="183.0" text="serving number :" textAlignment="CENTER" textFill="#a42e2e" wrapText="true">
                                                          <font>
-                                                            <Font name="System Bold" size="19.0" />
+                                                            <Font name="Ebrima Bold" size="19.0" />
                                                          </font>
                                                       </Label>
                                                       <Label prefHeight="25.0" prefWidth="169.0" text="preparation time :" textFill="#a42e2e" GridPane.rowIndex="1">
@@ -69,157 +71,110 @@
                                                             <Font name="System Bold" size="19.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label prefHeight="17.0" prefWidth="153.0" text="category :" textFill="#a42e2e" GridPane.rowIndex="3">
-                                                         <font>
-                                                            <Font name="System Bold" size="19.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                                      <HBox prefHeight="39.0" prefWidth="151.0" GridPane.columnIndex="1">
                                                          <children>
                                                             <Pane prefHeight="42.0" prefWidth="138.0">
                                                                <children>
-                                                                  <TextField fx:id="serveNumTextField" layoutX="7.0" layoutY="6.0" prefHeight="31.0" prefWidth="134.0" promptText="Serve number">
+                                                                  <TextField fx:id="serveNumTextField" layoutX="7.0" layoutY="6.0" prefHeight="31.0" prefWidth="110.0" promptText="Serve number">
                                                                      <font>
                                                                         <Font name="Ebrima" size="14.0" />
                                                                      </font>
                                                                   </TextField>
                                                                </children>
                                                             </Pane>
-                                                            <Pane prefHeight="42.0" prefWidth="145.0">
-                                                               <children>
-                                                                  <Button fx:id="change" layoutX="36.0" layoutY="6.0" mnemonicParsing="false" onAction="#changeServeNum" prefHeight="30.0" prefWidth="68.0" text="change" textFill="WHITE">
-                                                                     <font>
-                                                                        <Font name="Ebrima" size="14.0" />
-                                                                     </font>
-                                                                  </Button>
-                                                               </children>
-                                                            </Pane>
                                                          </children>
                                                       </HBox>
-                                                      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                      <Pane prefHeight="41.0" prefWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                          <children>
-                                                            <Label fx:id="preparationTimeLable" layoutX="14.0" layoutY="6.0" prefHeight="20.0" prefWidth="222.0" text="preparationTime">
+                                                            <Label fx:id="preparationTimeLable" layoutX="8.0" layoutY="6.0" prefHeight="30.0" prefWidth="40.0" text="preparationTime">
                                                                <font>
                                                                   <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <Label layoutX="52.0" layoutY="12.0" text="min" textFill="#a42e2e">
+                                                               <font>
+                                                                  <Font name="Ebrima Bold" size="15.0" />
                                                                </font>
                                                             </Label>
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                          <children>
-                                                            <Label fx:id="cookingTimeLabel" layoutX="14.0" layoutY="6.0" prefHeight="20.0" prefWidth="222.0" text="cookingTime">
+                                                            <Label fx:id="cookingTimeLabel" layoutX="8.0" layoutY="6.0" prefHeight="30.0" prefWidth="40.0" text="cookingTime">
                                                                <font>
                                                                   <Font size="20.0" />
                                                                </font>
                                                             </Label>
-                                                         </children>
-                                                      </Pane>
-                                                      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                                         <children>
-                                                            <Label fx:id="categoryLabel" layoutX="14.0" layoutY="6.0" prefHeight="20.0" prefWidth="222.0" text="Category">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </Pane>
-                                                      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                                         <children>
-                                                            <Label layoutX="14.0" layoutY="11.0" text="min" textFill="#a42e2e">
+                                                            <Label layoutX="52.0" layoutY="12.0" text="min" textFill="#a42e2e">
                                                                <font>
                                                                   <Font name="Ebrima Bold" size="15.0" />
                                                                </font>
                                                             </Label>
                                                          </children>
                                                       </Pane>
-                                                      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                                      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                                      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                                      <Pane prefHeight="42.0" prefWidth="145.0" GridPane.columnIndex="2">
                                                          <children>
-                                                            <Label layoutX="14.0" layoutY="11.0" text="min" textFill="#a42e2e">
+                                                            <Button fx:id="change" layoutX="5.0" layoutY="5.0" mnemonicParsing="false" onAction="#changeServeNum" prefHeight="30.0" prefWidth="68.0" text="change" textFill="WHITE">
                                                                <font>
-                                                                  <Font name="Ebrima Bold" size="15.0" />
+                                                                  <Font name="Ebrima Bold" size="14.0" />
                                                                </font>
-                                                            </Label>
+                                                            </Button>
                                                          </children>
                                                       </Pane>
                                                    </children>
                                                 </GridPane>
+                                                <FlowPane fx:id="flowPane" layoutX="22.0" layoutY="130.0" prefHeight="75.0" prefWidth="404.0" />
                                              </children>
                                           </Pane>
-                                          <Pane prefHeight="200.0" prefWidth="301.0">
-                                             <children>
-                                                <ImageView fx:id="image" fitHeight="232.0" fitWidth="257.0" layoutX="18.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../../../../software%20engineering%20II/Digital%20cook%20book%20-%20Solitary%20Gourmet/food-icons-1.jpg" />
-                                                   </image>
-                                                </ImageView>
-                                             </children>
-                                          </Pane>
+                                          <Pane fx:id="picturePane" prefHeight="197.0" prefWidth="289.0" />
                                        </children>
                                     </HBox>
                                  </children>
                               </Pane>
-                              <Pane prefHeight="247.0" prefWidth="800.0">
+                              <Pane prefHeight="405.0" prefWidth="800.0">
                                  <children>
-                                    <ScrollPane layoutX="22.0" layoutY="29.0" prefHeight="200.0" prefWidth="720.0">
-                                       <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="705.0">
-                                             <children>
-                                                <TextArea fx:id="ingredientTextArea" prefHeight="400.0" prefWidth="705.0">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </TextArea>
-                                             </children>
-                                          </AnchorPane>
-                                       </content>
-                                    </ScrollPane>
                                     <Label layoutX="22.0" layoutY="-1.0" text="ingredients :" textFill="#a42e2e">
                                        <font>
                                           <Font name="Ebrima Bold" size="20.0" />
                                        </font>
                                     </Label>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="358.0" prefWidth="776.0">
+                                       <children>
+                                          <ListView fx:id="ingredientListView" layoutX="23.0" layoutY="35.0" prefHeight="316.0" prefWidth="740.0" />
+                                       </children>
+                                    </AnchorPane>
                                  </children>
                               </Pane>
-                              <Pane prefHeight="359.0" prefWidth="800.0">
+                              <Pane prefHeight="452.0" prefWidth="800.0">
                                  <children>
-                                    <ScrollPane layoutX="23.0" layoutY="51.0" prefHeight="293.0" prefWidth="719.0">
-                                      <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="1500.0">
-                                             <children>
-                                                <TextArea fx:id="discriptionTextArea" prefHeight="1000.0" prefWidth="1500.0">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </TextArea>
-                                             </children>
-                                          </AnchorPane>
-                                      </content>
-                                    </ScrollPane>
                                     <Label layoutX="23.0" layoutY="14.0" text="steps :" textFill="#a42e2e">
                                        <font>
                                           <Font name="Ebrima Bold" size="20.0" />
                                        </font>
                                     </Label>
+                                  <AnchorPane layoutX="-6.0" layoutY="-2.0" minHeight="0.0" minWidth="0.0" prefHeight="411.0" prefWidth="776.0">
+                                       <children>
+                                          <ListView fx:id="stepListView" layoutX="30.0" layoutY="45.0" prefHeight="337.0" prefWidth="740.0" />
+                                       </children>
+                                    </AnchorPane>
                                  </children>
                               </Pane>
-                              <Pane prefHeight="154.0" prefWidth="800.0">
+                              <Pane prefHeight="185.0" prefWidth="800.0">
                                  <children>
-                                    <Button fx:id="delete" layoutX="614.0" layoutY="49.0" mnemonicParsing="false" onAction="#deleteRecipe" prefHeight="44.0" prefWidth="120.0" text="delete" textFill="WHITE">
+                                    <Button fx:id="delete" layoutX="614.0" layoutY="49.0" mnemonicParsing="false" onAction="#deleteRecipe" prefHeight="50.0" prefWidth="120.0" text="delete" textFill="WHITE">
                                        <font>
-                                          <Font name="Ebrima" size="20.0" />
+                                          <Font name="Ebrima Bold" size="20.0" />
                                        </font>
                                     </Button>
-                                    <Button fx:id="backToResultForm" layoutX="274.0" layoutY="49.0" mnemonicParsing="false" onAction="#backToResultForm" prefHeight="44.0" prefWidth="120.0" text="👈" textFill="WHITE">
+                                    <Button fx:id="backToResultForm" layoutX="25.0" layoutY="45.0" mnemonicParsing="false" onAction="#backToResultForm" prefHeight="50.0" prefWidth="50.0" textFill="WHITE">
                                        <font>
                                           <Font name="Ebrima" size="20.0" />
                                        </font></Button>
-                                    <Button fx:id="returnToMinWin" layoutX="25.0" layoutY="49.0" mnemonicParsing="false" onAction="#goToMinWin" text="return to homepage " textFill="WHITE">
+                                    <Button fx:id="edit" layoutX="445.0" layoutY="49.0" mnemonicParsing="false" onAction="#editRecipe" prefHeight="50.0" prefWidth="120.0" text="edit" textFill="WHITE">
                                        <font>
-                                          <Font name="Ebrima" size="20.0" />
-                                       </font></Button>
-                                    <Button fx:id="edit" layoutX="445.0" layoutY="49.0" mnemonicParsing="false" onAction="#editRecipe" prefHeight="44.0" prefWidth="120.0" text="edit" textFill="WHITE">
-                                       <font>
-                                          <Font name="Ebrima" size="20.0" />
+                                          <Font name="Ebrima Bold" size="20.0" />
                                        </font>
                                     </Button>
                                  </children>

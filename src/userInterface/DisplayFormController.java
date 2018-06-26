@@ -1,19 +1,36 @@
 package userInterface;
 
+import java.awt.Color;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import businessLayer.Ingredient;
 import businessLayer.Recipe;
+import businessLayer.RecipeControl;
+import databaseLayer.DataBaseControl;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.stage.Stage;
 
 public class DisplayFormController
 {
@@ -24,7 +41,7 @@ public class DisplayFormController
 	private Label recipeNameLabel;
 
 	@FXML
-	private ImageView image;
+	private Button returnToMinWin;
 
 	@FXML
 	private TextField serveNumTextField;
@@ -38,17 +55,29 @@ public class DisplayFormController
 	@FXML
 	private Label cookingTimeLabel;
 
-	@FXML
-	private Label categoryLabel;
+	// @FXML
+	// private Label categoryLabel;
 
 	@FXML
-	private TextArea ingredientTextArea;
+	private FlowPane flowPane;
 
 	@FXML
-	private TextArea discriptionTextArea;
+	private Pane picturePane;
+
+	private ImageView image;
 
 	@FXML
-	private Button returnToMinWin;
+	private ListView ingredientListView;
+
+	@FXML
+	private ListView stepListView;
+
+	private ObservableList<Ingredient> ingredientList = FXCollections.observableArrayList();
+
+	private ObservableList<String> stepList = FXCollections.observableArrayList();
+
+	@FXML
+	private Button delete;
 
 	@FXML
 	private Button backToResultForm;
@@ -56,33 +85,115 @@ public class DisplayFormController
 	@FXML
 	private Button edit;
 
-	@FXML
-	private Button delete;
+	private ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
+	private String flag_source = new String();
+	private Recipe recipeForBackToCategory = new Recipe();
+
+	public Button getBackToResultForm()
+	{
+		return backToResultForm;
+	}
+
+	public void setBackToResultForm(Button backToResultForm)
+	{
+		this.backToResultForm = backToResultForm;
+	}
+
+	public Recipe getRecipeForBackToCategory()
+	{
+		return recipeForBackToCategory;
+	}
+
+	public void setRecipeForBackToCategory(Recipe recipeForBackToCategory)
+	{
+		this.recipeForBackToCategory = recipeForBackToCategory;
+	}
+
+	public String getFlag_source()
+	{
+		return flag_source;
+	}
+
+	public void setFlag_source(String flag_source)
+	{
+		this.flag_source = flag_source;
+	}
+
+	public ArrayList<Recipe> getRecipeList()
+	{
+		return recipeList;
+	}
+
+	public void setRecipeList(ArrayList<Recipe> recipeList)
+	{
+		this.recipeList = recipeList;
+	}
 
 	@FXML
 	void changeServeNum(ActionEvent event)
 	{
-		recipe=changeServeNum(recipe,  Integer.parseInt(serveNumTextField.getText()));
+		recipe = changeServeNum(recipe, Integer.parseInt(serveNumTextField.getText()));
 		serveNumTextField.setText(Integer.toString(recipe.getServeNum()));
-		ingredientTextArea.setText(recipe.getIngredientList().toString());
+
+		for (int i = 0; i < recipe.getIngredientList().size(); i++)
+		{
+			ingredientListView.getItems().remove(recipe.getIngredientList().get(i));
+		}
+
+		ingredientListView.setItems(ingredientList);
+		for (int i = 0; i < recipe.getIngredientList().size(); i++)
+		{
+			ingredientList.add(i, recipe.getIngredientList().get(i));
+		}
 	}
 
 	@FXML
 	void backToResultForm(ActionEvent event)
 	{
-		//application.gotoSearchResult();
+		application.gotoSearchResult(flag_source, recipeList, recipeForBackToCategory);
 	}
 
 	@FXML
 	void deleteRecipe(ActionEvent event)
 	{
+		FXMLLoader Loader = new FXMLLoader();
+		Loader.setLocation(getClass().getResource("DeleteRecipeConfirm.fxml"));
+		try
+		{
+			Loader.load();
+		}
+		catch (Exception ex)
+		{
+
+		}
+
+		Stage deleteRecipeConfirmStage = new Stage();
+		deleteRecipeConfirmStage.setTitle("Confirm Delete");
+		deleteRecipeConfirmStage.setScene(new Scene(Loader.getRoot()));
+		deleteRecipeConfirmStage.show();
+		DeleteRecipeConfirmController drcc = Loader.getController();
+		drcc.getDelete_Button().setOnAction(e -> {
+			System.out.println("delete");
+
+			DataBaseControl.getConnection();
+			RecipeControl.deleteRecipeFromDataBase(recipe);
+			DataBaseControl.closeConnection();
+
+			deleteRecipeConfirmStage.close();
+			application.gotoMainInterface();
+		});
+
+		drcc.getCancel_Button().setOnAction(e -> {
+			System.out.println("cancel");
+			deleteRecipeConfirmStage.close();
+		});
 
 	}
 
 	@FXML
 	void editRecipe(ActionEvent event)
 	{
-
+		application.gotoAddRecipeForm("Edit Recipe", recipe);
 	}
 
 	@FXML
@@ -100,18 +211,119 @@ public class DisplayFormController
 	{
 		this.recipe = recipe;
 	}
-	
+
 	/**
 	 * initialize all the default value in the DisplayForm
+	 * 
+	 * @throws FileNotFoundException
 	 */
-	public void setDisplayFormView()
+	public void setDisplayFormView() throws FileNotFoundException
 	{
+		// System.out.println(recipe);
+
 		recipeNameLabel.setText(recipe.getRecipeName());
 		serveNumTextField.setText(Integer.toString(recipe.getServeNum()));
 		preparationTimeLable.setText(Integer.toString(recipe.getPreparationTime()));
 		cookingTimeLabel.setText(Integer.toString(recipe.getCookingTime()));
-		ingredientTextArea.setText(recipe.getIngredientList().toString());
-		discriptionTextArea.setText(recipe.getStepList().toString());
+
+		ingredientListView.setItems(ingredientList);
+		for (int i = 0; i < recipe.getIngredientList().size(); i++)
+		{
+			ingredientList.add(recipe.getIngredientList().get(i));
+		}
+
+		stepListView.setItems(stepList);
+		for (int j = 0; j < recipe.getStepList().size(); j++)
+		{
+			stepList.add(recipe.getStepList().get(j));
+		}
+
+		// category display´ýÐÞ¸Ä
+		// categoryLabel.setText(recipe.getCategory().toString());
+
+		// flowPane
+		
+		ArrayList<Label> categoryLabel = new ArrayList<Label>();
+		
+		Label city = new Label(recipe.getCategory().getCity());
+		categoryLabel.add(city);
+		
+		
+		String str = new String();
+		String[] arr;
+		str = recipe.getCategory().getTaste();
+		if (str != null)
+		{
+			arr = str.split("\\s+");
+				for (String ss : arr)
+				{
+					Label temp = new Label(ss);
+					categoryLabel.add(temp);
+				}
+			
+		}
+		
+		str = recipe.getCategory().getMealtime();
+		if (str != null)
+		{
+			arr = str.split("\\s+");
+				for (String ss : arr)
+				{
+					Label temp = new Label(ss);
+					categoryLabel.add(temp);
+				}
+			
+		}
+		
+		
+		
+		if (recipe.getCategory().isVegetarian() == false)
+		{
+			str = recipe.getCategory().getMeat();
+			if (str != null)
+			{
+				arr = str.split("\\s+");
+					for (String ss : arr)
+					{
+						Label temp = new Label(ss);
+						categoryLabel.add(temp);
+					}
+			}
+		}
+		else
+		{
+			Label vege = new Label("vegetarian");
+			categoryLabel.add(vege);
+		}
+
+		for (int i = 0; i < categoryLabel.size(); i++)
+		{
+			categoryLabel.get(i).setPadding(new Insets(2,4,2,4));
+			categoryLabel.get(i).setStyle("-fx-background-color: LightGray;");
+			categoryLabel.get(i).setFont(Font.font("verdana", FontPosture.REGULAR, 18));
+			flowPane.getChildren().add(categoryLabel.get(i));
+		}
+
+		flowPane.setHgap(10);
+		flowPane.setVgap(10);
+
+		
+		
+		if (recipe.getPhotoRoute() != null)
+		{
+			FileInputStream fis = new FileInputStream(recipe.getPhotoRoute());
+			Image picture = new Image(fis);
+			image = new ImageView(picture);
+
+			double width = picture.getWidth();
+			double height = picture.getHeight();
+
+			image.setFitHeight(200);
+			image.setFitWidth(200 * width / height);
+
+			picturePane.getChildren().add(image);
+		}
+
 	}
 
 	public void setApp(Main application)
@@ -120,8 +332,8 @@ public class DisplayFormController
 	}
 
 	/**
-	 * changeServeNum
-	 * create a new Recipe object which represents the changed recipe
+	 * changeServeNum create a new Recipe object which represents the changed recipe
+	 * 
 	 * @param recipe
 	 * @param serveNum
 	 * @return Recipe
@@ -143,5 +355,5 @@ public class DisplayFormController
 		recipe.setIngredientList(ingredientList);
 		return recipe;
 	}
-	
+
 }

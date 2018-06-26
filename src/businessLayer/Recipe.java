@@ -16,7 +16,7 @@ public class Recipe implements Serializable
 	private int serveNum;
 	private int cookingTime;
 	private int preparationTime;
-	private Image picture;// use url to read the path??????
+	private String photoRoute;
 	private ArrayList<Ingredient> ingredientList;
 	private ArrayList<String> stepList;
 	private Category category;
@@ -74,16 +74,6 @@ public class Recipe implements Serializable
 		this.preparationTime = preparationTime;
 	}
 
-	public Image getPicture()
-	{
-		return picture;
-	}
-
-	public void setPicture(Image picture)
-	{
-		this.picture = picture;
-	}
-
 	public ArrayList<Ingredient> getIngredientList()
 	{
 		return ingredientList;
@@ -124,6 +114,13 @@ public class Recipe implements Serializable
 		this.category = category;
 	}
 
+	public String getPhotoRoute(){
+		return photoRoute;
+	}
+	
+	public void setPhotoRoute(String photoRoute){
+		this.photoRoute = photoRoute;
+	}
 	
 	
 	/**
@@ -141,7 +138,7 @@ public class Recipe implements Serializable
 		recipeId = 0;
 		cookingTime = 0;
 		preparationTime = 0;
-		picture = null;
+		photoRoute = null;
 		ingredientList = new ArrayList<Ingredient>();
 		stepList = new ArrayList<String>();
 	}
@@ -161,7 +158,7 @@ public class Recipe implements Serializable
 
 	public void addPreparationStep(String step)
 	{
-		this.stepList.add("\n" + step);
+		this.stepList.add(step);
 	}
 
 

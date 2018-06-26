@@ -5,7 +5,6 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -13,149 +12,193 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@Category.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.CategoryController">
    <children>
-      <Pane fx:id="pane_category" prefHeight="476.0" prefWidth="833.0">
+      <VBox prefHeight="600.0" prefWidth="800.0">
          <children>
-            <VBox fx:id="vbox1" prefHeight="476.0" prefWidth="800.0">
+            <Pane prefHeight="100.0" prefWidth="800.0">
                <children>
-                  <Pane fx:id="pane_taste" prefHeight="113.0" prefWidth="800.0">
-                     <children>
-                        <Label fx:id="label_taste" layoutX="14.0" layoutY="8.0" text="▪ taste" textFill="#a42e2e">
-                           <font>
-                              <Font name="Ebrima Bold" size="20.0" />
-                           </font></Label>
-                        <CheckBox fx:id="Sweet" graphicTextGap="0.0" layoutX="14.0" layoutY="50.0" mnemonicParsing="false" onAction="#searchByCategory" text="sweet">
-                           <font>
-                              <Font name="Ebrima" size="15.0" />
-                           </font></CheckBox>
-                        <CheckBox fx:id="Sour" layoutX="144.0" layoutY="50.0" mnemonicParsing="false" onAction="#setFlavor" text="sour">
-                           <font>
-                              <Font name="Ebrima" size="15.0" />
-                           </font></CheckBox>
-                        <CheckBox fx:id="Spicy" layoutX="268.0" layoutY="50.0" mnemonicParsing="false" onAction="#setFlavor" text="spicy">
-                           <font>
-                              <Font name="Ebrima" size="15.0" />
-                           </font></CheckBox>
-                        <CheckBox fx:id="Salty" layoutX="393.0" layoutY="50.0" mnemonicParsing="false" onAction="#setFlavor" text="salty">
-                           <font>
-                              <Font name="Ebrima" size="15.0" />
-                           </font></CheckBox>
-                        <CheckBox fx:id="Light" layoutX="517.0" layoutY="50.0" mnemonicParsing="false" onAction="#setFlavor" text="light">
-                           <font>
-                              <Font name="Ebrima" size="15.0" />
-                           </font></CheckBox>
-                        <Separator layoutX="-1.0" layoutY="99.0" prefHeight="3.0" prefWidth="800.0" />
-                     </children>
-                  </Pane>
-                  <Pane fx:id="pane_city" prefHeight="114.0" prefWidth="800.0">
-                     <children>
-                        <Label fx:id="label_city" layoutX="14.0" layoutY="8.0" text="▪ city" textFill="#a42e2e">
-                           <font>
-                              <Font name="Ebrima Bold" size="20.0" />
-                           </font></Label>
-                        <RadioButton fx:id="Sichuan" layoutX="14.0" layoutY="55.0" mnemonicParsing="false" onAction="#setCity" text="Sichuan">
-                           <font>
-                              <Font name="Ebrima" size="15.0" />
-                           </font></RadioButton>
-                        <RadioButton fx:id="Hunan" layoutX="142.0" layoutY="55.0" mnemonicParsing="false" onAction="#setCity" text="Hunan">
-                           <font>
-                              <Font name="Ebrima" size="15.0" />
-                           </font></RadioButton>
-                        <RadioButton fx:id="Shanghai" layoutX="266.0" layoutY="55.0" mnemonicParsing="false" onAction="#setCity" prefHeight="20.0" prefWidth="94.0" text="Shanghai">
-                           <font>
-                              <Font name="Ebrima" size="15.0" />
-                           </font></RadioButton>
-                        <RadioButton fx:id="Beijing" layoutX="399.0" layoutY="55.0" mnemonicParsing="false" onAction="#setCity" text="Beijing">
-                           <font>
-                              <Font name="Ebrima" size="15.0" />
-                           </font></RadioButton>
-                        <RadioButton fx:id="Guangdong" layoutX="521.0" layoutY="55.0" mnemonicParsing="false" onAction="#setCity" text="Guangdong">
-                           <font>
-                              <Font name="Ebrima" size="15.0" />
-                           </font></RadioButton>
-                        <RadioButton fx:id="Other" layoutX="657.0" layoutY="55.0" mnemonicParsing="false" onAction="#setCity" text="Other">
-                           <font>
-                              <Font name="Ebrima" size="15.0" />
-                           </font></RadioButton>
-                        <Separator layoutX="-1.0" layoutY="103.0" prefHeight="0.0" prefWidth="800.0" />
-                     </children>
-                  </Pane>
-                  <Pane fx:id="pane_mealtime" prefHeight="105.0" prefWidth="800.0">
-                     <children>
-                        <Label fx:id="label_mealtime" layoutX="14.0" layoutY="1.0" text="▪ mealtime" textFill="#a42e2e">
-                           <font>
-                              <Font name="Ebrima Bold" size="20.0" />
-                           </font></Label>
-                        <CheckBox fx:id="Breakfast" layoutX="14.0" layoutY="47.0" mnemonicParsing="false" onAction="#setMealTime" text="breakfast">
-                           <font>
-                              <Font name="Ebrima" size="15.0" />
-                           </font></CheckBox>
-                        <CheckBox fx:id="Lunch" layoutX="146.0" layoutY="47.0" mnemonicParsing="false" onAction="#setMealTime" text="lunch">
-                           <font>
-                              <Font name="Ebrima" size="15.0" />
-                           </font></CheckBox>
-                        <CheckBox fx:id="Supper" layoutX="269.0" layoutY="47.0" mnemonicParsing="false" onAction="#setMealTime" text="supper">
-                           <font>
-                              <Font name="Ebrima" size="15.0" />
-                           </font></CheckBox>
-                        <Separator layoutX="3.0" layoutY="90.0" prefHeight="3.0" prefWidth="800.0" />
-                     </children>
-                  </Pane>
-                  <Pane fx:id="pane_meet" prefHeight="138.0" prefWidth="800.0">
-                     <children>
-                        <Label fx:id="label_meet" layoutX="12.0" layoutY="1.0" text="▪ meat" textFill="#a42e2e">
-                           <font>
-                              <Font name="Ebrima Bold" size="20.0" />
-                           </font>
-                        </Label>
-                        <CheckBox fx:id="Pork" layoutX="13.0" layoutY="45.0" mnemonicParsing="false" onAction="#setMeat" text="pork">
-                           <font>
-                              <Font name="Ebrima" size="15.0" />
-                           </font>
-                        </CheckBox>
-                        <CheckBox fx:id="Chicken" layoutX="144.0" layoutY="45.0" mnemonicParsing="false" onAction="#setMeat" text="chicken">
-                           <font>
-                              <Font name="Ebrima" size="15.0" />
-                           </font>
-                        </CheckBox>
-                        <CheckBox fx:id="Lamb" layoutX="269.0" layoutY="45.0" mnemonicParsing="false" onAction="#setMeat" text="lamb">
-                           <font>
-                              <Font name="Ebrima" size="15.0" />
-                           </font>
-                        </CheckBox>
-                        <RadioButton fx:id="Vegetarian" layoutX="12.0" layoutY="94.0" mnemonicParsing="false" onAction="#setVegetarian" text="vegetarian">
-                           <font>
-                              <Font name="Ebrima" size="15.0" />
-                           </font>
-                        </RadioButton>
-                        <CheckBox fx:id="Beef" layoutX="400.0" layoutY="45.0" mnemonicParsing="false" onAction="#setMeat" text="beef">
-                           <font>
-                              <Font name="Ebrima" size="15.0" />
-                           </font>
-                        </CheckBox>
-                        <CheckBox fx:id="Fish" layoutX="519.0" layoutY="45.0" mnemonicParsing="false" onAction="#setMeat" text="fish">
-                           <font>
-                              <Font name="Ebrima" size="15.0" />
-                           </font>
-                        </CheckBox>
-                        <Separator layoutX="3.0" layoutY="137.0" prefHeight="3.0" prefWidth="800.0" />
-                     </children>
-                  </Pane>
+                  <Label fx:id="mainTitle_Label" layoutX="30.0" layoutY="20.0" prefHeight="65.0" prefWidth="498.0" text="Step 4 Add category">
+                     <font>
+                        <Font name="Comic Sans MS" size="40.0" />
+                     </font>
+                  </Label>
                </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </VBox>
+            </Pane>
+            <Pane fx:id="pane_category" prefHeight="400.0" prefWidth="800.0">
+               <children>
+                  <VBox fx:id="vbox1" prefHeight="476.0" prefWidth="800.0">
+                     <children>
+                        <Pane fx:id="pane_taste" prefHeight="80.0" prefWidth="800.0">
+                           <children>
+                              <Label fx:id="label_taste" layoutX="14.0" layoutY="14.0" text="▪ taste" textFill="#a42e2e">
+                                 <font>
+                                    <Font name="Ebrima Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <CheckBox fx:id="Sweet" graphicTextGap="0.0" layoutX="14.0" layoutY="50.0" mnemonicParsing="false" onAction="#setFlavor" text="sweet">
+                                 <font>
+                                    <Font name="Ebrima" size="15.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="Sour" layoutX="144.0" layoutY="50.0" mnemonicParsing="false" onAction="#setFlavor" text="sour">
+                                 <font>
+                                    <Font name="Ebrima" size="15.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="Spicy" layoutX="268.0" layoutY="50.0" mnemonicParsing="false" onAction="#setFlavor" text="spicy">
+                                 <font>
+                                    <Font name="Ebrima" size="15.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="Salty" layoutX="393.0" layoutY="50.0" mnemonicParsing="false" onAction="#setFlavor" text="salty">
+                                 <font>
+                                    <Font name="Ebrima" size="15.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="Light" layoutX="517.0" layoutY="50.0" mnemonicParsing="false" onAction="#setFlavor" text="light">
+                                 <font>
+                                    <Font name="Ebrima" size="15.0" />
+                                 </font>
+                              </CheckBox>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="pane_city" prefHeight="80.0" prefWidth="800.0">
+                           <children>
+                              <Label fx:id="label_city" layoutX="14.0" layoutY="14.0" text="▪ city" textFill="#a42e2e">
+                                 <font>
+                                    <Font name="Ebrima Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <RadioButton fx:id="Sichuan" layoutX="14.0" layoutY="55.0" mnemonicParsing="false" onAction="#setCity" text="Sichuan">
+                                 <font>
+                                    <Font name="Ebrima" size="15.0" />
+                                 </font>
+                              </RadioButton>
+                              <RadioButton fx:id="Hunan" layoutX="142.0" layoutY="55.0" mnemonicParsing="false" onAction="#setCity" text="Hunan">
+                                 <font>
+                                    <Font name="Ebrima" size="15.0" />
+                                 </font>
+                              </RadioButton>
+                              <RadioButton fx:id="Shanghai" layoutX="266.0" layoutY="55.0" mnemonicParsing="false" onAction="#setCity" prefHeight="20.0" prefWidth="94.0" text="Shanghai">
+                                 <font>
+                                    <Font name="Ebrima" size="15.0" />
+                                 </font>
+                              </RadioButton>
+                              <RadioButton fx:id="Beijing" layoutX="399.0" layoutY="55.0" mnemonicParsing="false" onAction="#setCity" text="Beijing">
+                                 <font>
+                                    <Font name="Ebrima" size="15.0" />
+                                 </font>
+                              </RadioButton>
+                              <RadioButton fx:id="Guangdong" layoutX="521.0" layoutY="55.0" mnemonicParsing="false" onAction="#setCity" text="Guangdong">
+                                 <font>
+                                    <Font name="Ebrima" size="15.0" />
+                                 </font>
+                              </RadioButton>
+                              <RadioButton fx:id="Other" layoutX="657.0" layoutY="55.0" mnemonicParsing="false" onAction="#setCity" text="Other">
+                                 <font>
+                                    <Font name="Ebrima" size="15.0" />
+                                 </font>
+                              </RadioButton>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="pane_mealtime" prefHeight="80.0" prefWidth="800.0">
+                           <children>
+                              <Label fx:id="label_mealtime" layoutX="14.0" layoutY="14.0" text="▪ mealtime" textFill="#a42e2e">
+                                 <font>
+                                    <Font name="Ebrima Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <CheckBox fx:id="Breakfast" layoutX="14.0" layoutY="47.0" mnemonicParsing="false" onAction="#setMealTime" text="breakfast">
+                                 <font>
+                                    <Font name="Ebrima" size="15.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="Lunch" layoutX="146.0" layoutY="47.0" mnemonicParsing="false" onAction="#setMealTime" text="lunch">
+                                 <font>
+                                    <Font name="Ebrima" size="15.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="Supper" layoutX="269.0" layoutY="47.0" mnemonicParsing="false" onAction="#setMealTime" text="supper">
+                                 <font>
+                                    <Font name="Ebrima" size="15.0" />
+                                 </font>
+                              </CheckBox>
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="80.0" prefWidth="800.0">
+                           <children>
+                              <Label fx:id="label_vegetarian" layoutX="14.0" layoutY="1.0" text="▪ vegetarian" textFill="#a42e2e">
+                                 <font>
+                                    <Font name="Ebrima Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <RadioButton fx:id="VegeTrue" layoutX="14.0" layoutY="40.0" mnemonicParsing="false" onAction="#setVegetarian" text="Yes">
+                                 <font>
+                                    <Font name="Ebrima" size="15.0" />
+                                 </font>
+                              </RadioButton>
+                              <RadioButton fx:id="VegeFalse" layoutX="145.0" layoutY="40.0" mnemonicParsing="false" onAction="#setVegetarian" text="No">
+                                 <font>
+                                    <Font name="Ebrima" size="15.0" />
+                                 </font>
+                              </RadioButton>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="pane_meet" prefHeight="80.0" prefWidth="800.0">
+                           <children>
+                              <Label fx:id="label_meet" layoutX="12.0" layoutY="1.0" text="▪ meat" textFill="#a42e2e">
+                                 <font>
+                                    <Font name="Ebrima Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <CheckBox fx:id="Pork" layoutX="13.0" layoutY="35.0" mnemonicParsing="false" onAction="#setMeat" text="pork">
+                                 <font>
+                                    <Font name="Ebrima" size="15.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="Chicken" layoutX="146.0" layoutY="35.0" mnemonicParsing="false" onAction="#setMeat" text="chicken">
+                                 <font>
+                                    <Font name="Ebrima" size="15.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="Lamb" layoutX="269.0" layoutY="35.0" mnemonicParsing="false" onAction="#setMeat" text="lamb">
+                                 <font>
+                                    <Font name="Ebrima" size="15.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="Beef" layoutX="400.0" layoutY="35.0" mnemonicParsing="false" onAction="#setMeat" text="beef">
+                                 <font>
+                                    <Font name="Ebrima" size="15.0" />
+                                 </font>
+                              </CheckBox>
+                              <CheckBox fx:id="Fish" layoutX="518.0" layoutY="35.0" mnemonicParsing="false" onAction="#setMeat" text="fish">
+                                 <font>
+                                    <Font name="Ebrima" size="15.0" />
+                                 </font>
+                              </CheckBox>
+                           </children>
+                        </Pane>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </VBox>
+               </children>
+            </Pane>
+            <Pane prefHeight="100.0" prefWidth="800.0">
+               <children>
+                  <Button fx:id="NextStep_Button" layoutX="582.0" layoutY="28.0" mnemonicParsing="false" onAction="#Submit" prefHeight="44.0" prefWidth="139.0" text="Submit" textFill="WHITE">
+                     <font>
+                        <Font name="Ebrima" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="63.0" layoutY="28.0" mnemonicParsing="false" onAction="#backtoPreviousForm" prefHeight="44.0" prefWidth="139.0" text="👈" textFill="WHITE">
+                     <font>
+                        <Font name="Ebrima" size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
          </children>
-      </Pane>
-      <Button fx:id="Search" layoutX="516.0" layoutY="504.0" mnemonicParsing="false" onAction="#SerachtoResult" onMouseClicked="#Serach" prefHeight="44.0" prefWidth="139.0" text="search" textFill="WHITE">
-         <font>
-            <Font name="Ebrima" size="20.0" />
-         </font>
-      </Button>
-      <Button layoutX="160.0" layoutY="504.0" mnemonicParsing="false" onAction="#backtoSearchForm" prefHeight="44.0" prefWidth="139.0" text="👈" textFill="WHITE">
-         <font>
-            <Font name="Ebrima" size="20.0" />
-         </font>
-      </Button>
+      </VBox>
    </children>
 </AnchorPane>

@@ -14,6 +14,7 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -30,6 +31,7 @@ public class Main extends Application
 		{
 			stage = primaryStage;
 			stage.setTitle("Digital Cookbook");
+			stage.getIcons().add(new Image(getClass().getResourceAsStream("Logo.png")));
 			stage.setMinWidth(800);
 			stage.setMinHeight(600);
 			gotoMainInterface();
@@ -46,7 +48,7 @@ public class Main extends Application
 	 * 
 	 * @param recipe
 	 */
-	public void goToDisplayForm(Recipe recipe)
+	public void goToDisplayForm(Recipe recipe, ArrayList<Recipe> recipeList,String flag_source,Recipe recipeForBackToCategory)
 	{
 		try
 		{
@@ -54,6 +56,14 @@ public class Main extends Application
 			dc.setApp(this);
 			dc.setRecipe(recipe);
 			dc.setDisplayFormView();
+			dc.setRecipeList(recipeList);
+			dc.setFlag_source(flag_source);
+			dc.setRecipeForBackToCategory(recipeForBackToCategory);
+			
+			if(flag_source.equals("Add recipe"))
+			{
+				dc.getBackToResultForm().setVisible(false);
+			}
 
 		}
 		catch (Exception ex)
@@ -80,34 +90,29 @@ public class Main extends Application
 	/**
 	 * go to search by category window
 	 */
-	public void gotoCategory()
+	public void gotoCategory(String flag_source,Recipe recipe)
 	{
 		try
 		{
 			CategoryController cc = replaceSceneContent("Category.fxml");
 			cc.setApp(this);
+			cc.setFlag_source(flag_source);
+			cc.setRecipe(recipe);
+			if(recipe!=null)
+			{
+				cc.setCategoryForm(recipe);
+				System.out.println("setcate");
+			}
+			if(flag_source.equals("Search Recipe"))
+			{
+				cc.getMainTitle_Label().setText("Search by category");
+				cc.getNextStep_Button().setText("Search");
+			}
 		}
 		catch (Exception ex)
 		{
 			Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 		}
-
-		// FXMLLoader Loader = new FXMLLoader();
-		// Loader.setLocation(getClass().getResource("Category.fxml"));
-		// try
-		// {
-		// Loader.load();
-		// }
-		// catch (Exception ex)
-		// {
-		// Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-		// }
-		// CategoryController cc = Loader.getController();
-		// cc.setApp(this);
-		// Scene scene = new Scene(Loader.getRoot());
-		// scene.getStylesheets().add(getClass().getResource("Category.css").toExternalForm());
-		// stage.setScene(scene);
-
 	}
 
 	/**
@@ -129,12 +134,25 @@ public class Main extends Application
 	/**
 	 * go to add recipe window
 	 */
-	public void gotoAddRecipeForm()
+	public void gotoAddRecipeForm(String flag_source,Recipe recipe)
 	{
 		try
 		{
 			AddRecipeFormController arfc = replaceSceneContent("AddRecipeForm.fxml");
 			arfc.setApp(this);
+			arfc.setFlag_source(flag_source);
+			if(flag_source.equals("Edit Recipe"))
+			{
+				arfc.setRecipe(recipe);
+				arfc.initialRecipeForm(recipe);
+				arfc.setIngredientList(recipe.getIngredientList());
+				arfc.setStepBufferList(recipe.getStepList());
+				arfc.setCategory(recipe.getCategory());
+			}
+		
+			
+				arfc.setPrompt();
+			
 		}
 		catch (Exception ex)
 		{
@@ -142,12 +160,13 @@ public class Main extends Application
 		}
 	}
 
-	public void gotoEditStep(Recipe recipe) throws Exception
+	public void gotoEditStep(String flag_source,Recipe recipe) throws Exception
 	{
 		// currentStage.close();
 		AddStepFormController asfc = replaceSceneContent("AddStepForm.fxml");
 		asfc.setApp(this);
 		asfc.setRecipe(recipe);
+		asfc.setFlag_source(flag_source);
 		for (int i = 0; i < recipe.getStepList().size(); i++)
 		{
 			asfc.setStep(recipe.getStepList().get(i));
@@ -156,24 +175,26 @@ public class Main extends Application
 		asfc.setStep(new String());
 	}
 
-	public void gotoSetIngredient(Recipe recipe) throws Exception
+	public void gotoSetIngredient(String flag_source,Recipe recipe) throws Exception
 	{
 		AddIngredientFormController aifc = replaceSceneContent("AddIngredientForm.fxml");
 		aifc.setApp(this);
 		aifc.setRecipe(recipe);
+		aifc.setFlag_source(flag_source);
 		for (int i = 0; i < recipe.getIngredientList().size(); i++)
 		{
 			aifc.setIngredient(recipe.getIngredientList().get(i));
 			aifc.addNewIngredient();
 		}
 		aifc.setIngredient(new Ingredient());
+
 	}
 
 	/**
 	 * after adding ingredients in add recipe form, go back to the add recipe form
 	 * and transmit ingredient list
 	 */
-	public void goBackToAddRecipeForm(Recipe recipe)
+	public void goBackToAddRecipeForm(String flag_source,Recipe recipe)
 	{
 		try
 		{
@@ -181,8 +202,10 @@ public class Main extends Application
 			arfc.setApp(this);
 			arfc.setIngredientList(recipe.getIngredientList());
 			arfc.setStepBufferList(recipe.getStepList());
+			arfc.setCategory(recipe.getCategory());
 			arfc.setRecipe(recipe);
 			arfc.initialRecipeForm(recipe);
+			arfc.setFlag_source(flag_source);
 		}
 		catch (Exception ex)
 		{
@@ -190,23 +213,23 @@ public class Main extends Application
 		}
 	}
 
-	public void stepGoBackToAddRecipeForm(Recipe recipe)
-	{
-		try
-		{
-			AddRecipeFormController arfc = replaceSceneContent("AddRecipeForm.fxml");
-			arfc.setApp(this);
-			arfc.setIngredientList(recipe.getIngredientList());
-			arfc.setStepBufferList(recipe.getStepList());
-			arfc.setRecipe(recipe);
-			arfc.initialRecipeForm(recipe);
-		}
-		catch (Exception e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	public void stepGoBackToAddRecipeForm(Recipe recipe)
+//	{
+//		try
+//		{
+//			AddRecipeFormController arfc = replaceSceneContent("AddRecipeForm.fxml");
+//			arfc.setApp(this);
+//			arfc.setIngredientList(recipe.getIngredientList());
+//			arfc.setStepBufferList(recipe.getStepList());
+//			arfc.setRecipe(recipe);
+//			arfc.initialRecipeForm(recipe);
+//		}
+//		catch (Exception e)
+//		{
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * go to search window including search by name and search by category button
@@ -227,14 +250,16 @@ public class Main extends Application
 	/**
 	 * go to search result window which includes list of recipes
 	 */
-	public void gotoSearchResult(ArrayList<Recipe> recipeList)
+	public void gotoSearchResult(String flag_source,ArrayList<Recipe> recipeList,Recipe recipeForBackToCategory)
 	{
 		try
 		{
 			SearchResultFromController srfc = replaceSceneContent("SearchResultFrom.fxml");
-			srfc.RequestFromSearch();
 			srfc.setApp(this);
 			srfc.setSearchResultView(recipeList);
+			srfc.setRecipeList(recipeList);
+			srfc.setFlag_source(flag_source);
+			srfc.setRecipeForBackToCategory(recipeForBackToCategory);
 		}
 		catch (Exception ex)
 		{

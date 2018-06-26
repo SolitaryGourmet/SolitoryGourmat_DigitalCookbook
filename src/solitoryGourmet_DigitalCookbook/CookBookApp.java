@@ -55,8 +55,8 @@ public class CookBookApp
 		recipe.addPreparationStep("Garnish with remaining scallions.");
 
 		//additional task: add category 
-		recipe.setCategory(new Category("Sichuan", "salty", "lunch, dinner", "chicken", false));
-		
+		recipe.setCategory(new Category("Sichuan", "salty ", "lunch dinner ", "chicken ", false));
+		recipe.setPhotoRoute("E:\\College\\Courseware\\software engineering II\\Digital cook book - Solitary Gourmet\\food-icons-1.jpg");
 		
 		recipe.setPreparationTime(30);
 		recipe.setCookingTime(10);
@@ -97,8 +97,8 @@ public class CookBookApp
 		recipe.setCookingTime(100);
 
 		//additional task: add category 
-		recipe.setCategory(new Category("Hunan", "sour", "lunch, dinner", "pork", false));
-		
+		recipe.setCategory(new Category("Hunan", "sour ", "lunch dinner ", "pork ", false));
+		recipe.setPhotoRoute("E:\\College\\Courseware\\software engineering II\\Digital cook book - Solitary Gourmet\\food-icons-1.jpg");
 		return recipe;
 	}
 
@@ -143,7 +143,8 @@ public class CookBookApp
 		recipe.setCookingTime(5);
 
 		//additional task: add category 
-		recipe.setCategory(new Category("Sichuan", "spicy, salty", "lunch", "no meat", false));
+		recipe.setCategory(new Category("Sichuan", "spicy salty ", "lunch ", null, true));
+		recipe.setPhotoRoute("E:\\College\\Courseware\\software engineering II\\Digital cook book - Solitary Gourmet\\food-icons-1.jpg");
 		return recipe;
 	}
 
@@ -159,9 +160,9 @@ public class CookBookApp
 		
 		CookBook cb = new CookBook("Chinese Cuisine");
 
-		//cb.add(createGongBaoJiding());
-		//cb.add(createHongShaoRou());
-		//cb.add(createSuanLaFen());
+//		cb.add(createGongBaoJiding());
+//		cb.add(createHongShaoRou());
+//		cb.add(createSuanLaFen());
 
 		Recipe recipe = cb.getRecipe("Gong Bao Jiding");
 		if (recipe != null)
@@ -177,15 +178,17 @@ public class CookBookApp
 		*/
 		
 		//ArrayList<Recipe> recipeTemp = SearchControl.searchName("R");
-		ArrayList<Recipe> recipeTemp = DataBaseControl.searchByCategory(new Category(null, "salty", null, null, false));
-		
-		for(int i = 0;i<recipeTemp.size();i++)
-		{
-			Recipe r = recipeTemp.get(i);
-			System.out.println(r);
-		}
-		//DataBaseControl.deleteRecipe(DataBaseControl.searchById(10));
-		
+//		ArrayList<Recipe> recipeTemp = DataBaseControl.searchByCategory(new Category(null, null, "dinner",null, false));
+//		
+//		for(int i = 0;i<recipeTemp.size();i++)
+//		{
+//			Recipe r = recipeTemp.get(i);
+//			System.out.println(r);
+//		}
+//		for(int i =30 ;i<42;i++)
+//		{
+//		DataBaseControl.deleteRecipe(DataBaseControl.searchById(i));
+//		}
 		DataBaseControl.closeConnection();
 	}
 }

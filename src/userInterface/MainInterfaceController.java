@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import businessLayer.Recipe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +20,7 @@ import javafx.stage.Stage;
 public class MainInterfaceController implements Initializable
 {
 	private Main application;
-
+	
 	public void setApp(Main application)
 	{
 		this.application = application;
@@ -28,8 +29,7 @@ public class MainInterfaceController implements Initializable
 	@FXML
 	public void gotoAddRecipeFrom()
 	{
-
-		application.gotoAddRecipeForm();
+		application.gotoAddRecipeForm("Add Recipe",new Recipe());
 	}
 
 	@FXML

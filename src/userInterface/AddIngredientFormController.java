@@ -10,6 +10,8 @@ import javax.tools.DocumentationTool.Location;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
 import businessLayer.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,6 +45,9 @@ public class AddIngredientFormController implements Initializable
 	@FXML
 	private Button ingredientSubmit;
 
+	@FXML
+	private Button next_Button;
+
 	private Main application;
 	public Boolean deteleFlag = false;
 	ArrayList<Ingredient> bufferList = new ArrayList<Ingredient>();
@@ -53,7 +58,18 @@ public class AddIngredientFormController implements Initializable
 
 	private Ingredient ingredient = new Ingredient();
 	private Recipe recipe = new Recipe();
-	
+	private String flag_source = new String();
+
+	public String getFlag_source()
+	{
+		return flag_source;
+	}
+
+	public void setFlag_source(String flag_source)
+	{
+		this.flag_source = flag_source;
+	}
+
 	public Recipe getRecipe()
 	{
 		return recipe;
@@ -79,11 +95,22 @@ public class AddIngredientFormController implements Initializable
 		this.application = application;
 	}
 
-	public void initialForm()
+	@FXML
+	void goToAddStep(ActionEvent event) throws Exception
 	{
-		
+		for (int i = 0; i < nameList.size(); i++)
+		{
+			Ingredient temp = new Ingredient();
+			temp.setIngredientName(nameList.get(i).getText());
+			temp.setIngredientAmount(Double.valueOf(amountList.get(i).getText()));
+			temp.setUnit(unitList.get(i).getText());
+			temp.setDescription(descriptionList.get(i).getText());
+			bufferList.add(temp);
+		}
+		recipe.setIngredientList(bufferList);
+		application.gotoEditStep(flag_source,recipe);
 	}
-	
+
 	@FXML
 	void ingredientSubmit(ActionEvent event)
 	{
@@ -97,28 +124,33 @@ public class AddIngredientFormController implements Initializable
 			bufferList.add(temp);
 		}
 		recipe.setIngredientList(bufferList);
-		application.goBackToAddRecipeForm(recipe);
+		application.goBackToAddRecipeForm(flag_source,recipe);
 	}
 
 	public void addNewIngredient() throws Exception
 	{
-		
+
 		Pane pane = new Pane();
 		HBox hBox = new HBox();
 		VBox vBox_item = new VBox();
 		HBox descripH = new HBox();
-		
+
 		Label nameLable = new Label("Name");
 		TextField nameTextField = new TextField(ingredient.getIngredientName());
+		isNullPromptForString(nameTextField, "nameTextField");
 
 		Label amountLable = new Label("Amount");
 		TextField ammountTextField = new TextField(String.valueOf(ingredient.getIngredientAmount()));
+		isNullPromptForString(ammountTextField, "amountField");
+		inputOnlyNumber(ammountTextField);
 
 		Label unitLable = new Label("Unit");
 		TextField unitTextField = new TextField(ingredient.getUnit());
+		isNullPromptForString(unitTextField, "unitField");
 
 		Label description = new Label("Description");
 		TextField descriptionTextField = new TextField(ingredient.getDescription());
+		isNullPromptForString(descriptionTextField, "descriptionField");
 
 		Button delete = new Button("delete");
 
@@ -166,6 +198,49 @@ public class AddIngredientFormController implements Initializable
 			descriptionList.remove(descriptionTextField);
 		});
 
+	}
+
+	public void isNullPromptForString(TextField tf, String location)
+	{
+		tf.textProperty().addListener(new ChangeListener<String>()
+		{
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+			{
+				// TODO Auto-generated method stub
+				if (tf.getText() == null || tf.getText().length() == 0)
+				{
+					System.out.println(location + "输入值不能为空！！！");
+				}
+
+			}
+
+		});
+	}
+
+	public void inputOnlyNumber(TextField tf)
+	{
+		tf.textProperty().addListener(new ChangeListener<String>()
+		{
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+			{
+				// TODO Auto-generated method stub
+				if (tf.getText().matches("[+-]?[1-9]+[0-9]*(\\.[0-9]+)?"))
+				{
+
+				}
+				else
+				{
+					System.out.println("只能输入数字！！！");
+					// tf.setText("");
+				}
+
+			}
+
+		});
 	}
 
 	public void Init() throws IOException

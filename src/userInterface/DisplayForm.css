@@ -1,6 +1,27 @@
+#backToResultForm{
+	-fx-background-image: url(back_button.png);
+    -fx-background-size: 50px;
+}
+
+#returnToMinWin{
+ 	-fx-background-image: url(home_button.png);
+    -fx-background-size: 50px;
+}
+
 .button {
     -fx-background-color: FireBrick;
+	-fx-background-radius: 25;  
+	-fx-border-radius: 25;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0.0, 0, 1);  
 }
+
 .button:hover {
     -fx-background-color: DarkRed;
 }
+
+.list-cell{  
+    -fx-text-fill: #000000;  
+    -fx-font-family: Ebrima;  
+    -fx-pref-height: 25px;  
+}
+

@@ -8,23 +8,23 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@SearchForm.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.SearchFormController">
    <children>
-      <Pane prefHeight="600.0" prefWidth="800.0">
+      <Pane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;">
          <children>
-            <TextField fx:id="textField" layoutX="187.0" layoutY="176.0" prefHeight="44.0" prefWidth="260.0" promptText="Recipe name">
+            <TextField fx:id="textField" layoutX="149.0" layoutY="309.0" prefHeight="59.0" prefWidth="430.0" promptText="Recipe name">
                <font>
-                  <Font name="Ebrima" size="20.0" />
+                  <Font name="Ebrima" size="26.0" />
                </font></TextField>
-            <Button fx:id="search" layoutX="467.0" layoutY="176.0" mnemonicParsing="false" onAction="#searchByName" prefHeight="44.0" prefWidth="92.0" text="search" textFill="WHITE">
+            <Button fx:id="search" layoutX="595.0" layoutY="301.0" mnemonicParsing="false" onAction="#searchByName" prefHeight="76.0" prefWidth="76.0" textFill="WHITE">
                <font>
-                  <Font name="Ebrima" size="20.0" />
+                  <Font name="Ebrima Bold" size="20.0" />
                </font></Button>
-            <Button layoutX="187.0" layoutY="256.0" mnemonicParsing="false" onAction="#searchByCategory" prefHeight="44.0" prefWidth="372.0" text="search by category" textFill="WHITE">
+            <Button layoutX="104.0" layoutY="17.0" mnemonicParsing="false" onAction="#searchByCategory" prefHeight="50.0" prefWidth="167.0" text="Category" textFill="WHITE">
                <font>
-                  <Font name="Ebrima" size="20.0" />
+                  <Font name="Ebrima Bold" size="24.0" />
                </font></Button>
-            <Button layoutX="187.0" layoutY="330.0" mnemonicParsing="false" onAction="#gotoHome" prefHeight="44.0" prefWidth="372.0" text="return to homepage" textFill="WHITE">
+            <Button fx:id="gotoHome_button" layoutX="23.0" layoutY="17.0" mnemonicParsing="false" onAction="#gotoHome" prefHeight="50.0" prefWidth="50.0" textFill="WHITE">
                <font>
-                  <Font name="Ebrima" size="20.0" />
+                  <Font name="Ebrima Bold" size="20.0" />
                </font></Button>
          </children>
       </Pane>

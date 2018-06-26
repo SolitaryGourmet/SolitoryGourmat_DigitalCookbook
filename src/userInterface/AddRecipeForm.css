@@ -1,7 +1,8 @@
-#back{
-	-fx-background-image: url(back_button.png);
+#button_returnHome{
+	-fx-background-image: url(home_button.png);
     -fx-background-size: 50px;
 }
+
 
 .button {
     -fx-background-color: FireBrick;
