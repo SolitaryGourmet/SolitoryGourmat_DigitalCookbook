@@ -141,6 +141,7 @@ public class Main extends Application
 			AddRecipeFormController arfc = replaceSceneContent("AddRecipeForm.fxml");
 			arfc.setApp(this);
 			arfc.setFlag_source(flag_source);
+			arfc.initalNext_flag();
 			if(flag_source.equals("Edit Recipe"))
 			{
 				arfc.setRecipe(recipe);
@@ -149,10 +150,7 @@ public class Main extends Application
 				arfc.setStepBufferList(recipe.getStepList());
 				arfc.setCategory(recipe.getCategory());
 			}
-		
-			
 				arfc.setPrompt();
-			
 		}
 		catch (Exception ex)
 		{
@@ -206,6 +204,8 @@ public class Main extends Application
 			arfc.setRecipe(recipe);
 			arfc.initialRecipeForm(recipe);
 			arfc.setFlag_source(flag_source);
+			arfc.initalNext_flag();
+			arfc.setPrompt();
 		}
 		catch (Exception ex)
 		{

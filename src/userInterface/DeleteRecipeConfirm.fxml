@@ -6,25 +6,30 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.DeleteRecipeConfirmController">
+<AnchorPane stylesheets="@DeleteRecipeConfirm.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.DeleteRecipeConfirmController">
    <children>
-      <Pane prefHeight="200.0" prefWidth="373.0">
+      <Pane prefHeight="250.0" prefWidth="400.0">
          <children>
-            <Label layoutX="21.0" layoutY="54.0" text="Are you sure to delete this recipe?">
+            <Label layoutX="51.0" layoutY="20.0" prefHeight="68.0" prefWidth="299.0" text="Are you sure to delete" textFill="#a42e2e">
                <font>
-                  <Font size="22.0" />
+                  <Font name="Ebrima" size="30.0" />
                </font>
             </Label>
-            <Button fx:id="delete_Button" layoutX="57.0" layoutY="121.0" mnemonicParsing="false" text="Delete recipe">
+            <Button fx:id="delete_Button" layoutX="78.0" layoutY="152.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="96.0" text="delete" textFill="WHITE">
                <font>
-                  <Font size="18.0" />
+                  <Font name="Ebrima Bold" size="20.0" />
                </font>
             </Button>
-            <Button fx:id="cancel_Button" layoutX="219.0" layoutY="121.0" mnemonicParsing="false" text="Cancel">
+            <Button fx:id="cancel_Button" layoutX="230.0" layoutY="152.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="90.0" text="cancel" textFill="WHITE">
                <font>
-                  <Font size="18.0" />
+                  <Font name="Ebrima Bold" size="20.0" />
                </font>
             </Button>
+            <Label layoutX="126.0" layoutY="80.0" text="this recipe?" textFill="#a42e2e">
+               <font>
+                  <Font name="Ebrima" size="30.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

@@ -8,8 +8,6 @@ import java.util.Set;
 
 import businessLayer.Category;
 import businessLayer.Recipe;
-import businessLayer.RecipeControl;
-import businessLayer.SearchControl;
 import databaseLayer.DataBaseControl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -352,7 +351,6 @@ public class CategoryController implements Initializable
 				flavourCategory.add(flavour.get(i).getText());
 			}
 		}
-		// System.out.println(flavourCategory);
 	}
 
 	@FXML
@@ -482,7 +480,7 @@ public class CategoryController implements Initializable
 				application.gotoMainInterface();
 				System.out.println("Add Recipe");
 				DataBaseControl.getConnection();
-				RecipeControl.addRecipeToDataBase(recipe);
+				DataBaseControl.insertRecipe(recipe);
 				DataBaseControl.closeConnection();
 
 				FXMLLoader Loader = new FXMLLoader();
@@ -499,6 +497,7 @@ public class CategoryController implements Initializable
 				Stage submitRecipeConfirmStage = new Stage();
 				submitRecipeConfirmStage.setTitle("Confirm submit");
 				submitRecipeConfirmStage.setScene(new Scene(Loader.getRoot()));
+				submitRecipeConfirmStage.getIcons().add(new Image(getClass().getResourceAsStream("Logo.png")));
 				submitRecipeConfirmStage.show();
 				AcknowledgementController ac = Loader.getController();
 				ac.getCancel_Button().setOnAction(e -> {
@@ -521,7 +520,7 @@ public class CategoryController implements Initializable
 			System.out.println("Search by category");
 			DataBaseControl.getConnection();
 			ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
-			recipeList = SearchControl.searchCategory(category);
+			recipeList = DataBaseControl.searchByCategory(category);
 			for (int i = 0; i < recipeList.size(); i++)
 			{
 				System.out.println(recipeList.get(i).getRecipeName());
@@ -554,6 +553,7 @@ public class CategoryController implements Initializable
 			Stage submitRecipeConfirmStage = new Stage();
 			submitRecipeConfirmStage.setTitle("Confirm submit");
 			submitRecipeConfirmStage.setScene(new Scene(Loader.getRoot()));
+			submitRecipeConfirmStage.getIcons().add(new Image(getClass().getResourceAsStream("Logo.png")));
 			submitRecipeConfirmStage.show();
 			AcknowledgementController ac = Loader.getController();
 			ac.getCancel_Button().setOnAction(e -> {

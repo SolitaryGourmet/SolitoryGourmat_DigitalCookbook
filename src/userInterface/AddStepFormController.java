@@ -37,6 +37,7 @@ public class AddStepFormController
 	private Main application;
 	private ArrayList<TextField> bufferStepList = new ArrayList<TextField>();
 	private ArrayList<String> bufferList = new ArrayList<String>();
+	private ArrayList<Label> aknList = new ArrayList<Label>();
 	private ArrayList<Label> bufferOrder = new ArrayList<Label>();
 	private ArrayList<Pane> upPaneList = new ArrayList<Pane>();
 	private ArrayList<Pane> downPaneList = new ArrayList<Pane>();
@@ -54,8 +55,6 @@ public class AddStepFormController
 		this.flag_source = flag_source;
 	}
 
-	
-	
 	public Recipe getRecipe()
 	{
 		return recipe;
@@ -84,12 +83,38 @@ public class AddStepFormController
 	@FXML
 	void goToAddCategory(ActionEvent event)
 	{
+		boolean[] nextFlag = new boolean[100];
+		boolean next = true;
 		for (int i = 0; i < bufferStepList.size(); i++)
 		{
-			bufferList.add(bufferStepList.get(i).getText());
+			if (bufferStepList.get(i).getText() == null || bufferStepList.get(i).getLength() == 0)
+			{
+				aknList.get(i).setText("            This line cannot be empty!");
+				nextFlag[i] = false;
+			}
+			else
+			{
+				nextFlag[i] = true;
+			}
 		}
-		recipe.setStepList(bufferList);
-		application.gotoCategory(flag_source, recipe);
+
+		for (int i = 0; i < bufferStepList.size(); i++)
+		{
+			next = nextFlag[i] && next;
+		}
+
+		if (next == true&&bufferStepList.size()>0)
+		{
+			for (int i = 0; i < bufferStepList.size(); i++)
+			{
+				// isNullPromptForString(bufferStepList.get(i),
+				// String.valueOf(bufferStepList.indexOf(bufferStepList.get(i))+1),
+				// aknList.get(i));
+				bufferList.add(bufferStepList.get(i).getText());
+			}
+			recipe.setStepList(bufferList);
+			application.gotoCategory(flag_source, recipe);
+		}
 	}
 
 	@FXML
@@ -97,34 +122,48 @@ public class AddStepFormController
 	{
 		for (int i = 0; i < bufferStepList.size(); i++)
 		{
+			// isNullPromptForString(bufferStepList.get(i),
+			// String.valueOf(bufferStepList.indexOf(bufferStepList.get(i))+1),
+			// aknList.get(i));
 			bufferList.add(bufferStepList.get(i).getText());
 		}
 		recipe.setStepList(bufferList);
-		application.gotoSetIngredient(flag_source,recipe);
+		application.gotoSetIngredient(flag_source, recipe);
 	}
 
 	public void addNewStep() throws Exception
 	{
 		Pane pane = new Pane();
 		HBox hBox = new HBox();
+		VBox vBox_item = new VBox();
 		Pane orderPane = new Pane();
 		Pane stepPane = new Pane();
 		Pane deletePane = new Pane();
-
 		Pane upPane = new Pane();
 		Pane downPane = new Pane();
+
+		Pane aknPane = new Pane();
+		Label akn = new Label();
+		akn.setFont(Font.font("Ebrima", FontPosture.ITALIC, 12));
+		akn.setStyle("-fx-text-fill: #a42e2e");
+		aknList.add(akn);
+		aknPane.getChildren().add(akn);
+		aknPane.setMinHeight(15);
+		aknPane.setMinWidth(750);
 
 		upPaneList.add(upPane);
 		downPaneList.add(downPane);
 
 		Button up = new Button("up");
 		Button down = new Button("down");
-		up.setFont(Font.font("verdana", FontPosture.REGULAR, 14));
+		up.setFont(Font.font("Ebrima", 12));
 		up.setMinHeight(20);
 		up.setMinWidth(40);
-		down.setFont(Font.font("verdana", FontPosture.REGULAR, 14));
+		up.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5");
+		down.setFont(Font.font("Ebrima", 12));
 		down.setMinHeight(20);
 		down.setMinWidth(40);
+		down.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5");
 		upPane.getChildren().add(up);
 		downPane.getChildren().add(down);// 这些是添加上下按钮的
 
@@ -133,18 +172,16 @@ public class AddStepFormController
 
 		TextField stepTextField = new TextField(Step);
 		bufferStepList.add(stepTextField);
-		isNullPromptForString(stepTextField, String.valueOf(bufferStepList.indexOf(stepTextField)+1));
+		isNullPromptForString(stepTextField, String.valueOf(bufferStepList.indexOf(stepTextField) + 1), akn);
 
-		stepTextField.setMinWidth(500);
-
-		
+		stepTextField.setMinWidth(550);
 
 		Button delete = new Button("delete");
 
 		DropShadow shadow = new DropShadow();
 		order.setFont(Font.font("verdana", FontPosture.REGULAR, 18));
 		order.setTextFill(Color.BROWN);
-		delete.setFont(Font.font("verdana", FontPosture.REGULAR, 14));
+		delete.setFont(Font.font("Ebrima", 12));
 		delete.setMinHeight(20);
 		delete.setMinWidth(40);
 		delete.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
@@ -153,18 +190,18 @@ public class AddStepFormController
 		delete.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
 			delete.setEffect(null);
 		});
-		delete.setStyle("-fx-background-color: LightGray; -fx-text-fill: brown;");
+		delete.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5");
 
 		orderPane.getChildren().add(order);
 		stepPane.getChildren().add(stepTextField);
 		deletePane.getChildren().add(delete);
 
 		hBox.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;" + "-fx-border-width: 2;"
-				+ "-fx-border-insets: 5;" + "-fx-border-radius: 5;" + "-fx-border-color: brown;");
+				+ "-fx-border-insets: 5;" + "-fx-border-radius: 5;" + "-fx-border-color: FireBrick;");
 		hBox.setPadding(new Insets(10, 10, 10, 10));
 		hBox.setMinHeight(40);
-		hBox.setMinWidth(785);
-		hBox.setSpacing(18);
+		hBox.setMinWidth(750);
+		hBox.setSpacing(15);
 		hBox.getChildren().addAll(orderPane, stepPane, deletePane, upPane, downPane);
 
 		for (int i = 0; i < upPaneList.size(); i++)
@@ -176,9 +213,10 @@ public class AddStepFormController
 		upPaneList.get(0).setVisible(false);
 		downPaneList.get(upPaneList.size() - 1).setVisible(false);
 
-		pane.getChildren().add(hBox);
+		vBox_item.getChildren().addAll(hBox, aknPane);
+		pane.getChildren().add(vBox_item);
 		vBox.getChildren().add(pane);
-		pane.setMinWidth(785);
+		pane.setMinWidth(750);
 		pane.setStyle("-fx-background-color: BEIGE;");
 
 		delete.setOnAction(ex -> {
@@ -191,17 +229,17 @@ public class AddStepFormController
 			{
 				bufferOrder.get(i).setText(String.valueOf(i + 1));
 			}
-			
+
 			for (int i = 0; i < upPaneList.size(); i++)
 			{
 				upPaneList.get(i).setVisible(true);
 				downPaneList.get(i).setVisible(true);
 			}
 
-			if(upPaneList.size()>0)
+			if (upPaneList.size() > 0)
 			{
-			upPaneList.get(0).setVisible(false);
-			downPaneList.get(upPaneList.size() - 1).setVisible(false);
+				upPaneList.get(0).setVisible(false);
+				downPaneList.get(upPaneList.size() - 1).setVisible(false);
 			}
 		});
 
@@ -222,7 +260,7 @@ public class AddStepFormController
 
 	}
 
-	public void isNullPromptForString(TextField tf, String location)
+	public void isNullPromptForString(TextField tf, String location, Label l)
 	{
 		tf.textProperty().addListener(new ChangeListener<String>()
 		{
@@ -233,7 +271,12 @@ public class AddStepFormController
 				// TODO Auto-generated method stub
 				if (tf.getText() == null || tf.getText().length() == 0)
 				{
-					System.out.println("第" + location + "行输入值不能为空！！！");
+					l.setText("            This line cannot be empty!");
+					// System.out.println("第" + location + "行输入值不能为空！！！");
+				}
+				else
+				{
+					l.setText("");
 				}
 
 			}

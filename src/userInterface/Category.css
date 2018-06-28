@@ -1,4 +1,8 @@
-#back{
+.background{
+	-fx-background-color: beige;
+}
+
+#back_to_step3{
 	-fx-background-image: url(back_button.png);
     -fx-background-size: 50px;
 }

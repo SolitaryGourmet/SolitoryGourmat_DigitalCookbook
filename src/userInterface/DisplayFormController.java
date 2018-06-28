@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 
 import businessLayer.Ingredient;
 import businessLayer.Recipe;
-import businessLayer.RecipeControl;
 import databaseLayer.DataBaseControl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -170,17 +169,43 @@ public class DisplayFormController
 		Stage deleteRecipeConfirmStage = new Stage();
 		deleteRecipeConfirmStage.setTitle("Confirm Delete");
 		deleteRecipeConfirmStage.setScene(new Scene(Loader.getRoot()));
+		deleteRecipeConfirmStage.getIcons().add(new Image(getClass().getResourceAsStream("Logo.png")));
 		deleteRecipeConfirmStage.show();
 		DeleteRecipeConfirmController drcc = Loader.getController();
 		drcc.getDelete_Button().setOnAction(e -> {
 			System.out.println("delete");
 
 			DataBaseControl.getConnection();
-			RecipeControl.deleteRecipeFromDataBase(recipe);
+			DataBaseControl.deleteRecipe(recipe);
 			DataBaseControl.closeConnection();
 
 			deleteRecipeConfirmStage.close();
+			
 			application.gotoMainInterface();
+			
+			FXMLLoader root = new FXMLLoader();
+			root.setLocation(getClass().getResource("SuccessDelete.fxml"));
+			try
+			{
+				root.load();
+			}
+			catch (Exception ex)
+			{
+
+			}
+
+			Stage successDeleteStage = new Stage();
+			successDeleteStage.setTitle("Confirm Delete");
+			successDeleteStage.setScene(new Scene(root.getRoot()));
+			successDeleteStage.getIcons().add(new Image(getClass().getResourceAsStream("Logo.png")));
+			successDeleteStage.show();
+			
+			SuccessDeleteController sdc = root.getController();
+			sdc.getOk_Button().setOnAction(ex -> {
+				successDeleteStage.close();
+			});
+			
+			
 		});
 
 		drcc.getCancel_Button().setOnAction(e -> {
@@ -238,56 +263,51 @@ public class DisplayFormController
 			stepList.add(recipe.getStepList().get(j));
 		}
 
-		// category display´ýÐÞ¸Ä
-		// categoryLabel.setText(recipe.getCategory().toString());
-
-		// flowPane
-		
 		ArrayList<Label> categoryLabel = new ArrayList<Label>();
-		
+
 		Label city = new Label(recipe.getCategory().getCity());
-		categoryLabel.add(city);
-		
-		
+		if (city.getText() != null)
+		{
+			categoryLabel.add(city);
+		}
+
 		String str = new String();
 		String[] arr;
 		str = recipe.getCategory().getTaste();
 		if (str != null)
 		{
 			arr = str.split("\\s+");
-				for (String ss : arr)
-				{
-					Label temp = new Label(ss);
-					categoryLabel.add(temp);
-				}
-			
+			for (String ss : arr)
+			{
+				Label temp = new Label(ss);
+				categoryLabel.add(temp);
+			}
+
 		}
-		
+
 		str = recipe.getCategory().getMealtime();
 		if (str != null)
 		{
 			arr = str.split("\\s+");
-				for (String ss : arr)
-				{
-					Label temp = new Label(ss);
-					categoryLabel.add(temp);
-				}
-			
+			for (String ss : arr)
+			{
+				Label temp = new Label(ss);
+				categoryLabel.add(temp);
+			}
+
 		}
-		
-		
-		
+
 		if (recipe.getCategory().isVegetarian() == false)
 		{
 			str = recipe.getCategory().getMeat();
 			if (str != null)
 			{
 				arr = str.split("\\s+");
-					for (String ss : arr)
-					{
-						Label temp = new Label(ss);
-						categoryLabel.add(temp);
-					}
+				for (String ss : arr)
+				{
+					Label temp = new Label(ss);
+					categoryLabel.add(temp);
+				}
 			}
 		}
 		else
@@ -298,7 +318,7 @@ public class DisplayFormController
 
 		for (int i = 0; i < categoryLabel.size(); i++)
 		{
-			categoryLabel.get(i).setPadding(new Insets(2,4,2,4));
+			categoryLabel.get(i).setPadding(new Insets(2, 4, 2, 4));
 			categoryLabel.get(i).setStyle("-fx-background-color: LightGray;");
 			categoryLabel.get(i).setFont(Font.font("verdana", FontPosture.REGULAR, 18));
 			flowPane.getChildren().add(categoryLabel.get(i));
@@ -307,8 +327,6 @@ public class DisplayFormController
 		flowPane.setHgap(10);
 		flowPane.setVgap(10);
 
-		
-		
 		if (recipe.getPhotoRoute() != null)
 		{
 			FileInputStream fis = new FileInputStream(recipe.getPhotoRoute());

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import businessLayer.Ingredient;
 import businessLayer.Recipe;
-import businessLayer.RecipeControl;
+import databaseLayer.DataBaseControl;
 
 public class CookBook implements Serializable
 {
@@ -26,7 +26,7 @@ public class CookBook implements Serializable
 
 	public void add(Recipe recipe)
 	{
-		RecipeControl.addRecipeToDataBase(recipe);
+		DataBaseControl.insertRecipe(recipe);
 	}
 
 	public Recipe getRecipe(String recipeName)

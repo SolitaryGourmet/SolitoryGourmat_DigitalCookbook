@@ -3,9 +3,7 @@ package userInterface;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import businessLayer.Recipe;
-import businessLayer.SearchControl;
 import databaseLayer.DataBaseControl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,7 +46,7 @@ public class SearchFormController implements Initializable
 	{
 		DataBaseControl.getConnection();
 		ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
-		recipeList = SearchControl.searchName(textField.getText());
+		recipeList = DataBaseControl.searchByName(textField.getText());
 		for (int i = 0; i < recipeList.size(); i++)
 		{
 			System.out.println(recipeList.get(i).getRecipeName());

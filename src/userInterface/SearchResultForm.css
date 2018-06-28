@@ -1,4 +1,11 @@
+.background{
+	-fx-background-color: beige;
+}
 
+#back{
+	-fx-background-image: url(back_button.png);
+    -fx-background-size: 50px;
+}
 .button {
     -fx-background-color: FireBrick;
 	-fx-background-radius: 25;  

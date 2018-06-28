@@ -2,12 +2,6 @@
 	-fx-background-color: beige;
 }
 
-#button_returnHome{
-	-fx-background-image: url(home_button.png);
-    -fx-background-size: 50px;
-}
-
-
 .button {
     -fx-background-color: FireBrick;
 	-fx-background-radius: 25;  

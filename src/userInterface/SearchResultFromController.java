@@ -1,7 +1,6 @@
 package userInterface;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -17,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -30,6 +30,7 @@ public class SearchResultFromController implements Initializable
 	private ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
 	private String flag_source = new String();
 	private Recipe recipeForBackToCategory = new Recipe();
+
 	public Recipe getRecipeForBackToCategory()
 	{
 		return recipeForBackToCategory;
@@ -62,8 +63,7 @@ public class SearchResultFromController implements Initializable
 	{
 		this.recipeList = recipeList;
 	}
-	
-	
+
 	public void setApp(Main application)
 	{
 		this.application = application;
@@ -76,10 +76,11 @@ public class SearchResultFromController implements Initializable
 		{
 			Pane pane = new Pane();
 			HBox hbox = new HBox();
+			GridPane gridPane = new GridPane();
 			Pane imagePane = new Pane();
 			Pane labelPane = new Pane();
 			Pane buttonPane = new Pane();
-			Button display = new Button("Display recipes");
+			Button display = new Button("display");
 
 			if (recipeList.get(i).getPhotoRoute() != null)
 			{
@@ -95,10 +96,10 @@ public class SearchResultFromController implements Initializable
 			Label recipeNameLabel = new Label(recipeList.get(i).getRecipeName());
 			DropShadow shadow = new DropShadow();
 
-			recipeNameLabel.setFont(Font.font("verdana", FontPosture.REGULAR, 22));
+			recipeNameLabel.setFont(Font.font("Ebrima", FontPosture.REGULAR, 22));
 			recipeNameLabel.setTextFill(Color.BROWN);
 
-			display.setFont(Font.font("verdana", FontPosture.REGULAR, 18));
+			display.setFont(Font.font("Ebrima", FontPosture.REGULAR, 18));
 			display.setMinHeight(40);
 			display.setMinWidth(80);
 			display.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent e) -> {
@@ -107,17 +108,23 @@ public class SearchResultFromController implements Initializable
 			display.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent e) -> {
 				display.setEffect(null);
 			});
-			display.setStyle("-fx-background-color: LightGray; -fx-text-fill: brown;");
+			display.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14pt; -fx-padding: 5");
 			labelPane.getChildren().add(recipeNameLabel);
 			buttonPane.getChildren().add(display);
-			hbox.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;" + "-fx-border-width: 2;"
-					+ "-fx-border-insets: 5;" + "-fx-border-radius: 5;" + "-fx-border-color: brown;");
 			hbox.setPadding(new Insets(10, 10, 10, 10));
-			hbox.setMinHeight(80);
-			hbox.setMinWidth(785);
+			hbox.setMinHeight(60);
+			hbox.setMinWidth(600);
 			hbox.setSpacing(120);
-			hbox.getChildren().addAll(imagePane, labelPane, buttonPane);
-			pane.getChildren().add(hbox);
+			hbox.getChildren().addAll(imagePane, labelPane);
+			gridPane.setMinHeight(80);
+			gridPane.setMinWidth(785);
+			gridPane.setHgap(50);
+			gridPane.setVgap(50);
+			gridPane.add(hbox, 0, 0);
+			gridPane.add(buttonPane, 1, 0);
+			gridPane.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;" + "-fx-border-width: 2;"
+					+ "-fx-border-insets: 5;" + "-fx-border-radius: 5;" + "-fx-border-color: FireBrick;");
+			pane.getChildren().add(gridPane);
 			vbox.getChildren().add(pane);
 
 			pane.setMinWidth(785);
@@ -125,20 +132,19 @@ public class SearchResultFromController implements Initializable
 
 			Recipe r = recipeList.get(i);
 			display.setOnAction(ex -> {
-				application.goToDisplayForm(r,recipeList,flag_source,recipeForBackToCategory);
+				application.goToDisplayForm(r, recipeList, flag_source, recipeForBackToCategory);
 			});
 		}
 	}
 
-
 	@FXML
 	public void BacktoFormer()
 	{
-		if(flag_source.equals("Search Category"))
+		if (flag_source.equals("Search Category"))
 		{
 			application.gotoCategory("Search Recipe", recipeForBackToCategory);
 		}
-		else if(flag_source.equals("Search Name"))
+		else if (flag_source.equals("Search Name"))
 		{
 			application.gotoSearchForm();
 		}

@@ -1,7 +1,17 @@
-#back{
+.background{
+	-fx-background-color: beige;
+}
+
+#ingredientSubmit{
 	-fx-background-image: url(back_button.png);
     -fx-background-size: 50px;
 }
+
+#addIngredient_Button{
+	-fx-background-image: url(add.png);
+    -fx-background-size: 50px;
+}
+
 .button {
     -fx-background-color: FireBrick;
 	-fx-background-radius: 25;  
