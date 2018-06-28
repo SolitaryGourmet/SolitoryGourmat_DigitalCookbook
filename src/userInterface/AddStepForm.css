@@ -1,5 +1,9 @@
-.background{
-	-fx-background-color: beige;
+#bg{
+	-fx-background-color: white;
+}
+
+#vBox{
+	-fx-background-color: Beige;
 }
 
 #submit_Button{

@@ -4,25 +4,20 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import businessLayer.Ingredient;
 import businessLayer.Recipe;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.stage.Stage;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 public class Main extends Application
 {
 	private Stage stage;
-	private Stage currentStage = new Stage();
 
 	@Override
 	public void start(Stage primaryStage)
@@ -48,7 +43,8 @@ public class Main extends Application
 	 * 
 	 * @param recipe
 	 */
-	public void goToDisplayForm(Recipe recipe, ArrayList<Recipe> recipeList,String flag_source,Recipe recipeForBackToCategory)
+	public void goToDisplayForm(Recipe recipe, ArrayList<Recipe> recipeList, String flag_source,
+			Recipe recipeForBackToCategory)
 	{
 		try
 		{
@@ -59,8 +55,8 @@ public class Main extends Application
 			dc.setRecipeList(recipeList);
 			dc.setFlag_source(flag_source);
 			dc.setRecipeForBackToCategory(recipeForBackToCategory);
-			
-			if(flag_source.equals("Add recipe"))
+
+			if (flag_source.equals("Add recipe"))
 			{
 				dc.getBackToResultForm().setVisible(false);
 			}
@@ -70,27 +66,12 @@ public class Main extends Application
 		{
 			Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 		}
-
-		// FXMLLoader Loader = new FXMLLoader();
-		// Loader.setLocation(getClass().getResource("DisplayForm.fxml"));
-		// try
-		// {
-		// Loader.load();
-		// }
-		// catch (Exception ex)
-		// {
-		// Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-		// }
-		// DisplayFormController dc = Loader.getController();
-		//
-		// stage.setScene(new Scene(Loader.getRoot()));
-
 	}
 
 	/**
 	 * go to search by category window
 	 */
-	public void gotoCategory(String flag_source,Recipe recipe)
+	public void gotoCategory(String flag_source, Recipe recipe)
 	{
 		try
 		{
@@ -98,12 +79,12 @@ public class Main extends Application
 			cc.setApp(this);
 			cc.setFlag_source(flag_source);
 			cc.setRecipe(recipe);
-			if(recipe!=null)
+			if (recipe != null)
 			{
 				cc.setCategoryForm(recipe);
 				System.out.println("setcate");
 			}
-			if(flag_source.equals("Search Recipe"))
+			if (flag_source.equals("Search Recipe"))
 			{
 				cc.getMainTitle_Label().setText("Search by category");
 				cc.getNextStep_Button().setText("Search");
@@ -134,7 +115,7 @@ public class Main extends Application
 	/**
 	 * go to add recipe window
 	 */
-	public void gotoAddRecipeForm(String flag_source,Recipe recipe)
+	public void gotoAddRecipeForm(String flag_source, Recipe recipe)
 	{
 		try
 		{
@@ -142,7 +123,7 @@ public class Main extends Application
 			arfc.setApp(this);
 			arfc.setFlag_source(flag_source);
 			arfc.initalNext_flag();
-			if(flag_source.equals("Edit Recipe"))
+			if (flag_source.equals("Edit Recipe"))
 			{
 				arfc.setRecipe(recipe);
 				arfc.initialRecipeForm(recipe);
@@ -150,7 +131,7 @@ public class Main extends Application
 				arfc.setStepBufferList(recipe.getStepList());
 				arfc.setCategory(recipe.getCategory());
 			}
-				arfc.setPrompt();
+			arfc.setPrompt();
 		}
 		catch (Exception ex)
 		{
@@ -158,7 +139,7 @@ public class Main extends Application
 		}
 	}
 
-	public void gotoEditStep(String flag_source,Recipe recipe) throws Exception
+	public void gotoEditStep(String flag_source, Recipe recipe) throws Exception
 	{
 		// currentStage.close();
 		AddStepFormController asfc = replaceSceneContent("AddStepForm.fxml");
@@ -173,7 +154,7 @@ public class Main extends Application
 		asfc.setStep(new String());
 	}
 
-	public void gotoSetIngredient(String flag_source,Recipe recipe) throws Exception
+	public void gotoSetIngredient(String flag_source, Recipe recipe) throws Exception
 	{
 		AddIngredientFormController aifc = replaceSceneContent("AddIngredientForm.fxml");
 		aifc.setApp(this);
@@ -192,7 +173,7 @@ public class Main extends Application
 	 * after adding ingredients in add recipe form, go back to the add recipe form
 	 * and transmit ingredient list
 	 */
-	public void goBackToAddRecipeForm(String flag_source,Recipe recipe)
+	public void goBackToAddRecipeForm(String flag_source, Recipe recipe)
 	{
 		try
 		{
@@ -213,24 +194,6 @@ public class Main extends Application
 		}
 	}
 
-//	public void stepGoBackToAddRecipeForm(Recipe recipe)
-//	{
-//		try
-//		{
-//			AddRecipeFormController arfc = replaceSceneContent("AddRecipeForm.fxml");
-//			arfc.setApp(this);
-//			arfc.setIngredientList(recipe.getIngredientList());
-//			arfc.setStepBufferList(recipe.getStepList());
-//			arfc.setRecipe(recipe);
-//			arfc.initialRecipeForm(recipe);
-//		}
-//		catch (Exception e)
-//		{
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-
 	/**
 	 * go to search window including search by name and search by category button
 	 */
@@ -250,7 +213,7 @@ public class Main extends Application
 	/**
 	 * go to search result window which includes list of recipes
 	 */
-	public void gotoSearchResult(String flag_source,ArrayList<Recipe> recipeList,Recipe recipeForBackToCategory)
+	public void gotoSearchResult(String flag_source, ArrayList<Recipe> recipeList, Recipe recipeForBackToCategory)
 	{
 		try
 		{
@@ -298,31 +261,31 @@ public class Main extends Application
 		return loader.getController();
 	}
 
-	private <T> T showStage(String route)
-	{
+	// private <T> T showStage(String route)
+	// {
+	//
+	// FXMLLoader Loader = new FXMLLoader();
+	// Loader.setLocation(getClass().getResource(route));
+	// try
+	// {
+	// Loader.load();
+	// }
+	// catch (Exception ex)
+	// {
+	// Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+	// }
+	//
+	// Stage stage1 = new Stage();
+	// stage1.setScene(new Scene(Loader.getRoot()));
+	// stage1.show();
+	// setCurrentStage(stage1);
+	// return Loader.getController();
+	// }
 
-		FXMLLoader Loader = new FXMLLoader();
-		Loader.setLocation(getClass().getResource(route));
-		try
-		{
-			Loader.load();
-		}
-		catch (Exception ex)
-		{
-			Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-		}
-
-		Stage stage1 = new Stage();
-		stage1.setScene(new Scene(Loader.getRoot()));
-		stage1.show();
-		setCurrentStage(stage1);
-		return Loader.getController();
-	}
-
-	private void setCurrentStage(Stage stage)
-	{
-		this.currentStage = stage;
-	}
+	// private void setCurrentStage(Stage stage)
+	// {
+	// this.currentStage = stage;
+	// }
 
 	public static void main(String[] args)
 	{

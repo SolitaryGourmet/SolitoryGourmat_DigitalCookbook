@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import businessLayer.Category;
 import businessLayer.Ingredient;
 import businessLayer.Recipe;
@@ -13,21 +12,15 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
-
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -73,6 +66,9 @@ public class AddRecipeFormController implements Initializable
 
 	@FXML
 	private Button upLoadPicture_Button;
+	
+	@FXML
+	private Label picture_path;
 
 	@FXML
 	private Label recipeName_akn;
@@ -392,6 +388,7 @@ public class AddRecipeFormController implements Initializable
 		getPhotoRoute();
 		showPhoto();
 		System.out.println(recipe.getPhotoRoute());
+		picture_path.setText(recipe.getPhotoRoute());
 	}
 
 	/*

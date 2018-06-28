@@ -1,5 +1,9 @@
-.background{
-	-fx-background-color: beige;
+#bg{
+	-fx-background-color: white;
+}
+
+#pane{
+	-fx-background-color: Beige;
 }
 
 #ingredientSubmit{

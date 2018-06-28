@@ -1,3 +1,7 @@
+#bg{
+	-fx-background-color: white;
+}
+
 #backToResultForm{
 	-fx-background-image: url(back_button.png);
     -fx-background-size: 50px;

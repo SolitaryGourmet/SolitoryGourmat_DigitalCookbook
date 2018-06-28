@@ -1,3 +1,11 @@
+#bg{
+	-fx-background-color: white;
+	-fx-background-image: url(cover.png);
+}
+
+#label_title{
+	-fx-opacity: 0.9;
+}
 
 .button {
     -fx-background-color: FireBrick;

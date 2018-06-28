@@ -1,12 +1,8 @@
 package userInterface;
 
-import java.awt.Color;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
-
 import businessLayer.Ingredient;
 import businessLayer.Recipe;
 import databaseLayer.DataBaseControl;
@@ -15,13 +11,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -319,8 +313,8 @@ public class DisplayFormController
 		for (int i = 0; i < categoryLabel.size(); i++)
 		{
 			categoryLabel.get(i).setPadding(new Insets(2, 4, 2, 4));
-			categoryLabel.get(i).setStyle("-fx-background-color: LightGray;");
-			categoryLabel.get(i).setFont(Font.font("verdana", FontPosture.REGULAR, 18));
+			categoryLabel.get(i).setStyle("-fx-background-color: beige; -fx-text-fill: #a42e2e;");
+			categoryLabel.get(i).setFont(Font.font("Ebrima", FontPosture.REGULAR, 18));
 			flowPane.getChildren().add(categoryLabel.get(i));
 		}
 

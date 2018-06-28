@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import businessLayer.Recipe;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,7 +14,6 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;

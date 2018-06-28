@@ -161,7 +161,7 @@ public class CookBookApp
 		CookBook cb = new CookBook("Chinese Cuisine");
 
 //		cb.add(createGongBaoJiding());
-//		cb.add(createHongShaoRou());
+		cb.add(createHongShaoRou());
 //		cb.add(createSuanLaFen());
 
 		Recipe recipe = cb.getRecipe("Gong Bao Jiding");

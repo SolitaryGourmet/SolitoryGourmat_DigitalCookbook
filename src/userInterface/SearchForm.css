@@ -1,3 +1,11 @@
+#bg{
+	-fx-background-color: white;
+}
+
+#pane{
+	-fx-background-image: url(searchBG.png);
+}
+
 #gotoHome_button{
  	-fx-background-image: url(home_button.png);
     -fx-background-size: 50px;
@@ -7,6 +15,12 @@
 	-fx-background-image: url(search.png);
     -fx-background-size: 80px;
 }
+
+#category{
+	-fx-background-image: url(category_button.png);
+    -fx-background-size: 80px;
+}
+
 .button {
     -fx-background-color: FireBrick;
 	-fx-background-radius: 25;  

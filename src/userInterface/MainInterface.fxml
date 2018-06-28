@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -7,27 +12,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane_main" prefHeight="600.0" prefWidth="800.0" stylesheets="@MainInterface.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.MainInterfaceController">
+<AnchorPane fx:id="bg" prefHeight="600.0" prefWidth="800.0" stylesheets="@MainInterface.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.MainInterfaceController">
    <children>
-      <Label fx:id="label_title" alignment="TOP_RIGHT" layoutX="94.0" layoutY="26.0" prefHeight="107.0" prefWidth="613.0" text="Solitary Gourmet" textFill="#a42e2e">
+      <Label fx:id="label_title" alignment="TOP_RIGHT" layoutX="73.0" layoutY="62.0" prefHeight="107.0" prefWidth="654.0" text="Solitary Gourmet" textFill="#681717">
          <font>
-            <Font name="Ebrima Bold" size="75.0" />
+            <Font name="Ebrima Bold" size="80.0" />
          </font>
       </Label>
-      <Button fx:id="button_search" layoutX="147.0" layoutY="510.0" mnemonicParsing="false" onAction="#gotoSearchForm" prefHeight="50.0" prefWidth="185.0" text="search for recipe" textFill="WHITE">
+      <Button fx:id="button_search" layoutX="137.0" layoutY="460.0" mnemonicParsing="false" onAction="#gotoSearchForm" prefHeight="50.0" prefWidth="220.0" text="search for recipe" textFill="WHITE">
          <font>
-            <Font name="Ebrima Bold" size="20.0" />
+            <Font name="Ebrima Bold" size="22.0" />
          </font>
       </Button>
-      <Button fx:id="button_add" layoutX="488.0" layoutY="510.0" mnemonicParsing="false" onAction="#gotoAddRecipeFrom" prefHeight="50.0" prefWidth="171.0" text="add new recipe" textFill="WHITE">
+      <Button fx:id="button_add" layoutX="472.0" layoutY="460.0" mnemonicParsing="false" onAction="#gotoAddRecipeFrom" prefHeight="50.0" prefWidth="220.0" text="add new recipe" textFill="WHITE">
          <font>
-            <Font name="Ebrima Bold" size="20.0" />
+            <Font name="Ebrima Bold" size="22.0" />
          </font>
       </Button>
-      <ImageView fitHeight="373.0" fitWidth="590.0" layoutX="132.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../software%20engineering%20II/Digital%20cook%20book%20-%20Solitary%20Gourmet/QQ图片20180613104404.jpg" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>

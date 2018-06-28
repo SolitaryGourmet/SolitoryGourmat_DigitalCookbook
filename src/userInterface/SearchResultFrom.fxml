@@ -15,7 +15,7 @@
    <children>
       <ScrollPane prefHeight="600.0" prefWidth="800.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1600.0" prefWidth="785.0">
+          <AnchorPane fx:id="bg" minHeight="0.0" minWidth="0.0" prefHeight="1600.0" prefWidth="785.0">
                <children>
                   <VBox fx:id="vbox" prefHeight="1600.0" prefWidth="800.0">
                      <children>

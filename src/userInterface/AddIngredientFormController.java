@@ -4,36 +4,24 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import javax.tools.DocumentationTool.Location;
-
-import org.omg.CORBA.PUBLIC_MEMBER;
-
 import businessLayer.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.fxml.JavaFXBuilderFactory;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
-import javafx.stage.Stage;
 
 public class AddIngredientFormController implements Initializable
 {
@@ -51,7 +39,7 @@ public class AddIngredientFormController implements Initializable
 	private boolean[][] nextFlag = new boolean[200][3];
 	private Main application;
 	ArrayList<Ingredient> bufferList = new ArrayList<Ingredient>();
-	private ArrayList<Pane> paneList = new ArrayList<Pane>();
+//	private ArrayList<Pane> paneList = new ArrayList<Pane>();
 	private ArrayList<TextField> nameList = new ArrayList<TextField>();
 	private ArrayList<Label> nameAknList = new ArrayList<Label>();
 	private ArrayList<TextField> amountList = new ArrayList<TextField>();
