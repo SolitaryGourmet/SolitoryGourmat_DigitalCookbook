@@ -1,28 +1,24 @@
 package userInterface;
 
-/**
- * use a pop-up to ask user that they are sure to delete the recipe
- * @author LUO_YIFAN
- */
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class DeleteRecipeConfirmController
+public class AddEditToMinWinConfirmController
 {
 	@FXML
-	private Button delete_Button;
+	private Button goToHome_Button;
+
 	@FXML
 	private Button cancel_Button;
-	
-	public Button getDelete_Button()
+
+	public Button getGoToHome_Button()
 	{
-		return delete_Button;
+		return goToHome_Button;
 	}
 
-	public void setDelete_Button(Button delete_Button)
+	public void setGoToHome_Button(Button goToHome_Button)
 	{
-		this.delete_Button = delete_Button;
+		this.goToHome_Button = goToHome_Button;
 	}
 
 	public Button getCancel_Button()
@@ -34,4 +30,5 @@ public class DeleteRecipeConfirmController
 	{
 		this.cancel_Button = cancel_Button;
 	}
+
 }

@@ -1,5 +1,11 @@
 package databaseLayer;
 
+/**
+ * implementation of interaction between database and Controller
+ * including connect, disconnect database; create tables; insert, select, update and delete recipes
+ * @author LUO_YIFAN CUI_XIAO LIU_YANRAN YUAN_ZUN
+ */
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -13,7 +19,6 @@ public class DataBaseControl
 
 	/**
 	 * with the input value Category, return a list of recipes
-	 * 
 	 * @param category
 	 * @return
 	 */
@@ -97,7 +102,6 @@ public class DataBaseControl
 
 	/**
 	 * with the input value recipeName, return a list of all suitable recipes
-	 * 
 	 * @param recipeName
 	 * @return
 	 */
@@ -115,7 +119,6 @@ public class DataBaseControl
 			{
 				recipeId = rs.getInt("recipeId");
 				recipeList.add(searchById(recipeId));
-
 			}
 			return recipeList;
 		}
@@ -130,7 +133,6 @@ public class DataBaseControl
 	/**
 	 * search a specific recipe with recipeID used by another two method:
 	 * searchByName(String recipeName), searchByCategory(Category category)
-	 * 
 	 * @param recipeId
 	 * @return
 	 */
@@ -211,6 +213,11 @@ public class DataBaseControl
 		return null;
 	}
 
+	/**
+	 * Select recipeName from database and return recipe ID
+	 * @param recipeName
+	 * @return
+	 */
 	public static int getRecipeID(String recipeName)
 	{
 		int recipeID = 0;
@@ -226,15 +233,18 @@ public class DataBaseControl
 		}
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return recipeID;
 	}
 
-	public static void insertCategory(Recipe recipe)
+	/**
+	 * insert category into database
+	 * @param recipe
+	 */
+	public static boolean insertCategory(Recipe recipe)
 	{
-
+		boolean successInsert = false;
 		try
 		{
 			PreparedStatement insertCategory = con.prepareStatement(
@@ -256,11 +266,18 @@ public class DataBaseControl
 		finally
 		{
 			System.out.println("data inserted");
+			successInsert=true;
 		}
+		return successInsert;
 	}
 
-	public static void insertIngreident(Recipe recipe)
+	/**
+	 * insert ingredient into database
+	 * @param recipe
+	 */
+	public static boolean insertIngreident(Recipe recipe)
 	{
+		boolean successInsert = false;
 		try
 		{
 			PreparedStatement pst = con.prepareStatement(
@@ -281,10 +298,21 @@ public class DataBaseControl
 		{
 			e.printStackTrace();
 		}
+		finally
+		{
+			successInsert=true;
+		}
+		return successInsert;
 	}
 
-	public static void insertStep(Recipe recipe) throws SQLException
+	/**
+	 * insert steps into database
+	 * @param recipe
+	 * @throws SQLException
+	 */
+	public static boolean insertStep(Recipe recipe) throws SQLException
 	{
+		boolean successInsert = false;
 		PreparedStatement insertStep = con
 				.prepareStatement("insert into Step(recipeID,stepOrder, stepDescription) value(?,?,?)");
 		for (int i = 0; i < recipe.getStepList().size(); i++)
@@ -294,6 +322,8 @@ public class DataBaseControl
 			insertStep.setString(3, recipe.getStepList().get(i));
 			insertStep.executeUpdate();
 		}
+		successInsert=true;
+		return successInsert;
 	}
 
 	/**
@@ -302,8 +332,9 @@ public class DataBaseControl
 	 * 
 	 * @param recipe
 	 */
-	public static void insertRecipe(Recipe recipe)
+	public static boolean insertRecipe(Recipe recipe)
 	{
+		boolean successInsert = false;
 		try
 		{
 			PreparedStatement insertRecipe = con.prepareStatement(
@@ -328,15 +359,19 @@ public class DataBaseControl
 		finally
 		{
 			System.out.println("data inserted");
+			successInsert=true;
 		}
+		return successInsert;
 	}
 
-	/*
-	 * for edit by idiot Xiao
-	 * updated by luoyifan
+	/**
+	 * edit recipe from database
+	 * @author CUI_XIAO
+	 * updated by LUO_YIFAN
 	 */
-	public static void editRecipe(Recipe recipe)
+	public static boolean editRecipe(Recipe recipe)
 	{
+		boolean successEdit = false;
 		try
 		{
 
@@ -405,27 +440,19 @@ public class DataBaseControl
 		{
 			e1.printStackTrace();
 		}
-
-		// try
-		// {
-		//
-		// for (int i = 0; i < sql.size(); i++)
-		// {
-		// PreparedStatement editStatement = con.prepareStatement(sql.get(i));
-		// editStatement.execute();
-		// }
-		//
-		//
-		// }
-		// catch (Exception e)
-		// {
-		// // TODO: handle exception
-		// e.printStackTrace();
-		// }
+		finally
+		{
+			successEdit = true;
+		}
+		return successEdit;
 	}
 
-	public static void deleteRecipe(Recipe recipe)
+	/**
+	 * delete recipe from database
+	 */
+	public static boolean deleteRecipe(Recipe recipe)
 	{
+		boolean successDelete = false;
 		try
 		{
 			PreparedStatement deleteRecipe = con
@@ -449,21 +476,27 @@ public class DataBaseControl
 		finally
 		{
 			System.out.println("delete " + recipe.getRecipeName());
+			successDelete = true;
 		}
+		return successDelete;
 	}
 
-	public static void createTable()
+	/**
+	 * create tables in database
+	 */
+	public static boolean createTable()
 	{
+		boolean successCreateTable = false;
 		try
 		{
 			PreparedStatement createStep = con.prepareStatement(
-					"CREATE TABLE IF NOT EXISTS Step(recipeID int not null, stepOrder int not null, stepDescription LONGTEXT, PRIMARY KEY(recipeID,stepOrder))");
+					"CREATE TABLE IF NOT EXISTS Step(recipeID int not null, stepOrder int not null, stepDescription varchar(255), PRIMARY KEY(recipeID,stepOrder))");
 			PreparedStatement createRecipe = con.prepareStatement(
-					"CREATE TABLE IF NOT EXISTS Recipe(recipeID int not null auto_increment, recipeName LONGTEXT, serveNum int, cookingTime int, preparationTime int, picture LONGTEXT, PRIMARY KEY(recipeID))");
+					"CREATE TABLE IF NOT EXISTS Recipe(recipeID int not null auto_increment, recipeName varchar(30), serveNum int, cookingTime int, preparationTime int, picture LONGTEXT, PRIMARY KEY(recipeID))");
 			PreparedStatement createRecipeIngredient = con
 					.prepareStatement("CREATE TABLE IF NOT EXISTS RecipeIngredient"
-							+ "(recipeID int NOT NULL, ingredientName varchar(255) NOT NULL, "
-							+ "unit varchar(255), ingredientAmount double, description varchar(255), "
+							+ "(recipeID int NOT NULL, ingredientName varchar(30) NOT NULL, "
+							+ "unit varchar(30), ingredientAmount double, description varchar(255), "
 							+ "PRIMARY KEY(recipeID, ingredientName))");
 			PreparedStatement createRecipeCategory = con.prepareStatement(
 					"CREATE TABLE IF NOT EXISTS RecipeCategory(recipeID int NOT NULL, city varchar(255), taste varchar(255), mealtime varchar(255), meat varchar(255), vegetarian boolean, PRIMARY KEY(recipeID))");
@@ -480,11 +513,17 @@ public class DataBaseControl
 		finally
 		{
 			System.out.println("Table created");
+			successCreateTable = true;
 		}
+		return successCreateTable;
 	}
 
-	public static void getConnection()
+	/**
+	 * establish connection of database
+	 */
+	public static boolean getConnection()
 	{
+		boolean successCon = false;
 		try
 		{
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb?&useSSL=false", "root", "961211");
@@ -498,11 +537,17 @@ public class DataBaseControl
 		finally
 		{
 			System.out.println("Connected");
+			successCon = true;
 		}
+		return successCon;
 	}
 
-	public static void closeConnection()
+	/**
+	 * disconnect with database
+	 */
+	public static boolean closeConnection()
 	{
+		boolean successDiscon = false;
 		try
 		{
 			con.close();
@@ -515,6 +560,8 @@ public class DataBaseControl
 		finally
 		{
 			System.out.println("Closed");
+			successDiscon = true;
 		}
+		return successDiscon;
 	}
 }

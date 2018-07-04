@@ -1,5 +1,8 @@
 package userInterface;
 
+/*
+ * this controller set the step of the recipe
+ */
 import java.util.ArrayList;
 
 import businessLayer.Recipe;
@@ -22,6 +25,7 @@ import javafx.scene.text.FontPosture;
 
 public class AddStepFormController
 {
+
 	@FXML
 	private Button addStep_Button;
 
@@ -103,13 +107,10 @@ public class AddStepFormController
 			next = nextFlag[i] && next;
 		}
 
-		if (next == true&&bufferStepList.size()>0)
+		if (next == true && bufferStepList.size() > 0)
 		{
 			for (int i = 0; i < bufferStepList.size(); i++)
 			{
-				// isNullPromptForString(bufferStepList.get(i),
-				// String.valueOf(bufferStepList.indexOf(bufferStepList.get(i))+1),
-				// aknList.get(i));
 				bufferList.add(bufferStepList.get(i).getText());
 			}
 			recipe.setStepList(bufferList);
@@ -117,20 +118,26 @@ public class AddStepFormController
 		}
 	}
 
+	/**
+	 * go to the next step and pass the recipe and sourceFlag to the next step
+	 * 
+	 * @param event
+	 * @throws Exception
+	 */
 	@FXML
 	void submitStep(ActionEvent event) throws Exception
 	{
 		for (int i = 0; i < bufferStepList.size(); i++)
 		{
-			// isNullPromptForString(bufferStepList.get(i),
-			// String.valueOf(bufferStepList.indexOf(bufferStepList.get(i))+1),
-			// aknList.get(i));
 			bufferList.add(bufferStepList.get(i).getText());
 		}
 		recipe.setStepList(bufferList);
 		application.gotoSetIngredient(flag_source, recipe);
 	}
 
+	/*
+	 * initial the interface of add step user can change the order of step
+	 */
 	public void addNewStep() throws Exception
 	{
 		Pane pane = new Pane();
@@ -165,16 +172,22 @@ public class AddStepFormController
 		down.setMinWidth(40);
 		down.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5");
 		upPane.getChildren().add(up);
-		downPane.getChildren().add(down);// 这些是添加上下按钮的
+		downPane.getChildren().add(down);
 
 		Label order = new Label(String.valueOf(bufferOrder.size() + 1));
 		bufferOrder.add(order);
 
 		TextField stepTextField = new TextField(Step);
+		addTextLimiter(stepTextField, 255);
 		bufferStepList.add(stepTextField);
-		isNullPromptForString(stepTextField, String.valueOf(bufferStepList.indexOf(stepTextField) + 1), akn);
+		isNullPromptForString(stepTextField, akn);
 
 		stepTextField.setMinWidth(550);
+
+		if (bufferOrder.size() >= 10)
+		{
+			stepTextField.setMinWidth(539);
+		}
 
 		Button delete = new Button("delete");
 
@@ -228,6 +241,16 @@ public class AddStepFormController
 			for (int i = 0; i < bufferOrder.size(); i++)
 			{
 				bufferOrder.get(i).setText(String.valueOf(i + 1));
+
+				if (i >= 9)
+				{
+					bufferStepList.get(i).setMinWidth(539);
+				}
+				else
+				{
+					bufferStepList.get(i).setMinWidth(550);
+				}
+
 			}
 
 			for (int i = 0; i < upPaneList.size(); i++)
@@ -260,7 +283,10 @@ public class AddStepFormController
 
 	}
 
-	public void isNullPromptForString(TextField tf, String location, Label l)
+	/*
+	 * add Listener to the textfield and set restrictions
+	 */
+	public void isNullPromptForString(TextField tf, Label l)
 	{
 		tf.textProperty().addListener(new ChangeListener<String>()
 		{
@@ -268,11 +294,9 @@ public class AddStepFormController
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
 			{
-				// TODO Auto-generated method stub
 				if (tf.getText() == null || tf.getText().length() == 0)
 				{
 					l.setText("            This line cannot be empty!");
-					// System.out.println("第" + location + "行输入值不能为空！！！");
 				}
 				else
 				{
@@ -281,6 +305,33 @@ public class AddStepFormController
 
 			}
 
+		});
+	}
+
+	/**
+	 * by set the textfield the length limit to avoid the length error with
+	 * database.
+	 * 
+	 * @param tf
+	 * @param maxLength
+	 * @param l
+	 * @param location
+	 */
+	public void addTextLimiter(TextField tf, int maxLength)
+	{
+		tf.textProperty().addListener(new ChangeListener<String>()
+		{
+			@Override
+			public void changed(final ObservableValue<? extends String> ov, final String oldValue,
+					final String newValue)
+			{
+				if (tf.getText().length() > maxLength)
+				{
+					String s = tf.getText().substring(0, maxLength);
+					tf.setText(s);
+
+				}
+			}
 		});
 	}
 

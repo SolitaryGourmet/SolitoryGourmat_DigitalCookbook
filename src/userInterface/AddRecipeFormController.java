@@ -1,10 +1,11 @@
 package userInterface;
 
+/*
+ * this controller set the name,number,preparation time,cooking time and picture of the recipe
+ */
 import java.io.File;
 import java.io.FileInputStream;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 import businessLayer.Category;
 import businessLayer.Ingredient;
 import businessLayer.Recipe;
@@ -12,7 +13,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -24,8 +25,9 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class AddRecipeFormController implements Initializable
+public class AddRecipeFormController
 {
+
 	private Main application;
 
 	@FXML
@@ -66,7 +68,7 @@ public class AddRecipeFormController implements Initializable
 
 	@FXML
 	private Button upLoadPicture_Button;
-	
+
 	@FXML
 	private Label picture_path;
 
@@ -121,15 +123,6 @@ public class AddRecipeFormController implements Initializable
 	public void setRecipe(Recipe recipe)
 	{
 		this.recipe = recipe;
-
-	}
-
-	public void initialRecipeForm(Recipe recipe)
-	{
-		textField_recipeNameField.setText(recipe.getRecipeName());
-		textField_serveNumField.setText(String.valueOf(recipe.getServeNum()));
-		textField_prepTimeField.setText(String.valueOf(recipe.getPreparationTime()));
-		textField_cookTimeField.setText(String.valueOf(recipe.getCookingTime()));
 	}
 
 	public ArrayList<String> getStepBufferList()
@@ -157,10 +150,49 @@ public class AddRecipeFormController implements Initializable
 		this.application = application;
 	}
 
+	/**
+	 * for edit process and set the data according to the transfered recipe
+	 * 
+	 * @param recipe
+	 */
+	public void initialRecipeForm(Recipe recipe)
+	{
+		textField_recipeNameField.setText(recipe.getRecipeName());
+		textField_serveNumField.setText(String.valueOf(recipe.getServeNum()));
+		textField_prepTimeField.setText(String.valueOf(recipe.getPreparationTime()));
+		textField_cookTimeField.setText(String.valueOf(recipe.getCookingTime()));
+		picture_path.setText(recipe.getPhotoRoute());
+	}
+
 	@FXML
 	public void gotoHome()
 	{
-		application.gotoMainInterface();
+		FXMLLoader root = new FXMLLoader();
+		root.setLocation(getClass().getResource("AddEditToMinWinConfirm.fxml"));
+		try
+		{
+			root.load();
+		}
+		catch (Exception ex) {}
+
+		Stage stage = new Stage();
+		stage.setTitle("Confirm Exit");
+		stage.setScene(new Scene(root.getRoot()));
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("Logo.png")));
+		stage.show();
+
+		AddEditToMinWinConfirmController c = root.getController();
+		c.getGoToHome_Button().setOnAction(ex -> {
+			application.gotoMainInterface();
+			stage.close();
+		});
+		
+		c.getCancel_Button().setOnAction(ex -> {
+			stage.close();
+		});
+		
+		
+		
 	}
 
 	public void initalNext_flag()
@@ -171,6 +203,9 @@ public class AddRecipeFormController implements Initializable
 		}
 	}
 
+	/*
+	 * add Listener to the textfield and set restrictions
+	 */
 	public void isNullPromptForString(TextField tf, String location)
 	{
 		tf.textProperty().addListener(new ChangeListener<String>()
@@ -178,10 +213,10 @@ public class AddRecipeFormController implements Initializable
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
 			{
-				// if (tf.getText() == null || tf.getText().length() == 0)
-				// {
-				// System.out.println(location + "输入值不能为空！！！");
-				// }
+				/**
+				 * if textField has no content a text will appear to show the type of error and
+				 * set the next_flag to false until the error is corrected
+				 */
 
 				if (tf == textField_recipeNameField)
 				{
@@ -249,53 +284,53 @@ public class AddRecipeFormController implements Initializable
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
 			{
-				// if (tf.getText().matches("[+-]?[1-9]+[0-9]*(\\.[0-9]+)?"))
-				// {
-				//
-				// }
-				// else
-				// {
-				// System.out.println("只能输入数字！！！");
-				// }
-
+				/**
+				 * if textField's content are not numbers a text will appear to show the type of
+				 * error and set the next_flag to false until it is corrected
+				 * 
+				 */
 				if (tf == textField_serveNumField)
 				{
-					if (tf.getText().matches("[+-]?[1-9]+[0-9]*(\\.[0-9]+)?"))
+					if (tf.getText().matches("([1-9]\\d*\\.?\\d*)|(0\\.\\d*[1-9])"))
 					{
 						serveNum_akn.setText("");
 						next_flag[1] = true;
 					}
 					else
 					{
-						serveNum_akn.setText("This value must be a number!");
+						serveNum_akn.setText("This value must be a positive number!");
+						tf.setText("");
 						next_flag[1] = false;
 					}
 				}
 
 				if (tf == textField_prepTimeField)
 				{
-					if (tf.getText().matches("[+-]?[1-9]+[0-9]*(\\.[0-9]+)?"))
+					if (tf.getText().matches("([1-9]\\d*\\.?\\d*)|(0\\.\\d*[1-9])"))
 					{
 						prepTime_akn.setText("");
 						next_flag[2] = true;
 					}
 					else
 					{
-						prepTime_akn.setText("This value must be a number!");
+						prepTime_akn.setText("This value must be a positive number!");
+						tf.setText("");
 						next_flag[2] = false;
+
 					}
 				}
 
 				if (tf == textField_cookTimeField)
 				{
-					if (tf.getText().matches("[+-]?[1-9]+[0-9]*(\\.[0-9]+)?"))
+					if (tf.getText().matches("([1-9]\\d*\\.?\\d*)|(0\\.\\d*[1-9])"))
 					{
 						cookTime_akn.setText("");
 						next_flag[3] = true;
 					}
 					else
 					{
-						cookTime_akn.setText("This value must be a number!");
+						cookTime_akn.setText("This value must be a positive number!");
+						tf.setText("");
 						next_flag[3] = false;
 					}
 				}
@@ -305,6 +340,9 @@ public class AddRecipeFormController implements Initializable
 		});
 	}
 
+	/**
+	 * add Listener to these textfields
+	 */
 	public void setPrompt()
 	{
 		this.isNullPromptForString(textField_recipeNameField, "recipeName");
@@ -314,6 +352,11 @@ public class AddRecipeFormController implements Initializable
 		this.inputOnlyNumber(textField_prepTimeField);
 		this.inputOnlyNumber(textField_cookTimeField);
 		this.inputOnlyNumber(textField_serveNumField);
+		this.addTextLimiter(textField_recipeNameField, 30);// set the length limit is 30
+		this.addTextLimiter(textField_cookTimeField, 9);// set the length limit is 9
+		this.addTextLimiter(textField_prepTimeField, 9);// set the length limit is 9
+		this.addTextLimiter(textField_serveNumField, 9);// set the length limit is 9
+
 	}
 
 	public void addIngredient()
@@ -328,7 +371,6 @@ public class AddRecipeFormController implements Initializable
 			}
 			else
 			{
-				//recipeName_akn.setText("");
 				flag[0] = true;
 			}
 			if (textField_serveNumField.getText() == null || textField_serveNumField.getText().length() == 0)
@@ -338,7 +380,6 @@ public class AddRecipeFormController implements Initializable
 			}
 			else
 			{
-			//	serveNum_akn.setText("");
 				flag[1] = true;
 			}
 			if (textField_prepTimeField.getText() == null || textField_prepTimeField.getText().length() == 0)
@@ -348,7 +389,6 @@ public class AddRecipeFormController implements Initializable
 			}
 			else
 			{
-			//	prepTime_akn.setText("");
 				flag[2] = true;
 			}
 			if (textField_cookTimeField.getText() == null || textField_cookTimeField.getText().length() == 0)
@@ -358,7 +398,6 @@ public class AddRecipeFormController implements Initializable
 			}
 			else
 			{
-			//	cookTime_akn.setText("");
 				flag[3] = true;
 			}
 
@@ -379,15 +418,13 @@ public class AddRecipeFormController implements Initializable
 		{
 			e.printStackTrace();
 		}
-
 	}
 
 	@FXML
 	void upLoadPicture(ActionEvent event) throws Exception
 	{
 		getPhotoRoute();
-		showPhoto();
-		System.out.println(recipe.getPhotoRoute());
+//		showPhoto();// initial a pop-up to show the preview of the picture
 		picture_path.setText(recipe.getPhotoRoute());
 	}
 
@@ -405,6 +442,9 @@ public class AddRecipeFormController implements Initializable
 		recipe.setPhotoRoute(String.valueOf(photoFile.getAbsolutePath()));
 	}
 
+	/*
+	 * create a Pop-ups to show the preview and the route of the chose picture
+	 */
 	private void showPhoto() throws Exception
 	{
 
@@ -424,10 +464,30 @@ public class AddRecipeFormController implements Initializable
 
 	}
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources)
+	/**
+	 * by set the textfield the length limit to avoid the length error with
+	 * database. int(11)in database means maximum is 2147483647
+	 * 
+	 * @param tf
+	 * @param maxLength
+	 * @param l
+	 * @param location
+	 */
+	public void addTextLimiter(TextField tf, int maxLength)
 	{
-
+		tf.textProperty().addListener(new ChangeListener<String>()
+		{
+			@Override
+			public void changed(final ObservableValue<? extends String> ov, final String oldValue,
+					final String newValue)
+			{
+				if (tf.getText().length() > maxLength)
+				{
+					String s = tf.getText().substring(0, maxLength);
+					tf.setText(s);
+				}
+			}
+		});
 	}
 
 }

@@ -5,10 +5,15 @@
  */
 package businessLayer;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Recipe implements Serializable
+public class Recipe implements Serializable,Cloneable
 {
 	private int recipeId;
 	private String recipeName;
@@ -167,4 +172,15 @@ public class Recipe implements Serializable
 				+ "serveNum: " + serveNum + "\n" + "cookTime: " + cookingTime + "\n" + "prepTime: " + preparationTime + "\n"
 				+ "category: " + category + "\n" + ingredientList + "\n" + stepList;
 	}
+	
+	public Object deepClone() throws IOException, ClassNotFoundException{
+		// write the object into the stream
+		ByteArrayOutputStream bo = new ByteArrayOutputStream();
+		ObjectOutputStream oo = new ObjectOutputStream(bo);
+		oo.writeObject(this);
+		// then read back to make it a new deep copy
+		ByteArrayInputStream bi = new ByteArrayInputStream(bo.toByteArray());
+		ObjectInputStream oi = new ObjectInputStream(bi);
+		return (oi.readObject());
+	  }
 }

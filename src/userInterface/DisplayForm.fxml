@@ -27,7 +27,7 @@
                            <children>
                               <Pane prefHeight="127.0" prefWidth="800.0">
                                  <children>
-                                    <Label fx:id="recipeNameLabel" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="115.0" layoutY="6.0" prefHeight="88.0" prefWidth="571.0" textAlignment="CENTER" textFill="#a42e2e">
+                                    <Label fx:id="recipeNameLabel" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="161.0" layoutY="6.0" prefHeight="88.0" prefWidth="479.0" textAlignment="CENTER" textFill="#a42e2e">
                                        <font>
                                           <Font name="Ebrima Bold" size="55.0" />
                                        </font>
@@ -35,6 +35,10 @@
                                     <Button fx:id="returnToMinWin" layoutX="22.0" layoutY="25.0" mnemonicParsing="false" onAction="#goToMinWin" prefHeight="50.0" prefWidth="50.0" text="return to homepage " textFill="WHITE">
                                        <font>
                                           <Font name="Ebrima Bold" size="20.0" />
+                                       </font></Button>
+                                    <Button fx:id="backToResultForm" layoutX="90.0" layoutY="25.0" mnemonicParsing="false" onAction="#backToResultForm" prefHeight="50.0" prefWidth="50.0" textFill="WHITE">
+                                       <font>
+                                          <Font name="Ebrima" size="20.0" />
                                        </font></Button>
                                  </children>
                               </Pane>
@@ -86,34 +90,38 @@
                                                       </HBox>
                                                       <Pane prefHeight="41.0" prefWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                          <children>
-                                                            <Label fx:id="preparationTimeLable" layoutX="8.0" layoutY="6.0" prefHeight="30.0" prefWidth="40.0" text="preparationTime">
+                                                            <Label fx:id="preparationTimeLable" layoutX="8.0" layoutY="6.0" prefHeight="30.0" prefWidth="110.0" text="preparationTime">
                                                                <font>
                                                                   <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <Label layoutX="52.0" layoutY="12.0" text="min" textFill="#a42e2e">
-                                                               <font>
-                                                                  <Font name="Ebrima Bold" size="15.0" />
                                                                </font>
                                                             </Label>
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                          <children>
-                                                            <Label fx:id="cookingTimeLabel" layoutX="8.0" layoutY="6.0" prefHeight="30.0" prefWidth="40.0" text="cookingTime">
+                                                            <Label fx:id="cookingTimeLabel" layoutX="8.0" layoutY="6.0" prefHeight="30.0" prefWidth="110.0" text="cookingTime">
                                                                <font>
                                                                   <Font size="20.0" />
                                                                </font>
                                                             </Label>
-                                                            <Label layoutX="52.0" layoutY="12.0" text="min" textFill="#a42e2e">
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                         <children>
+                                                            <Label layoutY="11.0" text="min" textFill="#a42e2e">
                                                                <font>
                                                                   <Font name="Ebrima Bold" size="15.0" />
                                                                </font>
                                                             </Label>
-                                                         </children>
-                                                      </Pane>
-                                                      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                                      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                                         </children></Pane>
+                                                      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                                         <children>
+                                                            <Label layoutY="11.0" text="min" textFill="#a42e2e">
+                                                               <font>
+                                                                  <Font name="Ebrima Bold" size="15.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children></Pane>
                                                       <Pane prefHeight="42.0" prefWidth="145.0" GridPane.columnIndex="2">
                                                          <children>
                                                             <Button fx:id="change" layoutX="5.0" layoutY="5.0" mnemonicParsing="false" onAction="#changeServeNum" prefHeight="30.0" prefWidth="68.0" text="change" textFill="WHITE">
@@ -168,10 +176,6 @@
                                           <Font name="Ebrima Bold" size="20.0" />
                                        </font>
                                     </Button>
-                                    <Button fx:id="backToResultForm" layoutX="25.0" layoutY="45.0" mnemonicParsing="false" onAction="#backToResultForm" prefHeight="50.0" prefWidth="50.0" textFill="WHITE">
-                                       <font>
-                                          <Font name="Ebrima" size="20.0" />
-                                       </font></Button>
                                     <Button fx:id="edit" layoutX="445.0" layoutY="49.0" mnemonicParsing="false" onAction="#editRecipe" prefHeight="50.0" prefWidth="120.0" text="edit" textFill="WHITE">
                                        <font>
                                           <Font name="Ebrima Bold" size="20.0" />

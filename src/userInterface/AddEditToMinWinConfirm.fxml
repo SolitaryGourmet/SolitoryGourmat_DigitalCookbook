@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="300.0" prefWidth="400.0" stylesheets="@DeleteRecipeConfirm.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.AddEditToMinWinConfirmController">
+   <children>
+      <Pane fx:id="bg" prefHeight="310.0" prefWidth="410.0">
+         <children>
+            <Label layoutX="22.0" layoutY="42.0" prefHeight="58.0" prefWidth="357.0" text="Are you sure to go back to" textFill="#a42e2e">
+               <font>
+                  <Font name="Ebrima" size="30.0" />
+               </font>
+            </Label>
+            <Button fx:id="goToHome_Button" layoutX="40.0" layoutY="208.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="186.0" text="Back to Home" textFill="WHITE">
+               <font>
+                  <Font name="Ebrima Bold" size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="cancel_Button" layoutX="262.0" layoutY="208.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="90.0" text="cancel" textFill="WHITE">
+               <font>
+                  <Font name="Ebrima Bold" size="20.0" />
+               </font>
+            </Button>
+            <Label layoutX="48.0" layoutY="92.0" prefHeight="58.0" prefWidth="304.0" text="main interface without" textFill="#a42e2e">
+               <font>
+                  <Font name="Ebrima" size="30.0" />
+               </font>
+            </Label>
+            <Label layoutX="95.0" layoutY="140.0" prefHeight="58.0" prefWidth="212.0" text="saving anything" textFill="#a42e2e">
+               <font>
+                  <Font name="Ebrima" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

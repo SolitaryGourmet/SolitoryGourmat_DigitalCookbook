@@ -1,5 +1,10 @@
 package userInterface;
 
+/**
+ * set the category of recipe and store it to database
+ * @author LUO_YIFAN CUI_XIAO LIU_YANRAN
+ */
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -201,6 +206,12 @@ public class CategoryController implements Initializable
 		this.flag_comeFromAddForm = flag_comeFromAddForm;
 	}
 
+	/**
+	 * by comparing the type of flag_source,store the contemporary information 
+	 * and go to the edit or add recipe or search by category interface 
+	 * @param event
+	 * @throws Exception
+	 */
 	@FXML
 	void backtoPreviousForm(ActionEvent event) throws Exception
 	{
@@ -236,6 +247,11 @@ public class CategoryController implements Initializable
 		}
 	}
 
+	/**
+	 * initial the category interface
+	 * initial all the check boxes and radio boxes
+	 * @param recipe
+	 */
 	public void setCategoryForm(Recipe recipe)
 	{
 		if (recipe.getCategory().getCity() != null)
@@ -302,7 +318,6 @@ public class CategoryController implements Initializable
 				{
 					for (String ss : arr)
 					{
-
 						if (meat.get(i).getText().equals(ss))
 						{
 							meatCategory.add(ss);
@@ -321,6 +336,10 @@ public class CategoryController implements Initializable
 
 	}
 
+	/**
+	 * function of collecting the data of city
+	 * @param event
+	 */
 	@FXML
 	void setCity(ActionEvent event)
 	{
@@ -334,6 +353,10 @@ public class CategoryController implements Initializable
 		}
 	}
 
+	/**
+	 * function of collecting the data of flavor
+	 * @param event
+	 */
 	@FXML
 	void setFlavor(ActionEvent event)
 	{
@@ -347,6 +370,10 @@ public class CategoryController implements Initializable
 		}
 	}
 
+	/**
+	 * function of collecting the data of MealTime
+	 * @param event
+	 */
 	@FXML
 	void setMealTime(ActionEvent event)
 	{
@@ -360,6 +387,10 @@ public class CategoryController implements Initializable
 		}
 	}
 
+	/**
+	 * function of collecting the data of Meat
+	 * @param event
+	 */
 	@FXML
 	void setMeat(ActionEvent event)
 	{
@@ -373,6 +404,12 @@ public class CategoryController implements Initializable
 		}
 	}
 
+	/**
+	 * function of choose of whether vegetarian
+	 * and if vegetarian is chose 
+	 * the choice of meat will be invisible
+	 * @param event
+	 */
 	@FXML
 	void setVegetarian(ActionEvent event)
 	{
@@ -420,9 +457,13 @@ public class CategoryController implements Initializable
 		meat.add(Lamb);
 		meat.add(Beef);
 		meat.add(Fish);
-
 	}
 
+	/**
+	 * method used for translate category data from ArrayList type to String
+	 * @param cateList
+	 * @return
+	 */
 	public static String setCategory(ArrayList<String> cateList)
 	{
 		String s = new String();
@@ -437,6 +478,9 @@ public class CategoryController implements Initializable
 		return s;
 	}
 
+	/**
+	 * the function of submit button
+	 */
 	public void Submit()
 	{
 		if (cityCategory.equals(""))
@@ -483,10 +527,7 @@ public class CategoryController implements Initializable
 				{
 					Loader.load();
 				}
-				catch (Exception ex)
-				{
-
-				}
+				catch (Exception ex) {}
 
 				Stage submitRecipeConfirmStage = new Stage();
 				submitRecipeConfirmStage.setTitle("Confirm submit");
@@ -507,6 +548,10 @@ public class CategoryController implements Initializable
 				e.printStackTrace();
 			}
 		}
+		/**
+		 * if the state is Search Recipe,then it will record the data from the interface 
+		 * and transfer it to the class databasecontrol to search 
+		 */
 		else if (flag_source.equals("Search Recipe"))
 		{
 			recipe = new Recipe();
@@ -519,16 +564,20 @@ public class CategoryController implements Initializable
 			{
 				System.out.println(recipeList.get(i).getRecipeName());
 			}
-			application.gotoSearchResult("Search Category",recipeList,recipe);
+			application.gotoSearchResult("Search Category", recipeList, recipe);
 
 			DataBaseControl.closeConnection();
 		}
+		/**
+		 * if the state is Edit Recipe,then it will record the data from the interface 
+		 * and transfer it to the class databasecontrol to do update the recipe in the database
+		 */
 		else if (flag_source.equals("Edit Recipe"))
 		{
 			recipe.setCategory(category);
 			System.out.println("Edit Recipe");
 			application.gotoMainInterface();
-			
+
 			DataBaseControl.getConnection();
 			DataBaseControl.editRecipe(recipe);
 			DataBaseControl.closeConnection();
@@ -539,10 +588,7 @@ public class CategoryController implements Initializable
 			{
 				Loader.load();
 			}
-			catch (Exception ex)
-			{
-
-			}
+			catch (Exception ex) {}
 
 			Stage submitRecipeConfirmStage = new Stage();
 			submitRecipeConfirmStage.setTitle("Confirm submit");
@@ -557,10 +603,7 @@ public class CategoryController implements Initializable
 				application.goToDisplayForm(recipe, null, "Add recipe", null);
 				submitRecipeConfirmStage.close();
 			});
-			
-			
 		}
-
 	}
 
 	public void initialize(URL location, ResourceBundle resources)

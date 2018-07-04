@@ -1,11 +1,16 @@
 package userInterface;
-
+/**
+ * this interface will display the recipe  
+ */
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import businessLayer.Ingredient;
 import businessLayer.Recipe;
 import databaseLayer.DataBaseControl;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,8 +33,9 @@ import javafx.stage.Stage;
 public class DisplayFormController
 {
 	private Recipe recipe;
+	private static Recipe recipe1;// deepClone of the recipe for change servenum
+	
 	private Main application;
-
 	@FXML
 	private Label recipeNameLabel;
 
@@ -47,9 +53,6 @@ public class DisplayFormController
 
 	@FXML
 	private Label cookingTimeLabel;
-
-	// @FXML
-	// private Label categoryLabel;
 
 	@FXML
 	private FlowPane flowPane;
@@ -122,21 +125,30 @@ public class DisplayFormController
 		this.recipeList = recipeList;
 	}
 
+	/**
+	 * by changing the number the ingredient will show the amount according to the serve number
+	 * @param event
+	 * @throws CloneNotSupportedException 
+	 * @throws NumberFormatException 
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 */
 	@FXML
-	void changeServeNum(ActionEvent event)
+	void changeServeNum(ActionEvent event) throws ClassNotFoundException, IOException, NumberFormatException, CloneNotSupportedException
 	{
-		recipe = changeServeNum(recipe, Integer.parseInt(serveNumTextField.getText()));
-		serveNumTextField.setText(Integer.toString(recipe.getServeNum()));
-
-		for (int i = 0; i < recipe.getIngredientList().size(); i++)
+//		recipe1 = (Recipe) recipe.deepClone();
+		recipe1 = changeServeNum(recipe1, Integer.parseInt(serveNumTextField.getText()));
+		serveNumTextField.setText(Integer.toString(recipe1.getServeNum()));
+		//remove the origin elements 
+		for (int i = 0; i < recipe1.getIngredientList().size(); i++)
 		{
-			ingredientListView.getItems().remove(recipe.getIngredientList().get(i));
+			ingredientListView.getItems().remove(recipe1.getIngredientList().get(i));
 		}
-
+		//set new changed elements
 		ingredientListView.setItems(ingredientList);
-		for (int i = 0; i < recipe.getIngredientList().size(); i++)
+		for (int i = 0; i < recipe1.getIngredientList().size(); i++)
 		{
-			ingredientList.add(i, recipe.getIngredientList().get(i));
+			ingredientList.add(i, recipe1.getIngredientList().get(i));
 		}
 	}
 
@@ -211,7 +223,8 @@ public class DisplayFormController
 
 	@FXML
 	void editRecipe(ActionEvent event)
-	{
+	{	
+		
 		application.gotoAddRecipeForm("Edit Recipe", recipe);
 	}
 
@@ -233,33 +246,32 @@ public class DisplayFormController
 
 	/**
 	 * initialize all the default value in the DisplayForm
-	 * 
-	 * @throws FileNotFoundException
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
 	 */
-	public void setDisplayFormView() throws FileNotFoundException
+	public void setDisplayFormView() throws ClassNotFoundException, IOException
 	{
-		// System.out.println(recipe);
-
-		recipeNameLabel.setText(recipe.getRecipeName());
-		serveNumTextField.setText(Integer.toString(recipe.getServeNum()));
-		preparationTimeLable.setText(Integer.toString(recipe.getPreparationTime()));
-		cookingTimeLabel.setText(Integer.toString(recipe.getCookingTime()));
+		recipe1 = (Recipe) recipe.deepClone();
+		recipeNameLabel.setText(recipe1.getRecipeName());
+		serveNumTextField.setText(Integer.toString(recipe1.getServeNum()));
+		preparationTimeLable.setText(Integer.toString(recipe1.getPreparationTime()));
+		cookingTimeLabel.setText(Integer.toString(recipe1.getCookingTime()));
 
 		ingredientListView.setItems(ingredientList);
-		for (int i = 0; i < recipe.getIngredientList().size(); i++)
+		for (int i = 0; i < recipe1.getIngredientList().size(); i++)
 		{
-			ingredientList.add(recipe.getIngredientList().get(i));
+			ingredientList.add(recipe1.getIngredientList().get(i));
 		}
 
 		stepListView.setItems(stepList);
-		for (int j = 0; j < recipe.getStepList().size(); j++)
+		for (int j = 0; j < recipe1.getStepList().size(); j++)
 		{
-			stepList.add(recipe.getStepList().get(j));
+			stepList.add(recipe1.getStepList().get(j));
 		}
 
 		ArrayList<Label> categoryLabel = new ArrayList<Label>();
 
-		Label city = new Label(recipe.getCategory().getCity());
+		Label city = new Label(recipe1.getCategory().getCity());
 		if (city.getText() != null)
 		{
 			categoryLabel.add(city);
@@ -267,7 +279,7 @@ public class DisplayFormController
 
 		String str = new String();
 		String[] arr;
-		str = recipe.getCategory().getTaste();
+		str = recipe1.getCategory().getTaste();
 		if (str != null)
 		{
 			arr = str.split("\\s+");
@@ -279,7 +291,7 @@ public class DisplayFormController
 
 		}
 
-		str = recipe.getCategory().getMealtime();
+		str = recipe1.getCategory().getMealtime();
 		if (str != null)
 		{
 			arr = str.split("\\s+");
@@ -291,9 +303,9 @@ public class DisplayFormController
 
 		}
 
-		if (recipe.getCategory().isVegetarian() == false)
+		if (recipe1.getCategory().isVegetarian() == false)
 		{
-			str = recipe.getCategory().getMeat();
+			str = recipe1.getCategory().getMeat();
 			if (str != null)
 			{
 				arr = str.split("\\s+");
@@ -321,9 +333,9 @@ public class DisplayFormController
 		flowPane.setHgap(10);
 		flowPane.setVgap(10);
 
-		if (recipe.getPhotoRoute() != null)
+		if (recipe1.getPhotoRoute() != null)
 		{
-			FileInputStream fis = new FileInputStream(recipe.getPhotoRoute());
+			FileInputStream fis = new FileInputStream(recipe1.getPhotoRoute());
 			Image picture = new Image(fis);
 			image = new ImageView(picture);
 
@@ -341,6 +353,9 @@ public class DisplayFormController
 	public void setApp(Main application)
 	{
 		this.application = application;
+		addTextLimiter(serveNumTextField, 9);
+		isNullPromptForString(serveNumTextField);
+		inputOnlyNumber(serveNumTextField);
 	}
 
 	/**
@@ -350,12 +365,15 @@ public class DisplayFormController
 	 * @param serveNum
 	 * @return Recipe
 	 * @author Liu Yanran
+	 * @throws CloneNotSupportedException 
 	 */
-	public static Recipe changeServeNum(Recipe recipe, int serveNum)
+	public static Recipe changeServeNum(Recipe recipe, int serveNum) throws CloneNotSupportedException
 	{
+		
 		int n = recipe.getServeNum();
 		recipe.setServeNum(serveNum);
-		ArrayList<Ingredient> ingredientList = recipe.getIngredientList();
+		
+		ArrayList<Ingredient> ingredientList = (ArrayList<Ingredient>) recipe.getIngredientList().clone();
 		int i;
 		for (i = 0; i < ingredientList.size(); i++)
 		{
@@ -367,5 +385,75 @@ public class DisplayFormController
 		recipe.setIngredientList(ingredientList);
 		return recipe;
 	}
+	
+	/**
+	 * by set the textfield the length limit to avoid the length error with database.
+	 * int(11)in database means maximum is 2147483647
+	 * @param tf
+	 * @param maxLength
+	 * @param l
+	 * @param location
+	 */
+	public void addTextLimiter( TextField tf,int maxLength ) {
+	    tf.textProperty().addListener(new ChangeListener<String>() {
+	        @Override
+	        public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
+	            if (tf.getText().length() > maxLength) {
+	                String s = tf.getText().substring(0, maxLength);
+	                tf.setText(s);
+	               
+	            }
+	        }
+	    });
+	}
+	/*
+	 * add Listener to the textfield and set restrictions
+	 */
+	public void isNullPromptForString(TextField tf)
+	{
+
+		tf.textProperty().addListener(new ChangeListener<String>()
+		{
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+			{
+				if (tf.getText() == null || tf.getText().length() == 0)
+				{
+					tf.setText(String.valueOf(recipe.getServeNum()));
+				}
+				else
+				{
+					
+				}
+			}
+
+		});
+	}
+	
+	/*
+	 * add Listener to the textfield and set restrictions
+	 */
+	
+	public void inputOnlyNumber(TextField tf)
+	{
+		tf.textProperty().addListener(new ChangeListener<String>()
+		{
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+			{
+				if (tf.getText().matches("([1-9]\\d*\\.?\\d*)|(0\\.\\d*[1-9])"))
+				{
+					
+				}
+				else
+				{
+					
+					tf.setText("");
+				}
+			}
+		});
+	}
+	
 
 }

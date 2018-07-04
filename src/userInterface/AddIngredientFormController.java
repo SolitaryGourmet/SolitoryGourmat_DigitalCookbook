@@ -1,15 +1,17 @@
+/**
+ * this controller will set the ingredient class of the recipe 
+ * and pass the recipe to the next step
+ * @author LUO_YIFAN LIU_YANRAN
+ */
+
 package userInterface;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 import businessLayer.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,7 +25,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 
-public class AddIngredientFormController implements Initializable
+public class AddIngredientFormController
 {
 	@FXML
 	private VBox vBox;
@@ -39,7 +41,6 @@ public class AddIngredientFormController implements Initializable
 	private boolean[][] nextFlag = new boolean[200][3];
 	private Main application;
 	ArrayList<Ingredient> bufferList = new ArrayList<Ingredient>();
-//	private ArrayList<Pane> paneList = new ArrayList<Pane>();
 	private ArrayList<TextField> nameList = new ArrayList<TextField>();
 	private ArrayList<Label> nameAknList = new ArrayList<Label>();
 	private ArrayList<TextField> amountList = new ArrayList<TextField>();
@@ -50,7 +51,7 @@ public class AddIngredientFormController implements Initializable
 
 	private Ingredient ingredient = new Ingredient();
 	private Recipe recipe = new Recipe();
-	private String flag_source = new String();
+	private String flag_source = new String();// decide the state is add or edit and pass it to the next step
 
 	public String getFlag_source()
 	{
@@ -87,48 +88,58 @@ public class AddIngredientFormController implements Initializable
 		this.application = application;
 	}
 
+	/**
+	 * when hit the next button, this function will judge the content of the input
+	 * if some place have nothing or wrong type of data input a text label will
+	 * appear and show the type of the error if errors are corrected ,the nextFlag
+	 * will be set back to true if all nextFlag are true, all the input will be
+	 * collected to set the ingredient of the reipe and pass it and flag_sourse to
+	 * the next step
+	 * 
+	 * @param event
+	 * @throws Exception
+	 */
 	@FXML
 	void goToAddStep(ActionEvent event) throws Exception
 	{
-		for(int i =0;i<nameList.size();i++)
+		for (int i = 0; i < nameList.size(); i++)
 		{
-			if(nameList.get(i).getText()==null||nameList.get(i).getLength()==0)
+			if (nameList.get(i).getText() == null || nameList.get(i).getLength() == 0)
 			{
 				nameAknList.get(i).setText("This value cannot be empty!");
-				nextFlag[i][0]=false;
+				nextFlag[i][0] = false;
 			}
 			else
 			{
-				nextFlag[i][0]=true;
+				nextFlag[i][0] = true;
 			}
-			if(amountList.get(i).getText()==null||amountList.get(i).getLength()==0)
+			if (amountList.get(i).getText() == null || amountList.get(i).getLength() == 0)
 			{
 				amountAknList.get(i).setText("This value cannot be empty!");
-				nextFlag[i][1]=false;
+				nextFlag[i][1] = false;
 			}
 			else
 			{
-				nextFlag[i][1]=true;
+				nextFlag[i][1] = true;
 			}
-			if(unitList.get(i).getText()==null||unitList.get(i).getLength()==0)
+			if (unitList.get(i).getText() == null || unitList.get(i).getLength() == 0)
 			{
 				unitAknList.get(i).setText("This value cannot be empty!");
-				nextFlag[i][2]=false;
+				nextFlag[i][2] = false;
 			}
 			else
 			{
-				nextFlag[i][2]=true;
+				nextFlag[i][2] = true;
 			}
 		}
-		
+
 		boolean next = true;
-		for(int i =0;i<nameList.size();i++)
+		for (int i = 0; i < nameList.size(); i++)
 		{
-			next=nextFlag[i][0]&&nextFlag[i][1]&&nextFlag[i][2]&&next;
+			next = nextFlag[i][0] && nextFlag[i][1] && nextFlag[i][2] && next;
 		}
-		
-		
-		if (next == true && nameList.size()>0)
+
+		if (next == true && nameList.size() > 0)
 		{
 			for (int i = 0; i < nameList.size(); i++)
 			{
@@ -148,6 +159,12 @@ public class AddIngredientFormController implements Initializable
 		}
 	}
 
+	/**
+	 * set a temporary ingredient class and then user can go back to the forward
+	 * step
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void ingredientSubmit(ActionEvent event)
 	{
@@ -164,6 +181,10 @@ public class AddIngredientFormController implements Initializable
 		application.goBackToAddRecipeForm(flag_source, recipe);
 	}
 
+	/**
+	 * initialize the interface to add ingredient and the ingredient pane can be
+	 * deleted
+	 */
 	public void addNewIngredient() throws Exception
 	{
 		Pane pane = new Pane();
@@ -203,17 +224,21 @@ public class AddIngredientFormController implements Initializable
 		ingredientUnit_akn.setStyle("-fx-text-fill: #a42e2e");
 
 		nameLable.setFont(Font.font("Ebrima", FontPosture.ITALIC, 13));
-		isNullPromptForString(nameTextField, "nameTextField", ingredientName_akn);
+		isNullPromptForString(nameTextField, ingredientName_akn);
+		addTextLimiter(nameTextField, 30);// set the length limit is 30
 
 		amountLable.setFont(Font.font("Ebrima", FontPosture.ITALIC, 13));
-		isNullPromptForString(amountTextField, "amountField", ingredientAmount_akn);
+		isNullPromptForString(amountTextField, ingredientAmount_akn);
 		inputOnlyNumber(amountTextField, ingredientAmount_akn);
+		addTextLimiter(amountTextField, 30);// set the length limit is 30
 
 		unitLable.setFont(Font.font("Ebrima", FontPosture.ITALIC, 13));
-		isNullPromptForString(unitTextField, "unitField", ingredientUnit_akn);
+		isNullPromptForString(unitTextField, ingredientUnit_akn);
+		addTextLimiter(unitTextField, 30);// set the length limit is 30
 
 		description.setFont(Font.font("Ebrima", FontPosture.ITALIC, 13));
 		descriptionTextField.setPrefWidth(550);
+		addTextLimiter(descriptionTextField, 255);// set the length limit is 255
 
 		DropShadow shadow = new DropShadow();
 		delete.setFont(Font.font("Ebrima", 14));
@@ -263,20 +288,22 @@ public class AddIngredientFormController implements Initializable
 			nameAknList.remove(ingredientName_akn);
 			amountAknList.remove(ingredientAmount_akn);
 			unitAknList.remove(ingredientUnit_akn);
-			
+
 		});
 
 	}
 
-	public void isNullPromptForString(TextField tf, String location, Label l)
+	/**
+	 * add Listener to the textfield and set restrictions
+	 */
+	public void isNullPromptForString(TextField tf, Label l)
 	{
-		
+
 		tf.textProperty().addListener(new ChangeListener<String>()
 		{
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
 			{
-				// TODO Auto-generated method stub
 				if (tf.getText() == null || tf.getText().length() == 0)
 				{
 					l.setText("This value cannot be empty!");
@@ -290,6 +317,9 @@ public class AddIngredientFormController implements Initializable
 		});
 	}
 
+	/**
+	 * add Listener to the textfield and set restrictions
+	 */
 	public void inputOnlyNumber(TextField tf, Label l)
 	{
 		tf.textProperty().addListener(new ChangeListener<String>()
@@ -298,28 +328,44 @@ public class AddIngredientFormController implements Initializable
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
 			{
-				if (tf.getText().matches("[+-]?[1-9]+[0-9]*(\\.[0-9]+)?"))
+				if (tf.getText().matches("([1-9]\\d*\\.?\\d*)|(0\\.\\d*[1-9])"))
 				{
 					l.setText("");
 				}
 				else
 				{
-					l.setText("This value must be a number!");
+					l.setText("This value must be a positive number!");
 					tf.setText("");
 				}
 			}
 		});
 	}
 
-	public void Init() throws IOException
+	/**
+	 * by set the textfield the length limit to avoid the length error with
+	 * database.
+	 * 
+	 * @param tf
+	 * @param maxLength
+	 * @param l
+	 * @param location
+	 */
+	public void addTextLimiter(TextField tf, int maxLength)
 	{
+		tf.textProperty().addListener(new ChangeListener<String>()
+		{
+			@Override
+			public void changed(final ObservableValue<? extends String> ov, final String oldValue,
+					final String newValue)
+			{
+				if (tf.getText().length() > maxLength)
+				{
+					String s = tf.getText().substring(0, maxLength);
+					tf.setText(s);
 
-	}
-
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1)
-	{
-
+				}
+			}
+		});
 	}
 
 }

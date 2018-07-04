@@ -1,11 +1,16 @@
 package userInterface;
 
+/**
+ * this interface will show up after the submit newly added recipe
+ * you can choose to display the recipe or just go back to the main interface
+ * @author LUO_YIFAN
+ */
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 public class AcknowledgementController
 {
-
 	@FXML
     private Button viewRecipe_Button;
 	@FXML
@@ -30,6 +35,4 @@ public class AcknowledgementController
 	{
 		this.cancel_Button = cancel_Button;
 	}
-
-	
 }

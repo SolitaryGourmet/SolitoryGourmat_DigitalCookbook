@@ -10,23 +10,11 @@ import java.io.Serializable;
 
 public class Category implements Serializable
 {
-
-	private int categoryID;
 	private String city = new String();
 	private String taste = new String();
 	private String mealtime = new String();
 	private String meat = new String();
 	private boolean vegetarian = false;
-	
-	public int getCategoryID()
-	{
-		return categoryID;
-	}
-
-	public void setCategoryID(int categoryID)
-	{
-		this.categoryID = categoryID;
-	}
 
 	public String getCity()
 	{
@@ -77,8 +65,6 @@ public class Category implements Serializable
 	{
 		this.vegetarian = vegetarian;
 	}
-
-	
 
 	/**
 	 * constructor of Category if a specific attribute has no input, then it will be "" 

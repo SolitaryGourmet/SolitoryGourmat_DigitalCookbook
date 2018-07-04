@@ -1,36 +1,20 @@
 package userInterface;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+/**
+ * this controller will show the main interface of the software
+ * @author CUI_XIAO
+ */
+
 import businessLayer.Recipe;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
-public class MainInterfaceController implements Initializable
+public class MainInterfaceController
 {
 	private Main application;
 	
-	public void setApp(Main application)
-	{
-		this.application = application;
-	}
-
-	@FXML
-	public void gotoAddRecipeFrom()
-	{
-		application.gotoAddRecipeForm("Add Recipe",new Recipe());
-	}
-
-	@FXML
-	public void gotoSearchForm()
-	{
-
-		application.gotoSearchForm();
-	}
-
 	@FXML
 	private Label label_title;
 	@FXML
@@ -40,11 +24,26 @@ public class MainInterfaceController implements Initializable
 	@FXML
 	private Button button_add;
 	
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources)
+	public void setApp(Main application)
 	{
-		// TODO Auto-generated method stub
+		this.application = application;
+	}
 
+	/**
+	 * go to Add recipe interface
+	 */
+	@FXML
+	public void gotoAddRecipeFrom()
+	{
+		application.gotoAddRecipeForm("Add Recipe",new Recipe());
+	}
+
+	/**
+	 * go to search interface
+	 */
+	@FXML
+	public void gotoSearchForm()
+	{
+		application.gotoSearchForm();
 	}
 }
