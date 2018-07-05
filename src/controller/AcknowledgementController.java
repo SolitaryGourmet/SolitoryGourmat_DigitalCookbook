@@ -1,4 +1,4 @@
-package userInterface;
+package controller;
 
 /**
  * this interface will show up after the submit newly added recipe

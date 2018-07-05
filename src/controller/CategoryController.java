@@ -1,4 +1,4 @@
-package userInterface;
+package controller;
 
 /**
  * set the category of recipe and store it to database
@@ -23,6 +23,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import userInterface.Main;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 
@@ -521,18 +522,12 @@ public class CategoryController implements Initializable
 				DataBaseControl.insertRecipe(recipe);
 				DataBaseControl.closeConnection();
 
-				FXMLLoader Loader = new FXMLLoader();
-				Loader.setLocation(getClass().getResource("Acknowledgement.fxml"));
-				try
-				{
-					Loader.load();
-				}
-				catch (Exception ex) {}
-
+				FXMLLoader Loader = application.getRoot("Acknowledgement.fxml");
+				
 				Stage submitRecipeConfirmStage = new Stage();
 				submitRecipeConfirmStage.setTitle("Confirm submit");
 				submitRecipeConfirmStage.setScene(new Scene(Loader.getRoot()));
-				submitRecipeConfirmStage.getIcons().add(new Image(getClass().getResourceAsStream("Logo.png")));
+				submitRecipeConfirmStage.getIcons().add(new Image(getClass().getResourceAsStream("/picture/Logo.png")));
 				submitRecipeConfirmStage.show();
 				AcknowledgementController ac = Loader.getController();
 				ac.getCancel_Button().setOnAction(e -> {
@@ -582,18 +577,12 @@ public class CategoryController implements Initializable
 			DataBaseControl.editRecipe(recipe);
 			DataBaseControl.closeConnection();
 
-			FXMLLoader Loader = new FXMLLoader();
-			Loader.setLocation(getClass().getResource("Acknowledgement.fxml"));
-			try
-			{
-				Loader.load();
-			}
-			catch (Exception ex) {}
-
+			FXMLLoader Loader = application.getRoot("Acknowledgement.fxml");
+			
 			Stage submitRecipeConfirmStage = new Stage();
 			submitRecipeConfirmStage.setTitle("Confirm submit");
 			submitRecipeConfirmStage.setScene(new Scene(Loader.getRoot()));
-			submitRecipeConfirmStage.getIcons().add(new Image(getClass().getResourceAsStream("Logo.png")));
+			submitRecipeConfirmStage.getIcons().add(new Image(getClass().getResourceAsStream("/picture/Logo.png")));
 			submitRecipeConfirmStage.show();
 			AcknowledgementController ac = Loader.getController();
 			ac.getCancel_Button().setOnAction(e -> {

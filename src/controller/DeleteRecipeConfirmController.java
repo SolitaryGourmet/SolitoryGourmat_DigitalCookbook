@@ -1,4 +1,4 @@
-package userInterface;
+package controller;
 
 /**
  * use a pop-up to ask user that they are sure to delete the recipe

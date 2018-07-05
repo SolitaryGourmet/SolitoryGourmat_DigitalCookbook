@@ -1,4 +1,4 @@
-package userInterface;
+package controller;
 
 /*
  * this controller set the step of the recipe
@@ -22,6 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
+import userInterface.Main;
 
 public class AddStepFormController
 {

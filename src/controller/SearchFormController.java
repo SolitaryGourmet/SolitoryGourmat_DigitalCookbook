@@ -1,4 +1,4 @@
-package userInterface;
+package controller;
 
 /**
  * this controller will show the search interface
@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import userInterface.Main;
 
 public class SearchFormController
 {

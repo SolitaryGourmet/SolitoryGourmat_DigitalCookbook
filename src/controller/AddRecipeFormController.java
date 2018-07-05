@@ -1,4 +1,4 @@
-package userInterface;
+package controller;
 
 /*
  * this controller set the name,number,preparation time,cooking time and picture of the recipe
@@ -24,6 +24,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import userInterface.Main;
 
 public class AddRecipeFormController
 {
@@ -167,18 +168,11 @@ public class AddRecipeFormController
 	@FXML
 	public void gotoHome()
 	{
-		FXMLLoader root = new FXMLLoader();
-		root.setLocation(getClass().getResource("AddEditToMinWinConfirm.fxml"));
-		try
-		{
-			root.load();
-		}
-		catch (Exception ex) {}
-
+		FXMLLoader root = application.getRoot("AddEditToMinWinConfirm.fxml");
 		Stage stage = new Stage();
 		stage.setTitle("Confirm Exit");
 		stage.setScene(new Scene(root.getRoot()));
-		stage.getIcons().add(new Image(getClass().getResourceAsStream("Logo.png")));
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("/picture/Logo.png")));
 		stage.show();
 
 		AddEditToMinWinConfirmController c = root.getController();

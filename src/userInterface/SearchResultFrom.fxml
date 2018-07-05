@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@SearchResultForm.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.SearchResultFromController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@SearchResultForm.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SearchResultFromController">
    <children>
       <ScrollPane prefHeight="600.0" prefWidth="800.0">
         <content>
-          <AnchorPane fx:id="bg" minHeight="0.0" minWidth="0.0" prefWidth="785.0">
+          <AnchorPane fx:id="bg" minHeight="0.0" minWidth="0.0" prefWidth="800.0">
                <children>
                   <VBox fx:id="vbox" prefWidth="800.0">
                      <children>

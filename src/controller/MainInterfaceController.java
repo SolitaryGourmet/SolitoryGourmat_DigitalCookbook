@@ -1,4 +1,4 @@
-package userInterface;
+package controller;
 
 /**
  * this controller will show the main interface of the software
@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import userInterface.Main;
 
 public class MainInterfaceController
 {

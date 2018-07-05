@@ -1,4 +1,4 @@
-package userInterface;
+package controller;
 /**
  * this interface will display the recipe  
  */
@@ -29,6 +29,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
+import userInterface.Main;
 
 public class DisplayFormController
 {
@@ -161,21 +162,23 @@ public class DisplayFormController
 	@FXML
 	void deleteRecipe(ActionEvent event)
 	{
-		FXMLLoader Loader = new FXMLLoader();
-		Loader.setLocation(getClass().getResource("DeleteRecipeConfirm.fxml"));
-		try
-		{
-			Loader.load();
-		}
-		catch (Exception ex)
-		{
+//		FXMLLoader Loader = new FXMLLoader();
+//		Loader.setLocation(getClass().getResource("DeleteRecipeConfirm.fxml"));
+//		try
+//		{
+//			Loader.load();
+//		}
+//		catch (Exception ex)
+//		{
+//
+//		}
 
-		}
-
+		FXMLLoader Loader = application.getRoot("DeleteRecipeConfirm.fxml");
+		
 		Stage deleteRecipeConfirmStage = new Stage();
 		deleteRecipeConfirmStage.setTitle("Confirm Delete");
 		deleteRecipeConfirmStage.setScene(new Scene(Loader.getRoot()));
-		deleteRecipeConfirmStage.getIcons().add(new Image(getClass().getResourceAsStream("Logo.png")));
+		deleteRecipeConfirmStage.getIcons().add(new Image(getClass().getResourceAsStream("/picture/Logo.png")));
 		deleteRecipeConfirmStage.show();
 		DeleteRecipeConfirmController drcc = Loader.getController();
 		drcc.getDelete_Button().setOnAction(e -> {
@@ -189,21 +192,24 @@ public class DisplayFormController
 			
 			application.gotoMainInterface();
 			
-			FXMLLoader root = new FXMLLoader();
-			root.setLocation(getClass().getResource("SuccessDelete.fxml"));
-			try
-			{
-				root.load();
-			}
-			catch (Exception ex)
-			{
+//			FXMLLoader root = new FXMLLoader();
+//			root.setLocation(getClass().getResource("SuccessDelete.fxml"));
+//			try
+//			{
+//				root.load();
+//			}
+//			catch (Exception ex)
+//			{
+//
+//			}
 
-			}
-
+			FXMLLoader root = application.getRoot("SuccessDelete.fxml");
+			
 			Stage successDeleteStage = new Stage();
 			successDeleteStage.setTitle("Confirm Delete");
 			successDeleteStage.setScene(new Scene(root.getRoot()));
-			successDeleteStage.getIcons().add(new Image(getClass().getResourceAsStream("Logo.png")));
+			successDeleteStage.getIcons().add(new Image(getClass().getResourceAsStream("/picture/Logo.png")));
+			successDeleteStage.setResizable(false);
 			successDeleteStage.show();
 			
 			SuccessDeleteController sdc = root.getController();
@@ -224,7 +230,6 @@ public class DisplayFormController
 	@FXML
 	void editRecipe(ActionEvent event)
 	{	
-		
 		application.gotoAddRecipeForm("Edit Recipe", recipe);
 	}
 

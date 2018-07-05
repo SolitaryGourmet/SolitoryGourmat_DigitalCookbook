@@ -4,7 +4,7 @@
  * @author LUO_YIFAN LIU_YANRAN
  */
 
-package userInterface;
+package controller;
 
 import java.util.ArrayList;
 import businessLayer.*;
@@ -24,6 +24,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
+import userInterface.Main;
 
 public class AddIngredientFormController
 {
@@ -38,6 +39,7 @@ public class AddIngredientFormController
 
 	@FXML
 	private Button next_Button;
+	
 	private boolean[][] nextFlag = new boolean[200][3];
 	private Main application;
 	ArrayList<Ingredient> bufferList = new ArrayList<Ingredient>();

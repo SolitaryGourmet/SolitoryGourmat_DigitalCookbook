@@ -12,6 +12,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import businessLayer.Ingredient;
 import businessLayer.Recipe;
+import controller.AddIngredientFormController;
+import controller.AddRecipeFormController;
+import controller.AddStepFormController;
+import controller.CategoryController;
+import controller.DisplayFormController;
+import controller.MainInterfaceController;
+import controller.SearchFormController;
+import controller.SearchResultFromController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -47,7 +55,7 @@ public class Main extends Application
 		{
 			stage = primaryStage;
 			stage.setTitle("Digital Cookbook");
-			stage.getIcons().add(new Image(getClass().getResourceAsStream("Logo.png")));
+			stage.getIcons().add(new Image(getClass().getResourceAsStream("/picture/Logo.png")));
 			stage.setMinWidth(800);
 			stage.setMinHeight(600);
 			stage.setResizable(false);
@@ -301,6 +309,19 @@ public class Main extends Application
 		});
 		return loader.getController();
 	}
+	
+	public FXMLLoader getRoot(String fxml)
+	{
+		FXMLLoader root = new FXMLLoader();
+		root.setLocation(getClass().getResource(fxml));
+		try
+		{
+			root.load();
+		}
+		catch (Exception ex) {}
+		return root;
+	}
+	
 
 	/**
 	 * make a pop-up before close the software to get a alert to user

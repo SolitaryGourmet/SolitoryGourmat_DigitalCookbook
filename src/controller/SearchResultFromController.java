@@ -5,7 +5,7 @@
  * 
  */
 
-package userInterface;
+package controller;
 
 import java.awt.BorderLayout;
 import java.awt.Panel;
@@ -33,6 +33,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
+import userInterface.Main;
 
 public class SearchResultFromController
 {
