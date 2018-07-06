@@ -1,3 +1,6 @@
+/**
+ * a confirm window for telling users successfully deleting a recipe
+ */
 package controller;
 
 import javafx.fxml.FXML;

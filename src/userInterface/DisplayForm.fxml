@@ -27,9 +27,9 @@
                            <children>
                               <Pane prefHeight="127.0" prefWidth="800.0">
                                  <children>
-                                    <Label fx:id="recipeNameLabel" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="161.0" layoutY="6.0" prefHeight="88.0" prefWidth="479.0" textAlignment="CENTER" textFill="#a42e2e">
+                                    <Label fx:id="recipeNameLabel" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="164.0" layoutY="25.0" prefHeight="38.0" prefWidth="614.0" textAlignment="CENTER" textFill="#a42e2e">
                                        <font>
-                                          <Font name="Ebrima Bold" size="55.0" />
+                                          <Font name="Ebrima Bold" size="38.0" />
                                        </font>
                                     </Label>
                                     <Button fx:id="returnToMinWin" layoutX="22.0" layoutY="25.0" mnemonicParsing="false" onAction="#goToMinWin" prefHeight="50.0" prefWidth="50.0" text="return to homepage " textFill="WHITE">

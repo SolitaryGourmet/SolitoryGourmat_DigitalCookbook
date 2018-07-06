@@ -426,6 +426,9 @@ public class CategoryController implements Initializable
 		}
 	}
 
+	/**
+	 * initialize all the check boxes and radio buttons
+	 */
 	public void Init()
 	{
 		flavour.add(Sweet);

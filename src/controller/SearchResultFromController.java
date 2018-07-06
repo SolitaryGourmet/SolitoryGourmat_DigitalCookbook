@@ -89,8 +89,8 @@ public class SearchResultFromController
 	 */
 	public void setSearchResultView(ArrayList<Recipe> recipeList) throws Exception
 	{
-		vbox.setPadding(new Insets(5, 5, 5, 5));
-
+		vbox.setMinHeight(598);
+		vbox.setStyle("-fx-background-color: white;");
 		if (recipeList.size() == 0)
 		{
 			Label noresult = new Label("Woops, No suitable result" + "\n" + "Go back and try again:p");
@@ -162,8 +162,8 @@ public class SearchResultFromController
 				pane.getChildren().add(gridPane);
 				vbox.getChildren().add(pane);
 
-				pane.setMinWidth(785);
-				pane.setStyle("-fx-background-color: BEIGE;");
+				pane.setMaxWidth(798);
+				pane.setStyle("-fx-background-color: White;");
 
 				Recipe r = recipeList.get(i);
 				display.setOnAction(ex -> {

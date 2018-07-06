@@ -137,7 +137,6 @@ public class DisplayFormController
 	@FXML
 	void changeServeNum(ActionEvent event) throws ClassNotFoundException, IOException, NumberFormatException, CloneNotSupportedException
 	{
-//		recipe1 = (Recipe) recipe.deepClone();
 		recipe1 = changeServeNum(recipe1, Integer.parseInt(serveNumTextField.getText()));
 		serveNumTextField.setText(Integer.toString(recipe1.getServeNum()));
 		//remove the origin elements 
@@ -153,26 +152,23 @@ public class DisplayFormController
 		}
 	}
 
+	/**
+	 * go back to previous interface
+	 * @param event
+	 */
 	@FXML
 	void backToResultForm(ActionEvent event)
 	{
 		application.gotoSearchResult(flag_source, recipeList, recipeForBackToCategory);
 	}
 
+	/**
+	 * delete recipe and jump a confirm window
+	 * @param event
+	 */
 	@FXML
 	void deleteRecipe(ActionEvent event)
 	{
-//		FXMLLoader Loader = new FXMLLoader();
-//		Loader.setLocation(getClass().getResource("DeleteRecipeConfirm.fxml"));
-//		try
-//		{
-//			Loader.load();
-//		}
-//		catch (Exception ex)
-//		{
-//
-//		}
-
 		FXMLLoader Loader = application.getRoot("DeleteRecipeConfirm.fxml");
 		
 		Stage deleteRecipeConfirmStage = new Stage();
@@ -191,18 +187,7 @@ public class DisplayFormController
 			deleteRecipeConfirmStage.close();
 			
 			application.gotoMainInterface();
-			
-//			FXMLLoader root = new FXMLLoader();
-//			root.setLocation(getClass().getResource("SuccessDelete.fxml"));
-//			try
-//			{
-//				root.load();
-//			}
-//			catch (Exception ex)
-//			{
-//
-//			}
-
+		
 			FXMLLoader root = application.getRoot("SuccessDelete.fxml");
 			
 			Stage successDeleteStage = new Stage();
@@ -227,12 +212,20 @@ public class DisplayFormController
 
 	}
 
+	/**
+	 * go to edit recipe interface
+	 * @param event
+	 */
 	@FXML
 	void editRecipe(ActionEvent event)
 	{	
 		application.gotoAddRecipeForm("Edit Recipe", recipe);
 	}
 
+	/**
+	 * go back to main interface
+	 * @param event
+	 */
 	@FXML
 	void goToMinWin(ActionEvent event)
 	{
@@ -411,7 +404,8 @@ public class DisplayFormController
 	        }
 	    });
 	}
-	/*
+	
+	/**
 	 * add Listener to the textfield and set restrictions
 	 */
 	public void isNullPromptForString(TextField tf)
@@ -435,10 +429,9 @@ public class DisplayFormController
 		});
 	}
 	
-	/*
+	/**
 	 * add Listener to the textfield and set restrictions
 	 */
-	
 	public void inputOnlyNumber(TextField tf)
 	{
 		tf.textProperty().addListener(new ChangeListener<String>()
@@ -459,6 +452,5 @@ public class DisplayFormController
 			}
 		});
 	}
-	
 
 }

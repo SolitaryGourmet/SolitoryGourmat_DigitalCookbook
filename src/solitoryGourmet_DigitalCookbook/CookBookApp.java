@@ -152,43 +152,24 @@ public class CookBookApp
 	 * Program entry point.
 	 * 
 	 * @param args
-	 *            command line arguments; not used.
+	 * command line arguments; not used.
 	 */
 	public static void main(String[] args)
 	{
-		DataBaseControl.getConnection();
-		
 		CookBook cb = new CookBook("Chinese Cuisine");
 
-//		cb.add(createGongBaoJiding());
+		cb.add(createGongBaoJiding());
 		cb.add(createHongShaoRou());
-//		cb.add(createSuanLaFen());
+		cb.add(createSuanLaFen());
 
 		Recipe recipe = cb.getRecipe("Gong Bao Jiding");
 		if (recipe != null)
 		{
-			//System.out.println(recipe);
+			System.out.println(recipe);
 		}
-
-		/*
-		cb.changeServeNum("Gong Bao Jiding", 8);
 		
-		Recipe recipe1 = cb.getRecipe("Gong Bao Jiding"); if (recipe != null) {
-		System.out.println(recipe1); }
-		*/
-		
-		//ArrayList<Recipe> recipeTemp = SearchControl.searchName("R");
-//		ArrayList<Recipe> recipeTemp = DataBaseControl.searchByCategory(new Category(null, null, "dinner",null, false));
-//		
-//		for(int i = 0;i<recipeTemp.size();i++)
-//		{
-//			Recipe r = recipeTemp.get(i);
-//			System.out.println(r);
-//		}
-//		for(int i =30 ;i<42;i++)
-//		{
-//		DataBaseControl.deleteRecipe(DataBaseControl.searchById(i));
-//		}
+		DataBaseControl.getConnection();
+		DataBaseControl.createTable();
 		DataBaseControl.closeConnection();
 	}
 }

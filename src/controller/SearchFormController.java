@@ -34,6 +34,9 @@ public class SearchFormController
 		addTextLimiter(textField, 30);// intial the textfield's length limitation
 	}
 
+	/**
+	 * go back to main interface
+	 */
 	@FXML
 	public void gotoHome()
 	{
@@ -42,7 +45,6 @@ public class SearchFormController
 
 	/**
 	 * goto search by category interface
-	 * 
 	 * @param event
 	 */
 	@FXML

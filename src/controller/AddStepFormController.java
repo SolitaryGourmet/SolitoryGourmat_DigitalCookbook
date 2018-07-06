@@ -1,6 +1,6 @@
 package controller;
 
-/*
+/**
  * this controller set the step of the recipe
  */
 import java.util.ArrayList;
@@ -85,6 +85,10 @@ public class AddStepFormController
 		this.application = application;
 	}
 
+	/**
+	 * go to add category step (interface)
+	 * @param event
+	 */
 	@FXML
 	void goToAddCategory(ActionEvent event)
 	{
@@ -136,7 +140,7 @@ public class AddStepFormController
 		application.gotoSetIngredient(flag_source, recipe);
 	}
 
-	/*
+	/**
 	 * initial the interface of add step user can change the order of step
 	 */
 	public void addNewStep() throws Exception
@@ -284,7 +288,7 @@ public class AddStepFormController
 
 	}
 
-	/*
+	/**
 	 * add Listener to the textfield and set restrictions
 	 */
 	public void isNullPromptForString(TextField tf, Label l)

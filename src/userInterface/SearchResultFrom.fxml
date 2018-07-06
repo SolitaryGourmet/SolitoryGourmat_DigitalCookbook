@@ -11,11 +11,11 @@
    <children>
       <ScrollPane prefHeight="600.0" prefWidth="800.0">
         <content>
-          <AnchorPane fx:id="bg" minHeight="0.0" minWidth="0.0" prefWidth="800.0">
+          <AnchorPane fx:id="bg" minHeight="0.0" minWidth="0.0" prefWidth="798.0">
                <children>
-                  <VBox fx:id="vbox" prefWidth="800.0">
+                  <VBox fx:id="vbox" prefWidth="798.0">
                      <children>
-                        <Pane prefHeight="64.0" prefWidth="800.0">
+                        <Pane prefHeight="64.0" prefWidth="798.0">
                            <children>
                               <Button fx:id="back" layoutX="23.0" layoutY="8.0" mnemonicParsing="false" onAction="#BacktoFormer" prefHeight="49.0" prefWidth="50.0" textFill="WHITE">
                                  <font>

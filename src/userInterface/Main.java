@@ -310,6 +310,11 @@ public class Main extends Application
 		return loader.getController();
 	}
 	
+	/**
+	 * to get the root of fxml files
+	 * @param fxml
+	 * @return
+	 */
 	public FXMLLoader getRoot(String fxml)
 	{
 		FXMLLoader root = new FXMLLoader();
@@ -375,7 +380,7 @@ public class Main extends Application
 			dialogStage.setWidth(400);
 			dialogStage.setHeight(300);
 			dialogStage.setResizable(false);
-			dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("Logo.png")));
+			dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/picture/Logo.png")));
 			BorderPane borderPaneLayout = new BorderPane();
 			borderPaneLayout.getStyleClass().add("root");
 

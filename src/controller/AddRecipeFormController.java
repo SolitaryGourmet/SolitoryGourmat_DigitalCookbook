@@ -1,7 +1,8 @@
 package controller;
 
-/*
+/**
  * this controller set the name,number,preparation time,cooking time and picture of the recipe
+ * @author LUO YIFAN, CUI XIAO, LIU YANRAN
  */
 import java.io.File;
 import java.io.FileInputStream;
@@ -165,6 +166,9 @@ public class AddRecipeFormController
 		picture_path.setText(recipe.getPhotoRoute());
 	}
 
+	/**
+	 * go back to main interface and also jump an extra confirm window
+	 */
 	@FXML
 	public void gotoHome()
 	{
@@ -183,12 +187,12 @@ public class AddRecipeFormController
 		
 		c.getCancel_Button().setOnAction(ex -> {
 			stage.close();
-		});
-		
-		
-		
+		});		
 	}
 
+	/**
+	 * initialize all the flag for next button
+	 */
 	public void initalNext_flag()
 	{
 		for (int i = 0; i < next_flag.length; i++)
@@ -197,7 +201,7 @@ public class AddRecipeFormController
 		}
 	}
 
-	/*
+	/**
 	 * add Listener to the textfield and set restrictions
 	 */
 	public void isNullPromptForString(TextField tf, String location)
@@ -271,6 +275,9 @@ public class AddRecipeFormController
 		});
 	}
 
+	/**
+	 * add Listener to the textfield and set restrictions
+	 */
 	public void inputOnlyNumber(TextField tf)
 	{
 		tf.textProperty().addListener(new ChangeListener<String>()
@@ -353,6 +360,9 @@ public class AddRecipeFormController
 
 	}
 
+	/**
+	 * go to add ingredient step (interface)
+	 */
 	public void addIngredient()
 	{
 		try
@@ -414,15 +424,19 @@ public class AddRecipeFormController
 		}
 	}
 
+	/**
+	 * submit a picture
+	 * @param event
+	 * @throws Exception
+	 */
 	@FXML
 	void upLoadPicture(ActionEvent event) throws Exception
 	{
 		getPhotoRoute();
-//		showPhoto();// initial a pop-up to show the preview of the picture
 		picture_path.setText(recipe.getPhotoRoute());
 	}
 
-	/*
+	/**
 	 * filter FileChoser with only the photo
 	 */
 	private void getPhotoRoute()
@@ -434,28 +448,6 @@ public class AddRecipeFormController
 		Stage photoStage = null;
 		photoFile = fc.showOpenDialog(photoStage);
 		recipe.setPhotoRoute(String.valueOf(photoFile.getAbsolutePath()));
-	}
-
-	/*
-	 * create a Pop-ups to show the preview and the route of the chose picture
-	 */
-	private void showPhoto() throws Exception
-	{
-
-		Pane photoPane = new Pane();
-		FileInputStream fis = new FileInputStream(String.valueOf(recipe.getPhotoRoute()));
-
-		Image image = new Image(fis);
-		ImageView iv = new ImageView(image);
-		iv.setFitWidth(200);
-		iv.setFitHeight(150);
-		photoPane.getChildren().add(iv);
-		Scene scene = new Scene(photoPane, 200, 150);
-		Stage stagePhoto = new Stage();
-		stagePhoto.setTitle("photoPreview");
-		stagePhoto.setScene(scene);
-		stagePhoto.show();
-
 	}
 
 	/**
@@ -483,5 +475,4 @@ public class AddRecipeFormController
 			}
 		});
 	}
-
 }
